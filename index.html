@@ -24,20 +24,21 @@
 html, body { width: 100%; height: 100%; overflow: hidden; }
 body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text); }
 
-/* ── BACKGROUND (visible only through col3 right edge) ── */
+/* ── BACKGROUND — London skyline, faint everywhere ── */
 .bg {
   position: fixed; inset: 0; z-index: 0;
   background-image: url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=70&auto=format&fit=crop');
   background-size: cover; background-position: center 40%;
-  filter: saturate(.5) brightness(.55);
+  filter: saturate(.55) brightness(.65);
 }
 .bg-over {
   position: fixed; inset: 0; z-index: 0;
-  /* Left 2 cols fully opaque white, right col slightly see-through */
+  /* Col1 very faint (logo area), col2 slightly more visible, col3 clearest */
   background: linear-gradient(to right,
-    #fff 0%,
-    #fff calc(var(--col1) + var(--col2) + 40px),
-    rgba(255,255,255,.82) 100%);
+    rgba(255,255,255,.88) 0%,
+    rgba(255,255,255,.82) var(--col1),
+    rgba(255,255,255,.75) calc(var(--col1) + var(--col2)),
+    rgba(255,255,255,.55) 100%);
 }
 
 /* ── LAYOUT ── */
@@ -51,12 +52,13 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
    COL 1 — White identity panel
 ════════════════════════════════════════ */
 .col1 {
-  background: #fff;
+  background: rgba(255,255,255,.92);
   border-right: 1px solid var(--border);
   box-shadow: 2px 0 16px rgba(0,0,0,.06);
   display: flex; flex-direction: column; align-items: center;
   padding: 28px 16px 20px;
   overflow-y: auto; z-index: 2;
+  backdrop-filter: blur(4px);
 }
 .col1::-webkit-scrollbar { display: none; }
 
@@ -131,14 +133,15 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
    COL 2 — Coloured department tabs
 ════════════════════════════════════════ */
 .col2 {
-  background: #f0f4fa;
+  background: rgba(240,244,250,.88);
   border-right: 1px solid var(--border);
   display: flex; flex-direction: column;
   overflow: hidden; z-index: 2;
+  backdrop-filter: blur(4px);
 }
 .col2-header {
   padding: 16px 14px 10px; flex-shrink: 0;
-  background: #fff; border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.92); border-bottom: 1px solid var(--border);
 }
 .col2-title {
   font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -400,8 +403,8 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 ════════════════════════════════════════ */
 #taskboard {
   position: fixed; inset: 0; z-index: 500;
-  background: rgba(241,245,249,.97);
-  backdrop-filter: blur(8px);
+  background: rgba(241,245,249,.90);
+  backdrop-filter: blur(6px);
   display: none; flex-direction: column; overflow: hidden;
 }
 #taskboard.open { display: flex; }
