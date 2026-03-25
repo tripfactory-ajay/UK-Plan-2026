@@ -29,16 +29,15 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
   position: fixed; inset: 0; z-index: 0;
   background-image: url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=70&auto=format&fit=crop');
   background-size: cover; background-position: center 40%;
-  filter: saturate(.55) brightness(.65);
+  filter: saturate(.65) brightness(.85);
 }
 .bg-over {
   position: fixed; inset: 0; z-index: 0;
-  /* Col1 very faint (logo area), col2 slightly more visible, col3 clearest */
   background: linear-gradient(to right,
-    rgba(255,255,255,.88) 0%,
-    rgba(255,255,255,.82) var(--col1),
-    rgba(255,255,255,.75) calc(var(--col1) + var(--col2)),
-    rgba(255,255,255,.55) 100%);
+    rgba(255,255,255,.72) 0%,
+    rgba(255,255,255,.65) var(--col1),
+    rgba(255,255,255,.55) calc(var(--col1) + var(--col2)),
+    rgba(255,255,255,.35) 100%);
 }
 
 /* ── LAYOUT ── */
@@ -52,7 +51,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
    COL 1 — White identity panel
 ════════════════════════════════════════ */
 .col1 {
-  background: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.78);
   border-right: 1px solid var(--border);
   box-shadow: 2px 0 16px rgba(0,0,0,.06);
   display: flex; flex-direction: column; align-items: center;
@@ -133,7 +132,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
    COL 2 — Coloured department tabs
 ════════════════════════════════════════ */
 .col2 {
-  background: rgba(240,244,250,.88);
+  background: rgba(240,244,250,.72);
   border-right: 1px solid var(--border);
   display: flex; flex-direction: column;
   overflow: hidden; z-index: 2;
@@ -141,7 +140,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 .col2-header {
   padding: 16px 14px 10px; flex-shrink: 0;
-  background: rgba(255,255,255,.92); border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.82); border-bottom: 1px solid var(--border);
 }
 .col2-title {
   font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -403,7 +402,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 ════════════════════════════════════════ */
 #taskboard {
   position: fixed; inset: 0; z-index: 500;
-  background: rgba(241,245,249,.90);
+  background: rgba(241,245,249,.75);
   backdrop-filter: blur(6px);
   display: none; flex-direction: column; overflow: hidden;
 }
@@ -671,7 +670,7 @@ const HQ={icon:'🏛️',color:'#1a4fa0',title:'ORN Group — European HQ',
   sub:'London, UK · TripFactory UK Ltd · Apr 2026 – Mar 2027',
   stats:[{n:'9',l:'EU Offices'},{n:'857+',l:'Hotels Portfolio'},{n:'14',l:'Departments'},{n:'Apr 2026',l:'HQ Launch'}],
   missions:[
-    {icon:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',t:'UK Tour Operations',d:'Launch coach tour programme across England, Scotland, Wales and Ireland. 20–30 itineraries Year 1. Inbound from India, GCC and European markets.'},
+    {icon:'🇬🇧',t:'UK Tour Operations',d:'Launch coach tour programme across England, Scotland, Wales and Ireland. 20–30 itineraries Year 1. Inbound from India, GCC and European markets.'},
     {icon:'🌍',t:'EU Office Network',d:'Coordinate 9 European offices. Single contracting hub under London leadership.'},
     {icon:'🤝',t:'Acquisitions',d:'Complete Cruise2 acquisition (ATOL, cruise lines, customer DB). Acquire one UK travel agency (£200K–£800K). Both under ORN Group umbrella.'},
     {icon:'📱',t:'ORN App & Technology',d:'Launch ORN App (iOS + Android). ORN Credit loyalty wallet. Unified booking platform across all EU offices.'},
