@@ -638,6 +638,178 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 .atf-cancel:hover { border-color: var(--text); color: var(--text); }
 
+
+/* ── CANDIDATES / INTERVIEW TAB ── */
+.cand-layout {
+  display: grid; grid-template-columns: 320px 1fr; gap: 0;
+  flex: 1; overflow: hidden; min-height: 0;
+}
+.cand-sidebar {
+  border-right: 1px solid var(--border); background: #fff;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.cand-sidebar-hdr {
+  padding: 14px 16px 10px; border-bottom: 1px solid var(--border);
+  font-size: 10px; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--navy);
+}
+.cand-list { flex: 1; overflow-y: auto; padding: 8px 10px; }
+.cand-list::-webkit-scrollbar { width: 3px; }
+.cand-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.cand-card {
+  padding: 11px 13px; border-radius: 10px; margin-bottom: 6px;
+  border: 1.5px solid var(--border); background: var(--off);
+  cursor: pointer; transition: all .15s;
+}
+.cand-card:hover { border-color: var(--navy); background: #eef2fb; }
+.cand-card.active { border-color: var(--navy); background: #e8edf8; }
+.cand-name { font-size: 12.5px; font-weight: 700; color: var(--text); }
+.cand-role-tag { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.cand-status-chip {
+  display: inline-flex; align-items: center; font-size: 9.5px; font-weight: 700;
+  padding: 2px 8px; border-radius: 20px; margin-top: 5px;
+}
+.cs-new       { background: #dbeafe; color: #1e40af; }
+.cs-reviewed  { background: #ede9fe; color: #5b21b6; }
+.cs-interview { background: #fef3c7; color: #92400e; }
+.cs-offer     { background: #d1fae5; color: #065f46; }
+.cs-rejected  { background: #fee2e2; color: #991b1b; }
+.cand-add-btn {
+  margin: 10px; padding: 9px 14px; border-radius: 9px;
+  border: 2px dashed var(--border); background: transparent;
+  color: var(--muted); font-size: 11.5px; font-weight: 600;
+  font-family: 'Sora',sans-serif; cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.cand-add-btn:hover { border-color: var(--navy); color: var(--navy); background: rgba(26,79,160,.04); }
+
+/* Add candidate form */
+.add-cand-form {
+  margin: 10px; padding: 14px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--off);
+  display: none; flex-direction: column; gap: 9px;
+}
+.acf-label { font-size: 9.5px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .07em; margin-bottom: 2px; }
+.acf-input {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; outline: none;
+}
+.acf-input:focus { border-color: var(--navy); }
+.acf-select {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; outline: none; cursor: pointer;
+}
+.acf-select:focus { border-color: var(--navy); }
+.acf-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.acf-save { padding: 7px 16px; border-radius: 8px; border: none;
+  background: var(--navy); color: #fff; font-size: 11px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif; }
+.acf-cancel { padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border);
+  background: #fff; color: var(--muted); font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: 'Sora',sans-serif; }
+
+/* Candidate detail panel */
+.cand-detail {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #f8fafc;
+}
+.cand-empty {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 12px; color: var(--muted);
+}
+.cand-empty-icon { font-size: 44px; opacity: .25; }
+.cand-detail-hdr {
+  padding: 16px 22px 14px; background: #fff; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.cand-detail-name { font-size: 18px; font-weight: 800; color: var(--text); }
+.cand-detail-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
+.cand-detail-role { font-size: 11px; color: var(--muted); }
+.cand-detail-link { font-size: 11px; color: var(--navy); text-decoration: none; }
+.cand-detail-link:hover { text-decoration: underline; }
+.cand-status-sel {
+  padding: 4px 10px; border: 1px solid var(--border); border-radius: 20px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; cursor: pointer; outline: none;
+}
+.cand-detail-body { flex: 1; overflow-y: auto; padding: 18px 22px; }
+.cand-detail-body::-webkit-scrollbar { width: 4px; }
+.cand-detail-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* AI question generator */
+.ai-gen-box {
+  background: #fff; border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; margin-bottom: 16px;
+}
+.ai-gen-title { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px; }
+.ai-gen-title span { font-size: 16px; }
+.ai-profile-area {
+  width: 100%; min-height: 80px; padding: 9px 11px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: var(--off); resize: vertical; outline: none; line-height: 1.5;
+}
+.ai-profile-area:focus { border-color: var(--navy); background: #fff; }
+.ai-gen-hint { font-size: 10px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+.ai-gen-btn {
+  margin-top: 10px; padding: 9px 20px; border-radius: 9px; border: none;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #fff; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif;
+  display: flex; align-items: center; gap: 8px; transition: opacity .15s;
+}
+.ai-gen-btn:hover { opacity: .87; }
+.ai-gen-btn:disabled { opacity: .5; cursor: not-allowed; }
+.ai-loading {
+  display: flex; align-items: center; gap: 10px; padding: 14px;
+  font-size: 11.5px; color: var(--muted); font-style: italic;
+}
+.ai-spinner {
+  width: 18px; height: 18px; border: 2px solid var(--border);
+  border-top-color: var(--navy); border-radius: 50%;
+  animation: spin .7s linear infinite; flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Generated questions */
+.iq-section { margin-bottom: 18px; }
+.iq-section-title {
+  font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--navy); margin-bottom: 8px; padding-bottom: 5px;
+  border-bottom: 2px solid rgba(26,79,160,.12);
+}
+.iq-q {
+  display: flex; gap: 10px; padding: 10px 12px; margin-bottom: 6px;
+  border-radius: 9px; background: var(--off); border: 1px solid var(--border);
+}
+.iq-num {
+  font-size: 10px; font-weight: 800; color: var(--navy); flex-shrink: 0;
+  font-family: 'JetBrains Mono',monospace; min-width: 24px; margin-top: 1px;
+}
+.iq-text { font-size: 11.5px; color: var(--text); line-height: 1.5; }
+.iq-note { font-size: 10.5px; color: var(--muted); margin-top: 3px; font-style: italic; }
+
+/* Candidate notes */
+.cand-notes-area {
+  width: 100%; min-height: 100px; padding: 9px 11px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; resize: vertical; outline: none; line-height: 1.5;
+}
+.cand-notes-area:focus { border-color: var(--navy); }
+.cand-save-notes {
+  padding: 6px 14px; border-radius: 7px; border: none;
+  background: var(--navy); color: #fff; font-size: 10.5px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif; margin-top: 8px;
+  transition: opacity .15s;
+}
+.cand-save-notes:hover { opacity: .82; }
+.cand-save-notes.ok { background: #059669; }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 18px; right: 20px; z-index: 999;
@@ -762,6 +934,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
   <div class="tb-tab-bar">
     <button class="tb-tab on" id="tbTabTasks" onclick="switchBoardTab('tasks')">📋 Action Tasks</button>
     <button class="tb-tab" id="tbTabRec" onclick="switchBoardTab('recruitment')">🧑‍💼 Recruitment</button>
+    <button class="tb-tab" id="tbTabCand" onclick="switchBoardTab('candidates')">👤 Candidates</button>
   </div>
   <!-- Tasks pane -->
   <div id="tbPaneTasks" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
@@ -791,6 +964,53 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
     </div>
     <div class="tb-board" id="recBoard"></div>
   </div>
+  <!-- Candidates pane -->
+  <div id="tbPaneCand" style="display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+    <div class="cand-layout">
+      <!-- Left sidebar: candidate list -->
+      <div class="cand-sidebar">
+        <div class="cand-sidebar-hdr">All Candidates</div>
+        <div class="cand-list" id="candList"></div>
+        <button class="cand-add-btn" id="candAddBtn" onclick="showAddCandForm()">＋ Add Candidate</button>
+        <div class="add-cand-form" id="addCandForm">
+          <div>
+            <div class="acf-label">Candidate Name *</div>
+            <input class="acf-input" id="acf-name" placeholder="e.g. Mark Feldman">
+          </div>
+          <div>
+            <div class="acf-label">Applying For (Role)</div>
+            <select class="acf-select" id="acf-role"></select>
+          </div>
+          <div>
+            <div class="acf-label">LinkedIn URL or Profile</div>
+            <input class="acf-input" id="acf-linkedin" placeholder="https://linkedin.com/in/... or paste profile text below">
+          </div>
+          <div>
+            <div class="acf-label">Status</div>
+            <select class="acf-select" id="acf-status">
+              <option value="New">New</option>
+              <option value="Reviewed">Reviewed</option>
+              <option value="Interview">Interview Scheduled</option>
+              <option value="Offer">Offer Made</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="acf-actions">
+            <button class="acf-cancel" onclick="cancelAddCand()">Cancel</button>
+            <button class="acf-save" onclick="saveNewCandidate()">Add Candidate</button>
+          </div>
+        </div>
+      </div>
+      <!-- Right: candidate detail + AI questions -->
+      <div class="cand-detail" id="candDetail">
+        <div class="cand-empty">
+          <div class="cand-empty-icon">👤</div>
+          <div style="font-size:13px">Select a candidate to view details<br>and generate interview questions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1222,10 +1442,13 @@ function switchBoardTab(tab){
   boardTab=tab;
   document.getElementById('tbTabTasks').classList.toggle('on',tab==='tasks');
   document.getElementById('tbTabRec').classList.toggle('on',tab==='recruitment');
+  document.getElementById('tbTabCand').classList.toggle('on',tab==='candidates');
   document.getElementById('tbPaneTasks').style.display=tab==='tasks'?'flex':'none';
   document.getElementById('tbPaneRec').style.display=tab==='recruitment'?'flex':'none';
+  document.getElementById('tbPaneCand').style.display=tab==='candidates'?'flex':'none';
   if(tab==='tasks') renderBoard();
-  else renderRecruitmentBoard();
+  else if(tab==='recruitment') renderRecruitmentBoard();
+  else { renderCandidateList(); if(activeCandId) openCandidate(activeCandId); }
 }
 function recF(btn,f){
   document.querySelectorAll('#tbPaneRec .tf-btn').forEach(b=>b.classList.remove('on'));
@@ -1564,11 +1787,351 @@ function loadCustomTasks(){
   },()=>{});
 }
 
+
+// ══ CANDIDATES & AI INTERVIEW QUESTIONS ══════════════════
+const FB_CAND = 'orn-euro-hq/candidates';
+const LS_CAND = 'orn-hq-candidates';
+const candidates = {}; // id -> candidate object
+let activeCandId = null;
+
+// Load all candidates
+function loadCandidates(){
+  try{ Object.assign(candidates, JSON.parse(localStorage.getItem(LS_CAND)||'{}')); }catch(e){}
+  db.ref(FB_CAND).on('value', snap=>{
+    const val = snap.val()||{};
+    Object.keys(candidates).forEach(k=>delete candidates[k]);
+    Object.assign(candidates, val);
+    try{ localStorage.setItem(LS_CAND, JSON.stringify(candidates)); }catch(e){}
+    if(boardOpen && boardTab==='candidates') renderCandidateList();
+  },()=>{ renderCandidateList(); });
+}
+
+// Gather all vacant/retain roles for the dropdown
+function getAllRoles(){
+  const roles=[];
+  DEPS.forEach(dep=>{
+    dep.staff.forEach(p=>{
+      if(p.st==='vacant'||p.st==='retain'){
+        roles.push({ label:`${dep.n} — ${p.ro}`, dept:dep.n, role:p.ro, deptId:dep.id,
+          salary:p.sl||'', hireTarget:p.hi||'', responsibilities:p.rs||[] });
+      }
+    });
+  });
+  return roles;
+}
+
+// Populate role dropdown
+function populateRoleDropdown(){
+  const sel = document.getElementById('acf-role');
+  if(!sel) return;
+  sel.innerHTML = '<option value="">— Select role —</option>';
+  getAllRoles().forEach((r,i)=>{
+    const opt=document.createElement('option');
+    opt.value=i; opt.textContent=r.label;
+    sel.appendChild(opt);
+  });
+}
+
+function showAddCandForm(){
+  document.getElementById('candAddBtn').style.display='none';
+  const form=document.getElementById('addCandForm');
+  form.style.display='flex';
+  populateRoleDropdown();
+  document.getElementById('acf-name').focus();
+}
+function cancelAddCand(){
+  document.getElementById('candAddBtn').style.display='';
+  document.getElementById('addCandForm').style.display='none';
+  ['acf-name','acf-linkedin'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+}
+function saveNewCandidate(){
+  const name=(document.getElementById('acf-name')?.value||'').trim();
+  if(!name){alert('Please enter the candidate name');return;}
+  const roleIdx=document.getElementById('acf-role')?.value;
+  const roles=getAllRoles();
+  const roleObj=roleIdx!==''?roles[parseInt(roleIdx)]||null:null;
+  const linkedin=(document.getElementById('acf-linkedin')?.value||'').trim();
+  const status=document.getElementById('acf-status')?.value||'New';
+  const id='cand_'+Date.now().toString(36);
+  const cand={id,name,linkedin,status,addedAt:new Date().toISOString().slice(0,10),
+    roleLabel:roleObj?roleObj.label:'',roleDept:roleObj?roleObj.dept:'',
+    roleTitle:roleObj?roleObj.role:'',roleSalary:roleObj?roleObj.salary:'',
+    roleHireTarget:roleObj?roleObj.hireTarget:'',
+    roleResponsibilities:roleObj?roleObj.responsibilities:[],
+    notes:'',questions:''};
+  candidates[id]=cand;
+  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+  db.ref(`${FB_CAND}/${id}`).set(cand)
+    .then(()=>showToast('✓ Candidate added'))
+    .catch(()=>showToast('✓ Saved locally'));
+  cancelAddCand();
+  renderCandidateList();
+  openCandidate(id);
+}
+
+function renderCandidateList(){
+  const list=document.getElementById('candList');
+  if(!list)return;
+  const all=Object.values(candidates).sort((a,b)=>b.addedAt.localeCompare(a.addedAt));
+  if(!all.length){
+    list.innerHTML='<div style="padding:16px;font-size:11px;color:var(--muted);text-align:center">No candidates yet.<br>Click Add Candidate below.</div>';
+    return;
+  }
+  const STATUS_CLS={New:'cs-new',Reviewed:'cs-reviewed',Interview:'cs-interview',Offer:'cs-offer',Rejected:'cs-rejected'};
+  list.innerHTML=all.map(cand=>`
+    <div class="cand-card ${activeCandId===cand.id?'active':''}" onclick="openCandidate('${cand.id}')">
+      <div class="cand-name">${cand.name}</div>
+      <div class="cand-role-tag">${cand.roleTitle||'No role assigned'}</div>
+      ${cand.roleDept?`<div style="font-size:9.5px;color:var(--muted)">${cand.roleDept}</div>`:''}
+      <span class="cand-status-chip ${STATUS_CLS[cand.status]||'cs-new'}">${cand.status}</span>
+    </div>`).join('');
+}
+
+function openCandidate(id){
+  activeCandId=id;
+  renderCandidateList();
+  const cand=candidates[id];
+  if(!cand)return;
+  const detail=document.getElementById('candDetail');
+  const STATUS_CLS={New:'cs-new',Reviewed:'cs-reviewed',Interview:'cs-interview',Offer:'cs-offer',Rejected:'cs-rejected'};
+  const savedQ=cand.questions||'';
+
+  detail.innerHTML=`
+    <div class="cand-detail-hdr">
+      <div class="cand-detail-name">${cand.name}</div>
+      <div class="cand-detail-meta">
+        ${cand.roleLabel?`<span class="cand-detail-role">📋 ${cand.roleLabel}</span>`:''}
+        ${cand.linkedin?`<a class="cand-detail-link" href="${cand.linkedin.startsWith('http')?cand.linkedin:'#'}" target="_blank">🔗 LinkedIn Profile</a>`:''}
+        <select class="cand-status-sel" onchange="updateCandStatus('${id}',this.value)">
+          ${['New','Reviewed','Interview','Offer','Rejected'].map(s=>`<option value="${s}" ${cand.status===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+        <span style="font-size:9.5px;color:var(--muted)">Added ${cand.addedAt}</span>
+      </div>
+    </div>
+    <div class="cand-detail-body">
+
+      <!-- Role context -->
+      ${cand.roleTitle?`
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:14px">
+        <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:7px">Role Being Considered</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px">${cand.roleTitle}</div>
+        ${cand.roleDept?`<div style="font-size:11px;color:var(--muted)">${cand.roleDept}</div>`:''}
+        ${cand.roleSalary?`<div style="font-size:10.5px;color:#059669;font-family:'JetBrains Mono',monospace;margin-top:4px">${cand.roleSalary}</div>`:''}
+        ${cand.roleHireTarget?`<div style="font-size:10px;color:var(--muted);margin-top:2px">Hire target: ${cand.roleHireTarget}</div>`:''}
+        ${cand.roleResponsibilities.length?`
+        <div style="margin-top:8px;font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em">Key Responsibilities</div>
+        <ul style="margin-top:5px;padding-left:16px">${cand.roleResponsibilities.slice(0,5).map(r=>`<li style="font-size:11px;color:var(--text);margin-bottom:3px;line-height:1.4">${r}</li>`).join('')}</ul>
+        `:''}
+      </div>`:''}
+
+      <!-- AI Question Generator -->
+      <div class="ai-gen-box">
+        <div class="ai-gen-title"><span>🤖</span> AI Interview Question Generator</div>
+        <div class="acf-label" style="margin-bottom:5px">Paste LinkedIn profile text or CV summary</div>
+        <textarea class="ai-profile-area" id="ai-profile-${id}" placeholder="Paste the candidate's LinkedIn About section, work history, or CV summary here. The more detail you provide, the more targeted the questions will be.
+
+Example: Mark Feldman — 12 years in travel industry. Previously Head of Product at Thomas Cook, then COO at a boutique DMC. Built UK coach tour programme from 0 to 60 departures. Strong supplier relationships across UK and Europe. MBA from Imperial...">${cand.linkedin&&!cand.linkedin.startsWith('http')?cand.linkedin:''}</textarea>
+        <div class="ai-gen-hint">💡 Tip: copy the About section and Experience from LinkedIn and paste it above. We'll analyse it against the role requirements and generate targeted questions.</div>
+        <button class="ai-gen-btn" id="ai-gen-btn-${id}" onclick="generateQuestions('${id}')">
+          ✨ Generate Interview Questions
+        </button>
+        <div id="ai-loading-${id}" style="display:none" class="ai-loading">
+          <div class="ai-spinner"></div> Analysing profile and generating tailored questions…
+        </div>
+      </div>
+
+      <!-- Generated Questions -->
+      <div id="ai-questions-${id}">
+        ${savedQ ? renderSavedQuestions(savedQ) : '<div style="font-size:11px;color:var(--muted);text-align:center;padding:10px">Questions will appear here after generation</div>'}
+      </div>
+
+      <!-- Interviewer Notes -->
+      <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:16px">
+        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:8px">Interview Notes</div>
+        <textarea class="cand-notes-area" id="cand-notes-${id}" placeholder="Add interview notes, observations, scores and overall recommendation here…">${cand.notes||''}</textarea>
+        <button class="cand-save-notes" id="save-notes-btn-${id}" onclick="saveCandNotes('${id}')">Save Notes</button>
+      </div>
+
+    </div>`;
+}
+
+function renderSavedQuestions(raw){
+  // raw is either a JSON string of sections or plain text
+  try {
+    const parsed = JSON.parse(raw);
+    return renderQuestionSections(parsed);
+  } catch(e) {
+    return `<div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:8px">Generated Questions</div>
+      <div style="font-size:11.5px;color:var(--text);line-height:1.7;white-space:pre-wrap">${raw}</div>
+    </div>`;
+  }
+}
+
+function renderQuestionSections(sections){
+  if(!Array.isArray(sections)) return '';
+  return `<div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:12px">Generated Interview Questions</div>
+    ${sections.map(sec=>`
+      <div class="iq-section">
+        <div class="iq-section-title">${sec.category}</div>
+        ${(sec.questions||[]).map((q,i)=>`
+          <div class="iq-q">
+            <div class="iq-num">Q${i+1}</div>
+            <div>
+              <div class="iq-text">${q.question}</div>
+              ${q.note?`<div class="iq-note">💡 ${q.note}</div>`:''}
+            </div>
+          </div>`).join('')}
+      </div>`).join('')}
+  </div>`;
+}
+
+async function generateQuestions(candId){
+  const cand = candidates[candId];
+  if(!cand){ showToast('Candidate not found','err'); return; }
+  const profileText = (document.getElementById(`ai-profile-${candId}`)?.value||'').trim();
+  if(!profileText){ alert('Please paste the candidate profile or LinkedIn text first.'); return; }
+
+  const btn = document.getElementById(`ai-gen-btn-${candId}`);
+  const loading = document.getElementById(`ai-loading-${candId}`);
+  const qDiv = document.getElementById(`ai-questions-${candId}`);
+  if(btn) btn.disabled=true;
+  if(loading) loading.style.display='flex';
+  if(qDiv) qDiv.innerHTML='';
+
+  const roleContext = cand.roleTitle ? `
+Role: ${cand.roleTitle}
+Department: ${cand.roleDept}
+Salary band: ${cand.roleSalary}
+Key responsibilities:
+${(cand.roleResponsibilities||[]).map((r,i)=>`${i+1}. ${r}`).join('\n')}
+` : 'Role: General interview — no specific role selected';
+
+  const prompt = `You are an expert travel industry HR consultant helping ORN Group / TripFactory conduct interviews.
+
+CANDIDATE: ${cand.name}
+STATUS: ${cand.status}
+
+${roleContext}
+
+CANDIDATE PROFILE:
+${profileText}
+
+Generate 20 targeted interview questions for this candidate, tailored to both their background AND the role requirements. Return ONLY valid JSON — no markdown, no preamble, no code blocks. Use this exact structure:
+
+[
+  {
+    "category": "Role Knowledge & Experience",
+    "questions": [
+      {"question": "...", "note": "What to listen for / why we ask this"},
+      {"question": "...", "note": "..."}
+    ]
+  },
+  {
+    "category": "Travel Industry Expertise",
+    "questions": [...]
+  },
+  {
+    "category": "Leadership & Team Management",
+    "questions": [...]
+  },
+  {
+    "category": "Commercial Acumen",
+    "questions": [...]
+  },
+  {
+    "category": "Culture & Motivations",
+    "questions": [...]
+  }
+]
+
+Make questions specific to THIS candidate's background — reference their experience, career moves, specific roles they held, any gaps or pivots. Each question should have a coaching note explaining what the interviewer is probing for.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    const raw = data.content?.map(b=>b.text||'').join('')||'';
+    // Strip any markdown code fences if present
+    const clean = raw.replace(/^```[\w]*\n?/,'').replace(/\n?```$/,'').trim();
+    const sections = JSON.parse(clean);
+    // Save to Firebase
+    candidates[candId].questions = JSON.stringify(sections);
+    db.ref(`${FB_CAND}/${candId}/questions`).set(JSON.stringify(sections));
+    try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+    if(qDiv) qDiv.innerHTML = renderQuestionSections(sections);
+    showToast('✓ Questions generated');
+  } catch(err) {
+    console.error('AI generation error:', err);
+    if(qDiv) qDiv.innerHTML='<div style="padding:14px;color:#991b1b;background:#fee2e2;border-radius:8px;font-size:11px">Could not generate questions. Please check your connection and try again.</div>';
+    showToast('Generation failed','err');
+  } finally {
+    if(btn) btn.disabled=false;
+    if(loading) loading.style.display='none';
+  }
+}
+
+function updateCandStatus(id, status){
+  if(!candidates[id]) return;
+  candidates[id].status = status;
+  db.ref(`${FB_CAND}/${id}/status`).set(status);
+  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+  renderCandidateList();
+  showToast('✓ Status updated');
+}
+
+function saveCandNotes(id){
+  const notes = document.getElementById(`cand-notes-${id}`)?.value||'';
+  if(!candidates[id]) return;
+  candidates[id].notes = notes;
+  db.ref(`${FB_CAND}/${id}/notes`).set(notes);
+  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+  const btn = document.getElementById(`save-notes-btn-${id}`);
+  if(btn){ btn.textContent='✓ Saved'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='Save Notes';btn.classList.remove('ok');},1600); }
+}
+
+
+// Pre-load Mark Feldman as example candidate
+function initMarkFeldman(){
+  const markId = 'cand_markfeldman2026';
+  if(candidates[markId]) return; // already exists
+  const roles = getAllRoles();
+  // Find a relevant role — UK Tours Product Manager or COO Europe
+  const roleObj = roles.find(r=>r.role.includes('UK Tours Product')) || roles[0];
+  const mark = {
+    id: markId, name: 'Mark Feldman', status: 'Interview',
+    addedAt: '2026-03-26',
+    linkedin: '',
+    roleLabel: roleObj ? roleObj.label : '',
+    roleDept: roleObj ? roleObj.dept : '',
+    roleTitle: roleObj ? roleObj.role : '',
+    roleSalary: roleObj ? roleObj.salary : '',
+    roleHireTarget: roleObj ? roleObj.hireTarget : '',
+    roleResponsibilities: roleObj ? roleObj.responsibilities : [],
+    notes: 'Interviewed March 2026. Strong travel industry background. Follow up required.',
+    questions: ''
+  };
+  candidates[markId] = mark;
+  db.ref(`${FB_CAND}/${markId}`).set(mark).catch(()=>{});
+  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+}
+
 // ══ INIT ════════════════════════════════════════
 buildDeptList();
 fbLoad();
 loadCustomTasks();
+loadCandidates();
 refreshTaskStat();
+setTimeout(initMarkFeldman, 1500);
 </script>
 </body>
 </html>
