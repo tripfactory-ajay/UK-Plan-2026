@@ -34,10 +34,11 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 .bg-over {
   position: fixed; inset: 0; z-index: 0;
   background: linear-gradient(to right,
-    rgba(255,255,255,.72) 0%,
-    rgba(255,255,255,.65) var(--col1),
-    rgba(255,255,255,.55) calc(var(--col1) + var(--col2)),
-    rgba(255,255,255,.35) 100%);
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0) var(--col1),
+    rgba(255,255,255,.88) calc(var(--col1) + 2px),
+    rgba(255,255,255,.92) calc(var(--col1) + var(--col2)),
+    rgba(255,255,255,.78) 100%);
 }
 
 /* ── LAYOUT ── */
@@ -51,12 +52,13 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
    COL 1 — White identity panel
 ════════════════════════════════════════ */
 .col1 {
-  background: rgba(255,255,255,.78);
-  border-right: 1px solid var(--border);
-  box-shadow: 2px 0 16px rgba(0,0,0,.06);
+  background: rgba(10,25,65,.72);
+  border-right: 1px solid rgba(255,255,255,.12);
+  box-shadow: 2px 0 24px rgba(0,0,0,.3);
   display: flex; flex-direction: column; align-items: center;
   padding: 28px 16px 20px;
   overflow-y: auto; z-index: 2;
+  backdrop-filter: blur(8px);
   backdrop-filter: blur(4px);
 }
 .col1::-webkit-scrollbar { display: none; }
@@ -65,7 +67,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
   width: 144px; height: 144px; border-radius: 50%;
   background: var(--white);
   border: 3px solid rgba(26,79,160,.25);
-  box-shadow: 0 0 0 8px rgba(26,79,160,.06), 0 4px 24px rgba(26,79,160,.2);
+  box-shadow: 0 0 0 8px rgba(255,255,255,.08), 0 4px 32px rgba(0,0,0,.4);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 6px; flex-shrink: 0; cursor: pointer;
   transition: transform .2s, box-shadow .2s;
@@ -73,8 +75,8 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 .hub-circle:hover { transform: scale(1.04); }
 @keyframes hubpulse {
-  from { box-shadow: 0 0 0 6px rgba(26,79,160,.05), 0 4px 20px rgba(26,79,160,.15); }
-  to   { box-shadow: 0 0 0 12px rgba(26,79,160,.1), 0 4px 32px rgba(26,79,160,.3); }
+  from { box-shadow: 0 0 0 8px rgba(255,255,255,.06), 0 4px 24px rgba(0,0,0,.35); }
+  to   { box-shadow: 0 0 0 14px rgba(255,255,255,.12), 0 4px 40px rgba(0,0,0,.5); }
 }
 .hub-logo { width: 88px; height: 42px; object-fit: contain; display: block; }
 .hub-fb { font-size: 22px; font-weight: 900; color: var(--navy-dk); letter-spacing: 1.5px; }
@@ -84,21 +86,21 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 
 .identity { margin-top: 18px; text-align: center; width: 100%; }
-.id-name  { font-size: 13.5px; font-weight: 700; color: var(--text); }
-.id-role  { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.id-name  { font-size: 13.5px; font-weight: 700; color: rgba(255,255,255,.95); }
+.id-role  { font-size: 10.5px; color: rgba(255,255,255,.55); margin-top: 2px; }
 
-.id-divider { width: 100%; height: 1px; background: var(--border); margin: 16px 0; }
+.id-divider { width: 100%; height: 1px; background: rgba(255,255,255,.12); margin: 16px 0; }
 
 .id-links { display: flex; flex-direction: column; gap: 7px; width: 100%; }
 .id-link {
   display: flex; align-items: center; gap: 8px;
   padding: 8px 10px; border-radius: 9px;
-  background: var(--off); border: 1px solid var(--border);
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
   text-decoration: none; transition: all .15s; cursor: pointer;
 }
-.id-link:hover { background: #e8edf8; border-color: rgba(26,79,160,.25); }
+.id-link:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.35); }
 .id-link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.id-link-text { font-size: 10.5px; font-weight: 600; color: var(--navy);
+.id-link-text { font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,.82);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .task-board-btn {
@@ -116,17 +118,17 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 .col1-stats { margin-top: 16px; width: 100%; display: flex; flex-direction: column; gap: 5px; }
 .col1-stat {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 10px; border-radius: 7px; background: var(--off); border: 1px solid var(--border);
+  padding: 7px 10px; border-radius: 7px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
 }
-.col1-stat-l { font-size: 10px; color: var(--muted); }
-.col1-stat-v { font-size: 11px; font-weight: 700; color: var(--navy); font-family: 'JetBrains Mono', monospace; }
+.col1-stat-l { font-size: 10px; color: rgba(255,255,255,.5); }
+.col1-stat-v { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.9); font-family: 'JetBrains Mono', monospace; }
 
 .col1-plan {
   margin-top: 14px; width: 100%; padding: 10px;
-  border-radius: 8px; background: rgba(26,79,160,.06); border: 1px solid rgba(26,79,160,.12);
-  font-size: 9.5px; color: var(--muted); line-height: 1.5; text-align: center;
+  border-radius: 8px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  font-size: 9.5px; color: rgba(255,255,255,.45); line-height: 1.5; text-align: center;
 }
-.col1-plan strong { color: var(--navy); display: block; font-size: 10px; margin-bottom: 2px; }
+.col1-plan strong { color: rgba(255,255,255,.7); display: block; font-size: 10px; margin-bottom: 2px; }
 
 /* ════════════════════════════════════════
    COL 2 — Coloured department tabs
@@ -144,7 +146,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 .col2-title {
   font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 8px;
+  color: var(--navy); margin-bottom: 8px;
 }
 .col2-search {
   width: 100%; padding: 7px 11px; border-radius: 8px;
@@ -180,19 +182,19 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
   display: flex; align-items: center; gap: 10px;
   padding: 9px 11px; border-radius: 10px; margin-bottom: 4px;
   cursor: pointer; transition: all .18s;
-  border: 1.5px solid transparent; background: #fff;
+  border: 1.5px solid rgba(0,0,0,.06); background: #fff;
   box-shadow: 0 1px 4px rgba(0,0,0,.06);
   position: relative;
 }
-.dept-tab:hover { transform: translateX(2px); box-shadow: 0 2px 10px rgba(0,0,0,.1); }
+.dept-tab:hover { transform: translateX(2px); box-shadow: 0 2px 10px rgba(0,0,0,.1); border-color: var(--col); }
 .dept-tab.active {
   border-color: var(--col);
-  box-shadow: 0 2px 12px rgba(0,0,0,.12);
-  background: #fff;
+  box-shadow: 0 2px 14px rgba(0,0,0,.12);
+  background: color-mix(in srgb, var(--col) 8%, white);
 }
 .dept-tab.active::before {
-  content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
-  width: 3px; border-radius: 0 3px 3px 0; background: var(--col);
+  content: ''; position: absolute; left: 0; top: 15%; bottom: 15%;
+  width: 4px; border-radius: 0 3px 3px 0; background: var(--col);
 }
 .dept-color-dot {
   width: 36px; height: 36px; border-radius: 9px;
@@ -492,6 +494,150 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 .tb-due.ok { background: #d1fae5; color: #065f46; }
 .tb-due.no { background: #f3f4f6; color: #9ca3af; }
 
+
+/* ── RECRUITMENT ASSIGN ROW (inside staff cards, vacant/retain only) ── */
+.hire-assign-box {
+  margin-top: 8px; padding: 10px 12px; border-radius: 8px;
+  background: #f5f3ff; border: 1px solid #ddd6fe;
+}
+.hire-assign-lbl {
+  font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: #5b21b6; margin-bottom: 6px; display: block;
+}
+.hire-assign-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.hire-sel {
+  flex: 1; min-width: 120px; max-width: 185px; padding: 5px 8px;
+  border: 1px solid #c4b5fd; border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif;
+  color: var(--text); background: #fff; cursor: pointer; outline: none;
+}
+.hire-sel:focus { border-color: #7c3aed; }
+.hire-date {
+  padding: 5px 8px; border: 1px solid #c4b5fd; border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif;
+  color: var(--text); background: #fff; cursor: pointer; outline: none; min-width: 116px;
+}
+.hire-date:focus { border-color: #7c3aed; }
+.hire-status-sel {
+  padding: 5px 8px; border: 1px solid #c4b5fd; border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif;
+  color: var(--text); background: #fff; cursor: pointer; outline: none;
+}
+.hire-sav-btn {
+  padding: 5px 12px; border-radius: 7px; border: none;
+  background: #7c3aed; color: #fff; font-size: 10.5px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif; transition: opacity .15s;
+}
+.hire-sav-btn:hover { opacity: .82; }
+.hire-sav-btn.ok { background: #059669; }
+.hire-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+.hchip { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px; }
+.hchip-who  { background: #ede9fe; color: #5b21b6; }
+.hchip-when { background: #fef3c7; color: #92400e; }
+.hchip-stat { }
+.hs-Briefing   { background: #dbeafe; color: #1e40af; }
+.hs-Advertising{ background: #fef9c3; color: #854d0e; }
+.hs-Shortlist  { background: #ede9fe; color: #5b21b6; }
+.hs-Interviews { background: #fce7f3; color: #be185d; }
+.hs-Offer      { background: #d1fae5; color: #065f46; }
+.hs-Hired      { background: #d1fae5; color: #065f46; }
+
+/* ── DEPT CONNECTIONS KEY (bottom of each panel) ── */
+.dept-connections {
+  margin-top: 18px; padding: 12px 14px; border-radius: 10px;
+  background: var(--off); border: 1px solid var(--border);
+}
+.dc-title {
+  font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.dc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.dc-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px; font-size: 10.5px; font-weight: 600;
+  border: 1.5px solid; cursor: pointer; transition: all .15s;
+}
+.dc-chip:hover { filter: brightness(.93); transform: translateY(-1px); }
+.dc-chip-icon { font-size: 12px; }
+
+/* ── TASK BOARD top tab bar ── */
+.tb-tab-bar {
+  display: flex; background: #fff; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; padding: 0 28px;
+}
+.tb-tab {
+  padding: 12px 20px; font-size: 12px; font-weight: 600;
+  color: var(--muted); background: none; border: none; cursor: pointer;
+  border-bottom: 2.5px solid transparent; transition: all .15s;
+  font-family: 'Sora',sans-serif;
+}
+.tb-tab:hover { color: var(--text); }
+.tb-tab.on { color: var(--navy); border-bottom-color: var(--navy); }
+
+/* ── RECRUITMENT board cards ── */
+.rec-card {
+  background: var(--off); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 13px; box-shadow: 0 1px 4px rgba(0,0,0,.04); transition: background .15s;
+}
+.rec-card:hover { background: #ede9fe22; border-color: #c4b5fd; }
+.rec-dept  { font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .06em; margin-bottom: 3px; }
+.rec-role  { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 2px; }
+.rec-salary{ font-size: 9.5px; color: var(--muted); font-family: 'JetBrains Mono',monospace; }
+.rec-hiretgt{ font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+.rec-meta  { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+
+
+/* ── ADD TASK FORM ── */
+.add-task-btn {
+  display: flex; align-items: center; gap: 7px;
+  width: 100%; padding: 10px 14px; margin-top: 12px;
+  border-radius: 9px; border: 2px dashed var(--border);
+  background: transparent; color: var(--muted);
+  font-size: 11.5px; font-weight: 600; font-family: 'Sora',sans-serif;
+  cursor: pointer; transition: all .15s;
+}
+.add-task-btn:hover {
+  border-color: var(--navy); color: var(--navy);
+  background: rgba(26,79,160,.04);
+}
+.add-task-form {
+  margin-top: 10px; padding: 14px;
+  border-radius: 12px; border: 1.5px solid var(--border);
+  background: var(--off);
+  display: flex; flex-direction: column; gap: 9px;
+}
+.atf-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.atf-input {
+  flex: 1; min-width: 120px; padding: 7px 10px;
+  border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif;
+  color: var(--text); background: #fff; outline: none;
+}
+.atf-input:focus { border-color: var(--navy); }
+.atf-input.atf-title { width: 100%; flex-basis: 100%; font-weight: 600; }
+.atf-select {
+  padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif;
+  color: var(--text); background: #fff; outline: none; cursor: pointer;
+}
+.atf-select:focus { border-color: var(--navy); }
+.atf-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 2px; }
+.atf-save {
+  padding: 7px 18px; border-radius: 8px; border: none;
+  background: var(--navy); color: #fff; font-size: 11px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif; transition: opacity .15s;
+}
+.atf-save:hover { opacity: .85; }
+.atf-cancel {
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--border); background: #fff;
+  color: var(--muted); font-size: 11px; font-weight: 600;
+  cursor: pointer; font-family: 'Sora',sans-serif; transition: all .15s;
+}
+.atf-cancel:hover { border-color: var(--text); color: var(--text); }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 18px; right: 20px; z-index: 999;
@@ -612,16 +758,39 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
     </div>
     <button class="tb-x" onclick="toggleBoard()">✕ Close Board</button>
   </div>
-  <div class="tb-filters">
-    <span class="tf-lbl">Filter:</span>
-    <button class="tf-btn on" onclick="tbF(this,'all')">All</button>
-    <button class="tf-btn" onclick="tbF(this,'Pending')">⬜ Pending</button>
-    <button class="tf-btn" onclick="tbF(this,'Started')">🟡 Started</button>
-    <button class="tf-btn" onclick="tbF(this,'Completed')">✅ Done</button>
-    <button class="tf-btn" onclick="tbF(this,'overdue')">🔴 Overdue</button>
-    <button class="tf-btn" onclick="tbF(this,'Unassigned')">❓ Unassigned</button>
+  <!-- Tab bar -->
+  <div class="tb-tab-bar">
+    <button class="tb-tab on" id="tbTabTasks" onclick="switchBoardTab('tasks')">📋 Action Tasks</button>
+    <button class="tb-tab" id="tbTabRec" onclick="switchBoardTab('recruitment')">🧑‍💼 Recruitment</button>
   </div>
-  <div class="tb-board" id="tbBoard"></div>
+  <!-- Tasks pane -->
+  <div id="tbPaneTasks" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+    <div class="tb-filters">
+      <span class="tf-lbl">Filter:</span>
+      <button class="tf-btn on" onclick="tbF(this,'all')">All</button>
+      <button class="tf-btn" onclick="tbF(this,'Pending')">⬜ Pending</button>
+      <button class="tf-btn" onclick="tbF(this,'Started')">🟡 Started</button>
+      <button class="tf-btn" onclick="tbF(this,'Completed')">✅ Done</button>
+      <button class="tf-btn" onclick="tbF(this,'overdue')">🔴 Overdue</button>
+      <button class="tf-btn" onclick="tbF(this,'Unassigned')">❓ Unassigned</button>
+    </div>
+    <div class="tb-board" id="tbBoard"></div>
+  </div>
+  <!-- Recruitment pane -->
+  <div id="tbPaneRec" style="display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+    <div class="tb-filters">
+      <span class="tf-lbl">Status:</span>
+      <button class="tf-btn on" onclick="recF(this,'all')">All Hires</button>
+      <button class="tf-btn" onclick="recF(this,'Briefing')">📝 Briefing</button>
+      <button class="tf-btn" onclick="recF(this,'Advertising')">📢 Advertising</button>
+      <button class="tf-btn" onclick="recF(this,'Shortlist')">📋 Shortlist</button>
+      <button class="tf-btn" onclick="recF(this,'Interviews')">🎙 Interviews</button>
+      <button class="tf-btn" onclick="recF(this,'Offer')">✉️ Offer</button>
+      <button class="tf-btn" onclick="recF(this,'Hired')">✅ Hired</button>
+      <button class="tf-btn" onclick="recF(this,'Unassigned')">❓ Unassigned</button>
+    </div>
+    <div class="tb-board" id="recBoard"></div>
+  </div>
 </div>
 
 <script>
@@ -633,20 +802,44 @@ firebase.initializeApp({
   projectId:"orn-wiki",storageBucket:"orn-wiki.firebasestorage.app",
   messagingSenderId:"25736842668",appId:"1:25736842668:web:754f9cf6268e2a5552fe09"
 });
-const db=firebase.database(), FB='orn-euro-hq/tasks', LS='orn-hq-tasks';
-const fbData={};
+const db=firebase.database(), FB='orn-euro-hq/tasks', FB_REC='orn-euro-hq/recruitment', LS='orn-hq-tasks', LS_REC='orn-hq-rec';
+const fbData={}, recData={};
 function fk(p,t){return`${p}__${t}`.replace(/[.#$/[\]]/g,'_')}
+function rk(d,i){return`${d}__${i}`}
+function gr(d,i,f,fb){return recData[rk(d,i)]?.[f]??fb}
 function gs(p,t,f,fb){return fbData[fk(p,t)]?.[f]??fb}
 function fbLoad(){
   try{Object.assign(fbData,JSON.parse(localStorage.getItem(LS)||'{}'))}catch(e){}
+  try{Object.assign(recData,JSON.parse(localStorage.getItem(LS_REC)||'{}'))}catch(e){}
   db.ref(FB).on('value',s=>{
     Object.assign(fbData,s.val()||{});
     try{localStorage.setItem(LS,JSON.stringify(fbData))}catch(e){}
     refreshTaskStat();
     if(curDept&&curTab==='tasks') renderTasks(curDept);
     if(curHQ&&curTab==='tasks') renderHQTasks();
-    if(boardOpen) renderBoard();
+    if(boardOpen&&boardTab==='tasks') renderBoard();
   },()=>{});
+  db.ref(FB_REC).on('value',s=>{
+    Object.assign(recData,s.val()||{});
+    try{localStorage.setItem(LS_REC,JSON.stringify(recData))}catch(e){}
+    if(curDept&&curTab==='staff') renderStaff(curDept);
+    if(boardOpen&&boardTab==='recruitment') renderRecruitmentBoard();
+  },()=>{});
+}
+function recSave(deptId,si,u){
+  const k=rk(deptId,si); recData[k]={...(recData[k]||{}),...u};
+  try{localStorage.setItem(LS_REC,JSON.stringify(recData))}catch(e){}
+  db.ref(`${FB_REC}/${k}`).update(u).then(()=>showToast('✓ Hire saved')).catch(()=>showToast('✓ Local'));
+}
+function saveHire(deptId,si){
+  const sel=document.getElementById(`hs-${deptId}-${si}`);
+  const dd=document.getElementById(`hd-${deptId}-${si}`);
+  const st=document.getElementById(`hst-${deptId}-${si}`);
+  if(!sel)return;
+  recSave(deptId,si,{assignee:sel.value,targetDate:dd?dd.value:'',status:st?st.value:'Briefing'});
+  const btn=document.getElementById(`hb-${deptId}-${si}`);
+  if(btn){btn.textContent='✓ Saved';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Save';btn.classList.remove('ok');},1600);}
+  if(curDept) renderStaff(curDept);
 }
 function fbSave(p,t,u){
   const k=fk(p,t); fbData[k]={...(fbData[k]||{}),...u};
@@ -686,20 +879,55 @@ const HQ={icon:'🏛️',color:'#1a4fa0',title:'ORN Group — European HQ',
     {id:'HQ.6',n:'ATOL Application — submit to CAA',d:'Part T or Flight-Plus. Specialist solicitor Q1. Submit Q2. Target licence Q4.',pr:1,ow:'Legal Counsel',bu:'£20K',st:'Pending'},
     {id:'HQ.7',n:'Monthly Board Meeting',d:'Fixed monthly meeting. P&L, KPIs, acquisitions, HR, tech, office updates.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Pending'},
     {id:'HQ.8',n:'KPI Framework — all departments',d:'Revenue, margin, headcount, customer satisfaction. RAG status dashboard.',pr:1,ow:'Raj Kumar',bu:'£2K',st:'Pending'},
-    {id:'HQ.9',n:'Quarterly EU Office Dashboard',d:'All EU offices submit standard template. Consolidated report to board.',pr:1,ow:'Ajay Kawa',bu:'£1K',st:'Started'},
+    {id:'HQ.9',n:'Quarterly EU Office Dashboard — DELIVERED',d:'All EU offices submit standard template. Consolidated HTML dashboard + print-ready Word document. Multi-office Firebase-backed submissions. Built and deployed March 2026.',pr:1,ow:'Ajay Kawa',bu:'£1K',st:'Completed'},
   ]
 };
 
+
+// ── DEPARTMENT CONNECTIONS ────────────────────────────────
+// Each entry: [id of connected dept, relationship label]
+const DEPT_LINKS = {
+  exec:        [['finance','P&L sign-off'],['legal','ATOL & M&A'],['contracting','Strategy'],['operations','Tour sign-off'],['cruise','Acquisition'],['agency','Acquisition']],
+  finance:     [['exec','Reports to'],['legal','ATOL bond & FCA'],['contracting','Budget approval'],['admin','Payroll'],['psa','Commission payments']],
+  legal:       [['exec','Reports to'],['finance','ATOL bond'],['cruise','M&A legal'],['agency','M&A legal'],['psa','ATOL umbrella'],['admin','Employment contracts']],
+  admin:       [['exec','Reports to'],['operations','Bookings'],['finance','Invoicing'],['tech','IT setup']],
+  contracting: [['exec','Strategy'],['global','EU hotel programme'],['operations','Supplier SLAs'],['sales','Product delivery'],['finance','Budget']],
+  sales:       [['marketing','Lead generation'],['operations','Tour manifests'],['contracting','Product access'],['psa','Agent network'],['tech','Agent portal']],
+  marketing:   [['sales','Lead gen'],['tech','Website & SEO'],['psa','Agent content'],['app','App marketing']],
+  tech:        [['app','Platform build'],['sales','Agent portal'],['psa','Agent tech'],['admin','IT'],['operations','Systems']],
+  operations:  [['contracting','Supplier SLAs'],['sales','Tour delivery'],['admin','Bookings admin'],['global','EU fleet & coaches']],
+  cruise:      [['legal','M&A legal'],['exec','Acquisition'],['finance','Due diligence'],['tech','Platform migration'],['sales','Cross-sell']],
+  agency:      [['legal','M&A legal'],['exec','Acquisition'],['finance','Due diligence'],['sales','Cross-sell']],
+  app:         [['tech','Platform'],['marketing','App marketing'],['sales','B2B agent app'],['psa','Agent app'],['finance','ORN Credit']],
+  global:      [['contracting','Hotel programme'],['operations','Fleet & coaches'],['exec','Office reports'],['finance','P&L reporting']],
+  psa:         [['legal','ATOL umbrella'],['tech','Agent portal'],['sales','B2B network'],['marketing','Agent content'],['finance','Commissions']],
+};
+
 const DEPS=[
-  {id:'exec',n:'Executive Board',ab:'Board',ic:'👑',cl:'#0f3070',sub:'Group leadership, strategy & governance',staff:[{nm:'Vinay Gupta',ro:'Chairman / CEO',rt:'Board',st:'active',rs:['Overall group strategy and vision','Final sign-off on all major acquisitions','Investor and stakeholder relations','Annual group P&L approval']},{nm:'Raj Kumar',ro:'COO',rt:'CEO',st:'active',rs:['Day-to-day group operations oversight','Financial performance — all offices','Monthly management accounts review','KPI framework ownership and RAG reporting']},{nm:'Ajay Kawa',ro:'BTO / Global Business Dev',rt:'COO',st:'active',rs:['European HQ setup and operational build-out','All acquisition workstreams coordination','Tech systems oversight — India team liaison','ORN App project ownership','Global office review and EU office visits']},{nm:'Alia Taub',ro:'CPO / HR Director',rt:'COO',st:'active',rs:['All UK and European hiring — end to end','Employment contracts, staff handbook, HR policies','Org chart maintenance — all global offices','Commission and incentive structure']},{nm:'PA / Executive Assistant',ro:'PA to COO + BTO',rt:'COO + BTO',st:'vacant',sl:'£28K–£38K',hi:'Q2 2026',rs:['Diary management for Raj Kumar and Ajay Kawa','Board pack preparation and distribution','Meeting coordination and minutes']}],tasks:[{id:'EB.1',n:'Monthly Management Accounts Review',d:'All offices P&L by 5th. Raj Kumar signs off by 10th.',pr:1,ow:'Raj Kumar',bu:'£0',st:'Pending'},{id:'EB.2',n:'Create Executive Board Structure',d:'Formalise board composition, meeting cadence, voting rights.',pr:1,ow:'Raj Kumar',bu:'£3K',st:'Pending'},{id:'EB.3',n:'Set KPIs — all departments',d:'Revenue, margin, headcount, customer satisfaction. RAG.',pr:1,ow:'Raj Kumar',bu:'£2K',st:'Pending'},{id:'EB.4',n:'Annual Strategy Review — Year 2',d:'End of Year 1 review. Revenue targets, acquisitions pipeline.',pr:2,ow:'Ajay Kawa',bu:'£3K',st:'Pending'}]},
+  {id:'exec',n:'Executive Board',ab:'Board',ic:'👑',cl:'#0f3070',sub:'Group leadership, strategy & governance',staff:[{nm:'Vinay Gupta',ro:'Chairman / CEO',rt:'Board',st:'active',rs:['Overall group strategy and vision','Final sign-off on all major acquisitions','Investor and stakeholder relations','Annual group P&L approval']},{nm:'Raj Kumar',ro:'COO',rt:'CEO',st:'active',rs:['Day-to-day group operations oversight','Financial performance — all offices','Monthly management accounts review','KPI framework ownership and RAG reporting']},{nm:'Ajay Kawa',ro:'BTO / Global Business Dev',rt:'COO',st:'active',rs:['European HQ setup and operational build-out','All acquisition workstreams coordination','Tech systems oversight — India team liaison','ORN App project ownership','Global office review and EU office visits']},{nm:'Alia Taub',ro:'CPO / HR Director',rt:'COO',st:'active',rs:['All UK and European hiring — end to end','Employment contracts, staff handbook, HR policies','Org chart maintenance — all global offices','Commission and incentive structure']},{nm:'PA / Executive Assistant',ro:'PA to COO + BTO',rt:'COO + BTO',st:'vacant',sl:'£28K–£38K',hi:'Q2 2026',rs:['Diary management for Raj Kumar and Ajay Kawa','Board pack preparation and distribution','Meeting coordination and minutes']}],tasks:[{id:'EB.1',n:'Monthly Management Accounts Review',d:'All offices P&L by 5th. Raj Kumar signs off by 10th.',pr:1,ow:'Raj Kumar',bu:'£0',st:'Pending'},{id:'EB.2',n:'Create Executive Board Structure',d:'Formalise board composition, meeting cadence, voting rights.',pr:1,ow:'Raj Kumar',bu:'£3K',st:'Pending'},{id:'EB.3',n:'Set KPIs — all departments',d:'Revenue, margin, headcount, customer satisfaction. RAG.',pr:1,ow:'Raj Kumar',bu:'£2K',st:'Pending'},{id:'EB.4',n:'Annual Strategy Review — Year 2',d:'End of Year 1 review. Revenue targets, acquisitions pipeline.',pr:2,ow:'Ajay Kawa',bu:'£3K',st:'Pending'},
+      {id:'EB.M1',n:'ORN European HQ Dashboard — DELIVERED',d:'This interactive dashboard — 3-column layout, Firebase-backed task management, recruitment tracking, department connections, Task Board with recruitment tab. Deployed to tripfactory-ajay.github.io. Built March 25 2026.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'},
+      {id:'EB.M2',n:'Board Meeting Office Update Report — DELIVERED',d:'ORN Group board meeting office update integrating regional submissions (UK, Poland, France, USA) into both an interactive HTML dashboard and a print-ready Word document. Firebase-backed submissions.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'}]},
   {id:'finance',n:'Finance',ab:'Finance',ic:'💰',cl:'#065f46',sub:'UK accounts, payroll, ATOL bond, FX management',staff:[{nm:'Finance Manager (UK)',ro:'Finance Manager',rt:'Raj Kumar',st:'vacant',sl:'£50K–£65K',hi:'Q1 2026 — PRIORITY',rs:['UK accounts management — Xero','TOMS VAT preparation and filing','ATOL financial returns to CAA','UK payroll (PAYE) and pension auto-enrolment','FX management and hedging','Monthly P&L reporting to ORN Group']},{nm:'Accounts Assistant',ro:'Accounts Assistant',rt:'Finance Manager',st:'vacant',sl:'£24K–£30K',hi:'Q3 2026',rs:['Accounts payable and receivable','Bank reconciliations — daily','Employee expense management','Audit preparation and support']}],tasks:[{id:'FI.1',n:'UK Company Incorporation',d:'TripFactory UK Ltd. Companies House.',pr:1,ow:'Ajay Kawa',bu:'£3K',st:'Pending'},{id:'FI.2',n:'UK Business Bank Account',d:'Barclays/HSBC. Multi-currency. CHAPS/BACS.',pr:1,ow:'Finance Manager',bu:'£0',st:'Pending'},{id:'FI.3',n:'TOMS VAT Registration',d:'Tour Operators Margin Scheme. Brief accountant.',pr:1,ow:'Finance Manager',bu:'£3K',st:'Pending'},{id:'FI.4',n:'Xero Accounting System Setup',d:'Chart of accounts, bank feed, TOMS module.',pr:1,ow:'Finance Manager',bu:'£3K',st:'Pending'},{id:'FI.5',n:'ATOL Bond Arrangement',d:'Confirm bond amount with CAA. Arrange via specialist broker.',pr:1,ow:'Finance Manager',bu:'£8K',st:'Pending'},{id:'FI.6',n:'P&L Review — All Offices',d:'Consolidated group P&L. Raj Kumar sign-off.',pr:1,ow:'Raj Kumar',bu:'£5K',st:'Pending'}]},
   {id:'legal',n:'Legal & Licensing',ab:'Legal',ic:'⚖️',cl:'#4c1d95',sub:'ATOL, ABTA, PSV, GDPR, M&A legal',staff:[{nm:'External Legal Counsel',ro:'Legal Counsel',rt:'Ajay Kawa',st:'vacant',hi:'Q1 2026',rs:['ATOL licence application — CAA','PSV Operator Licence — DVSA','ABTA membership application','GDPR/ICO registration','Package Travel Regulations 2018','M&A legal: NDAs, LOIs, SPAs']},{nm:'Compliance Manager',ro:'Compliance Manager',rt:'Ajay Kawa',st:'vacant',sl:'£35K–£45K',hi:'Q2 2026',rs:['ATOL and ABTA compliance monitoring','ICO and GDPR compliance','Package Travel Regulations checks','Insurance renewals and claims']}],tasks:[{id:'LG.1',n:'Engage ATOL/CAA Specialist Solicitor',d:'Part T or Flight-Plus route.',pr:1,ow:'Legal Counsel',bu:'£5K',st:'Pending'},{id:'LG.2',n:'Submit ATOL Application to CAA',d:'Target Q2 2026. Annual renewal each April.',pr:1,ow:'Legal Counsel',bu:'£0',st:'Pending'},{id:'LG.3',n:'ABTA Membership Application',d:'Consumer protection, dispute resolution.',pr:2,ow:'Ajay Kawa',bu:'£2K',st:'Pending'},{id:'LG.4',n:'GDPR / ICO Registration',d:'ICO registration. Update privacy policy and T&Cs.',pr:1,ow:'Legal Counsel',bu:'£2K',st:'Pending'},{id:'LG.5',n:'Public Liability & Employers Insurance',d:'Min £5M PLI, £10M ELI.',pr:1,ow:'Finance Manager',bu:'£8K',st:'Pending'}]},
   {id:'admin',n:'Admin & Office',ab:'Admin',ic:'🏢',cl:'#374151',sub:'London office, bookings admin, customer service',staff:[{nm:'Office Manager',ro:'Office Manager',rt:'COO',st:'vacant',sl:'£28K–£36K',hi:'Q2 2026',rs:['London office operations — facilities, IT setup','HR admin support','Onboarding coordination for new joiners']},{nm:'Bookings Administrator',ro:'Bookings Administrator',rt:'Operations Coordinator',st:'vacant',sl:'£24K–£30K',hi:'Q2 2026',rs:['Process all incoming tour bookings','Produce rooming lists and manifests','Supplier booking confirmations']},{nm:'Customer Service Executive',ro:'Customer Service',rt:'UK Country Manager',st:'vacant',sl:'£26K–£32K',hi:'Q3 2026',rs:['Handle all inbound customer enquiries','Post-booking support and amendments','Complaint handling — first point of contact']}],tasks:[{id:'AD.1',n:'London Office Setup',d:'Serviced office, min 10 desks, Central London. £3–6K/month.',pr:1,ow:'Ajay Kawa',bu:'£50K',st:'Pending'},{id:'AD.2',n:'UK Staff Handbook & Policies',d:'Holiday, sick pay, expenses, GDPR, code of conduct.',pr:1,ow:'Alia Taub',bu:'£3K',st:'Pending'},{id:'AD.3',n:'IT Setup — London Office',d:'Laptops, phones, broadband, Microsoft 365, VPN.',pr:1,ow:'Tech Liaison',bu:'£8K',st:'Pending'}]},
   {id:'contracting',n:'Contracting',ab:'Contracting',ic:'🤝',cl:'#92400e',sub:'UK & EU hotel contracting, 857-hotel programme',staff:[{nm:'Head of Contracting (Europe)',ro:'Head of Contracting',rt:'COO',st:'vacant',sl:'£60K–£80K',hi:'Q1 2026 — PRIORITY',rs:['Lead all hotel and ground supplier contracting — UK and Europe','Drive 857-hotel European preferred hotel programme','Negotiate global chain agreements — Marriott, Hyatt, Hilton','Attend WTM London and ITB Berlin']},{nm:'Contracting Manager — UK & Ireland',ro:'Contracting Manager (UK)',rt:'Head of Contracting',st:'vacant',sl:'£35K–£48K',hi:'Q2 2026',rs:['Negotiate all UK hotel direct contracts','Entrance attraction ticketing — Stonehenge, Edinburgh Castle','Ground transport supplier agreements']},{nm:'Contracting Manager — EU',ro:'Contracting Manager (EU)',rt:'Head of Contracting',st:'vacant',sl:'£35K–£48K',hi:'Q3 2026',rs:['France, Germany, Italy, Spain hotel contracting','Absorb EU contracting from Poland and France offices']}],tasks:[{id:'CO.1',n:'Establish London Contracting Hub',d:'Poland & France become regional desks under London.',pr:1,ow:'Head of Contracting',bu:'£60K',st:'Pending'},{id:'CO.2',n:'Consolidate EU Preferred Hotel Programme',d:'Single Tier 1/2 hotel list — target 857+ hotels Year 1.',pr:1,ow:'Head of Contracting',bu:'£10K',st:'Pending'},{id:'CO.3',n:'London Hotel Block Contracting',d:'3–5 central London hotels. Group rates. Halal options.',pr:1,ow:'Head of Contracting',bu:'£30K',st:'Pending'},{id:'CO.4',n:'Global Hotel Chain Agreements',d:'Marriott, Hyatt, Hilton group-level agreements.',pr:1,ow:'Raj Kumar',bu:'£5K',st:'Pending'},{id:'CO.5',n:'Attend WTM London — November 2026',d:'World Travel Market, ExCeL. Supplier meetings.',pr:2,ow:'Head of Contracting',bu:'£8K',st:'Pending'}]},
   {id:'sales',n:'Sales B2B + B2C',ab:'Sales',ic:'📈',cl:'#9a3412',sub:'UK tours, inbound, groups & MICE',staff:[{nm:'UK Sales Manager (B2B)',ro:'UK Sales Manager',rt:'UK Country Manager',st:'vacant',sl:'£45K–£60K + commission',hi:'Q2 2026',rs:['Build and manage UK B2B travel agent network','Group and MICE sales — minimum 20-pax groups','Target: £500K B2B revenue Year 1']},{nm:'Sales Executive — UK Tours',ro:'Sales Executive (UK)',rt:'UK Sales Manager',st:'vacant',sl:'£26K–£34K',hi:'Q3 2026',rs:['Handle all inbound UK tour enquiries','Qualify leads, quote, and convert to booking']},{nm:'Sales Executive — Global Arrivals',ro:'Sales Executive (Inbound)',rt:'UK Sales Manager',st:'vacant',sl:'£26K–£34K',hi:'Q3 2026',rs:['Handle inbound bookings from India, GCC, LATAM','Halal and dietary requirements coordination']}],tasks:[{id:'SA.1',n:'B2B Agent Portal — Launch',d:'Trade login, net rate access, booking system, ORN Credit dashboard.',pr:1,ow:'Tech Liaison',bu:'£10K',st:'Pending'},{id:'SA.2',n:'Build UK B2B Agent Network',d:'Target 50 ABTA-registered UK agents Year 1.',pr:1,ow:'UK Sales Manager',bu:'£5K',st:'Pending'},{id:'SA.3',n:'India Market Trade Campaign',d:'Target top 50 outbound India tour operators.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'SA.4',n:'Launch Inbound Group Tours — India Year 1',d:'Min 5 departure groups. Target 150 pax.',pr:1,ow:'Sales Exec Inbound',bu:'£50K',st:'Pending'}]},
   {id:'marketing',n:'Marketing',ab:'Marketing',ic:'📣',cl:'#0369a1',sub:'SEO, PPC, social, PR, India & GCC campaigns',staff:[{nm:'Digital Marketing Manager',ro:'Digital Marketing Manager',rt:'UK Country Manager',st:'vacant',sl:'£40K–£52K',hi:'Q2 2026',rs:['SEO strategy and execution — UK organic search','Google Ads (PPC) — UK tours and inbound product','Paid social — Meta, TikTok, LinkedIn']},{nm:'Content & Product Manager',ro:'Content & Product Manager',rt:'UK Country Manager',st:'vacant',sl:'£35K–£45K',hi:'Q2 2026',rs:['Tour content writing — descriptions, itineraries','Website copy — SEO-optimised','Trade and consumer brochure production']},{nm:'Social Media & PR Executive',ro:'Social Media & PR',rt:'Digital Marketing Manager',st:'vacant',sl:'£24K–£30K',hi:'Q3 2026',rs:['Daily management of Instagram, Facebook, TikTok, LinkedIn','Press release writing and distribution']}],tasks:[{id:'MK.1',n:'UK Marketing Strategy Document',d:'Target audiences, channel mix, budget allocation, KPIs.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'MK.2',n:'Brand Identity — ORN Europe',d:'UK/European brand guidelines. ATOL/ABTA trust marks.',pr:1,ow:'Ajay Kawa',bu:'£8K',st:'Pending'},{id:'MK.3',n:'UK Website Launch',d:'Dedicated UK website. SEO-optimised. Booking engine.',pr:1,ow:'Digital Marketing Mgr',bu:'£25K',st:'Pending'},{id:'MK.4',n:'Google Ads — UK Tours PPC',d:'Search, remarketing, display. Budget £3–5K/month.',pr:1,ow:'Digital Marketing Mgr',bu:'£50K',st:'Pending'}]},
-  {id:'tech',n:'Tech / Systems',ab:'Tech',ic:'💻',cl:'#0c4a6e',sub:'UK website, booking platform, ORN App, APIs',staff:[{nm:'UK Tech Liaison / PM',ro:'UK Tech Liaison / PM',rt:'Ajay Kawa',st:'vacant',sl:'£40K–£55K',hi:'Q2 2026',rs:['UK-based bridge between HQ and India tech team','Manage all UK and European tech projects','ORN App project coordinator']},{nm:'India Tech Team',ro:'India Tech Team',rt:'UK Tech Liaison',st:'active',rs:['TripFactory booking platform development','ORN App build — iOS and Android','Firebase backend — org chart, hotel portfolio, HR','API integrations — Hotelbeds, Amadeus, TourCMS']}],tasks:[{id:'TK.1',n:'Full Systems Audit — All EU Offices',d:'Inventory all software, databases, APIs across all offices.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'TK.2',n:'UK Website CMS — India Tech Brief',d:'Brief India team on UK website requirements.',pr:1,ow:'Tech Liaison',bu:'£10K',st:'Pending'},{id:'TK.3',n:'Amadeus GDS Integration',d:'Flight content. Required for ATOL flight-inclusive packages.',pr:1,ow:'India Tech',bu:'£25K',st:'Pending'},{id:'TK.4',n:'PSA Agent Technology Portal',d:'White-label booking platform for PSA agents.',pr:1,ow:'India Tech',bu:'£20K',st:'Pending'},{id:'TK.5',n:'Unified Booking Platform — All EU Offices',d:'Migrate all EU offices to single TripFactory platform.',pr:1,ow:'India Tech',bu:'£50K',st:'Pending'}]},
-  {id:'operations',n:'Operations & Transport',ab:'Ops',ic:'🚌',cl:'#5b21b6',sub:'Tour manifests, coach logistics, guide management',staff:[{nm:'Tours Operations Coordinator',ro:'Operations Coordinator',rt:'UK Country Manager',st:'vacant',sl:'£30K–£40K',hi:'Q1 2026 — PRIORITY',rs:['Day-to-day tour operations management','Produce tour manifests and rooming lists','Coach coordination — RHP Bus Hire scheduling','On-tour support line — emergency contact']},{nm:'Operations Executive',ro:'Operations Executive',rt:'Operations Coordinator',st:'vacant',sl:'£26K–£32K',hi:'Q3 2026',rs:['Support coordinator on all tour departures','Supplier booking admin — hotels, attraction tickets']},{nm:'CPC Transport Manager',ro:'CPC Transport Manager',rt:'UK Country Manager',st:'vacant',sl:'£40K–£50K',hi:'Q4 2026',rs:['PSV Operator Licence compliance management','Driver compliance — tachograph records, Driver CPC','Own fleet management when launched']}],tasks:[{id:'OP.1',n:'Contract RHP Bus Hire — Formalise SLA',d:'Rate card, priority booking, TripFactory branding.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.2',n:'Tour Manifest & Documentation Process',d:'Standard manifest: pax list, dietary, rooming, emergency.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.3',n:'Emergency & Contingency Procedures',d:'Emergency contact tree. Medical, breakdown, bad weather.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.4',n:'Source 2–4 Coaches for UK Fleet',d:'49-seater Euro 6 luxury. Volvo 9700 or Mercedes Tourismo.',pr:2,ow:'Transport Manager',bu:'£650K',st:'Pending'}]},
+  {id:'tech',n:'Tech / Systems',ab:'Tech',ic:'💻',cl:'#0c4a6e',sub:'UK website, booking platform, ORN App, APIs',staff:[{nm:'UK Tech Liaison / PM',ro:'UK Tech Liaison / PM',rt:'Ajay Kawa',st:'vacant',sl:'£40K–£55K',hi:'Q2 2026',rs:['UK-based bridge between HQ and India tech team','Manage all UK and European tech projects','ORN App project coordinator']},{nm:'India Tech Team',ro:'India Tech Team',rt:'UK Tech Liaison',st:'active',rs:['TripFactory booking platform development','ORN App build — iOS and Android','Firebase backend — org chart, hotel portfolio, HR','API integrations — Hotelbeds, Amadeus, TourCMS']}],tasks:[{id:'TK.1',n:'Full Systems Audit — All EU Offices',d:'Inventory all software, databases, APIs across all offices.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'TK.2',n:'UK Website CMS — India Tech Brief',d:'Brief India team on UK website requirements.',pr:1,ow:'Tech Liaison',bu:'£10K',st:'Pending'},{id:'TK.3',n:'Amadeus GDS Integration',d:'Flight content. Required for ATOL flight-inclusive packages.',pr:1,ow:'India Tech',bu:'£25K',st:'Pending'},{id:'TK.4',n:'PSA Agent Technology Portal',d:'White-label booking platform for PSA agents.',pr:1,ow:'India Tech',bu:'£20K',st:'Pending'},{id:'TK.5',n:'Unified Booking Platform — All EU Offices',d:'Migrate all EU offices to single TripFactory platform.',pr:1,ow:'India Tech',bu:'£50K',st:'Pending'},
+      {id:'TK.M1',n:'TripFactory Org Chart & Wiki — DELIVERED',d:'Full vertical accordion org chart with dept colour-coding, expandable nodes, per-person notes via Firebase. Global Locations tab. Deployed to tripfactory-ajay.github.io/tripfactorywiki. Firebase: orn-wiki project.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'},
+      {id:'TK.M2',n:'Interview Review System — DELIVERED',d:'Firebase-backed interview review feature built into HR wiki. Per-staff capability/skills ratings, action checkboxes, status tracking. Password-protected reviewer login (Alia Taub). Firebase path: tripfactory/interviews/{ORN}.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'},
+      {id:'TK.M3',n:'Commission & Incentive Tool — DELIVERED',d:'Standalone HTML tool for 791 staff across 8 departments. INR currency, organised by role type with interactive sliders, tier tables, hover tooltips. Deployed to GitHub Pages.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'},
+      {id:'TK.M5',n:'ORN Hotel Review Tool — DELIVERED',d:'Firebase-backed hotel review and selection tool for ORN Group European preferred hotel portfolio (857 hotels). Multi-office collaboration with UK, Poland, France and USA offices. Deployed to GitHub Pages.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Completed'}]},
+  {id:'operations',n:'Operations & Transport',ab:'Ops',ic:'🚌',cl:'#5b21b6',sub:'Tour manifests, coach logistics, fleet & EU transport network',staff:[{nm:'Tours Operations Coordinator',ro:'Operations Coordinator',rt:'UK Country Manager',st:'vacant',sl:'£30K–£40K',hi:'Q1 2026 — PRIORITY',rs:['Day-to-day tour operations management','Produce tour manifests and rooming lists','Coach coordination — RHP Bus Hire scheduling','On-tour support line — emergency contact']},{nm:'Operations Executive',ro:'Operations Executive',rt:'Operations Coordinator',st:'vacant',sl:'£26K–£32K',hi:'Q3 2026',rs:['Support coordinator on all tour departures','Supplier booking admin — hotels, attraction tickets']},{nm:'CPC Transport Manager',ro:'CPC Transport Manager',rt:'UK Country Manager',st:'vacant',sl:'£40K–£50K',hi:'Q4 2026',rs:['PSV Operator Licence compliance management','Driver compliance — tachograph records, Driver CPC','Own fleet management when launched (2–4 coaches UK)']},
+      {nm:'Adonis (Slovakia)',ro:'Fleet Operations Manager — Central Europe',rt:'Ajay Kawa / Ops Coordinator',st:'active',lo:'Nitra, Slovakia',rs:['Fleet ops — 1 staff + 8 drivers, Mostna 29, Nitra 949 01','Coach scheduling and maintenance coordination for Slovak, Czech and Austrian routes','Cost per day rate negotiation — formalise SLA with UK hub','Fleet branding alignment under ORN/TripFactory livery','Breakdown and emergency cover coordination']},
+      {nm:'Adonis (Bulgaria)',ro:'Country Partner & Fleet — Bulgaria',rt:'Ajay Kawa / COO',st:'active',lo:'Sofia, Bulgaria',rs:['Bulgaria inbound and outbound transport operations','18 Hristo Belchev St, Floor 3, Sofia','Balkan routes coach and ground transport coordination','EU preferred supplier agreement under London hub']},
+      {nm:'RHP Bus Hire (UK Supplier)',ro:'UK Coach Supplier — SLA Required',rt:'Operations Coordinator',st:'active',rs:['Sole UK coach supplier — formalise written agreement Q1 2026','Rate card: day rate, half-day rate, mileage charge, overtime','Priority booking guarantee for all TripFactory departures','Vehicle standards: min Euro 6, 49-seat, air-con, wifi, USB','ORN/TripFactory vehicle branding to be agreed','Backup vehicle guarantee for breakdowns']},
+      {nm:'Own Fleet — Business Case',ro:'UK Own Fleet (Future)',rt:'Finance Manager / Transport Manager',st:'vacant',hi:'Viable when hire costs exceed £120K/yr (~130+ coach days)',rs:['Purchase 2–4 x 49-seater Euro 6 luxury coaches (Volvo 9700, Mercedes Tourismo or Setra S516)','Estimated cost: £160K–£200K per coach (approved used)','PSV Operator Licence required before operating','Driver hire: 2–4 full-time drivers + agency pool','Annualised saving vs RHP hire: approx £35K–£55K per vehicle per year']}],tasks:[{id:'OP.1',n:'Contract RHP Bus Hire — Formalise SLA',d:'Rate card, priority booking, TripFactory branding.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.2',n:'Tour Manifest & Documentation Process',d:'Standard manifest: pax list, dietary, rooming, emergency.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.3',n:'Emergency & Contingency Procedures',d:'Emergency contact tree. Medical, breakdown, bad weather.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},{id:'OP.4',n:'Source 2–4 Coaches for UK Fleet',d:'49-seater Euro 6 luxury. Volvo 9700 or Mercedes Tourismo.',pr:2,ow:'Transport Manager',bu:'£650K',st:'Pending'},
+      {id:'OP.5',n:'Formalise SLA — Adonis Slovakia Fleet',d:'Rate card, vehicle count, driver roster, cost per day, backup cover. Written agreement under ORN hub.',pr:1,ow:'Ajay Kawa',bu:'£2K',st:'Pending'},
+      {id:'OP.6',n:'Adonis Bulgaria — EU Supplier Agreement',d:'Balkan routes SLA. Pricing, vehicle standards, branding, emergency protocols.',pr:2,ow:'Ajay Kawa',bu:'£1K',st:'Pending'},
+      {id:'OP.7',n:'EU Fleet Audit — All Offices',d:'Exact vehicle count, ages, ownership vs lease, utilisation rates across Slovakia, Bulgaria, Italy, Turkey, Germany.',pr:1,ow:'Ops Coordinator',bu:'£2K',st:'Pending'},
+      {id:'OP.8',n:'Vehicle Branding — ORN Livery',d:'Design and apply ORN Group livery to UK and EU fleet. RHP UK + Adonis Slovakia/Bulgaria.',pr:2,ow:'Digital Marketing Mgr',bu:'£8K',st:'Pending'},
+      {id:'OP.9',n:'PSV Operator Licence Application',d:'DVSA/Traffic Commissioner. Appoint CPC Transport Manager first. Required before UK own fleet.',pr:1,ow:'Legal Counsel',bu:'£3K',st:'Pending'}]},
   {id:'cruise',n:'Cruise (Cruise2)',ab:'Cruise',ic:'🚢',cl:'#155e75',sub:'Cruise2 acquisition — active negotiations',staff:[{nm:'Cruise Sales Specialist',ro:'Cruise Sales Specialist',rt:'UK Country Manager',st:'retain',sl:'£35K–£48K',hi:'Retain from Cruise2',rs:['Specialist cruise sales — all major cruise lines','B2B agent cruise sales and B2C direct','Cross-sell cruise to TripFactory India customer base']},{nm:'Cruise Integration Manager',ro:'Cruise Integration Manager',rt:'Ajay Kawa',st:'retain',hi:'Internal post-Cruise2 completion',rs:['Manage Cruise2 to TripFactory platform migration','Staff TUPE and retention','90-day and 180-day integration review']}],tasks:[{id:'CR.1',n:'Confirm Deal Status with Cruise2',d:'Document current state, key terms, outstanding issues.',pr:1,ow:'Ajay Kawa',bu:'£0',st:'Negotiating'},{id:'CR.2',n:'Appoint UK Legal Counsel — Travel M&A',d:'ATOL/ABTA transfer expertise required.',pr:1,ow:'Ajay Kawa',bu:'£15K',st:'Pending'},{id:'CR.3',n:'ATOL Transfer Strategy — CAA Guidance',d:'Confirm if Cruise2 ATOL can transfer on acquisition.',pr:1,ow:'Legal Counsel',bu:'£5K',st:'Negotiating'},{id:'CR.4',n:'Agree Indicative Valuation',d:'Revenue multiple 0.3–0.7x or EBITDA 3–6x.',pr:1,ow:'Raj Kumar',bu:'£0',st:'Negotiating'},{id:'CR.5',n:'Board Approval',d:'Present deal rationale, ATOL acceleration, revenue synergies.',pr:1,ow:'Raj Kumar',bu:'£0',st:'Pending'},{id:'CR.6',n:'Cruise2 Integration — 90-Day Plan',d:'Platform migration, ORN Credit integration.',pr:2,ow:'Ajay Kawa',bu:'£15K',st:'Pending'}]},
   {id:'agency',n:'Agency Acquisition',ab:'Agency',ic:'🏪',cl:'#6d28d9',sub:'UK travel agency acquisition — £200K–£800K',staff:[{nm:'Agency Manager (Post-Acquisition)',ro:'Agency Manager',rt:'UK Country Manager',st:'retain',sl:'£45K–£58K',hi:'Q3 2026 — retain from acquired agency',rs:['Manage acquired travel agency operations','Retain existing customer relationships','Drive cross-sell of TripFactory UK tours and global product']},{nm:'Travel Consultants (x2)',ro:'Travel Consultant',rt:'Agency Manager',st:'retain',sl:'£24K–£30K',hi:'Q3 2026',rs:['Retail and online customer holiday enquiries','GDS (Amadeus/Galileo) booking and ticketing']}],tasks:[{id:'AG.1',n:'Define Acquisition Criteria',d:'ABTA registered, trading 3+ years, revenue £500K–£3M.',pr:1,ow:'Ajay Kawa',bu:'£2K',st:'Pending'},{id:'AG.2',n:'Engage M&A Broker',d:'Travel industry M&A broker. Fee 3–5% of deal.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'AG.3',n:'Financial Due Diligence',d:'3 years accounts. Revenue mix, margins, TOMS VAT.',pr:1,ow:'Finance Manager',bu:'£8K',st:'Pending'},{id:'AG.4',n:'Board Approval & Funding Sign-Off',d:'Present to Raj Kumar / Vinay Gupta. Confirm funding.',pr:1,ow:'Raj Kumar',bu:'£0',st:'Pending'}]},
   {id:'app',n:'ORN App',ab:'App',ic:'📱',cl:'#1d4ed8',sub:'B2C consumer + B2B agent app · iOS & Android',staff:[{nm:'App Product Manager',ro:'App Product Manager',rt:'Ajay Kawa',st:'active',rs:['Own the ORN App product vision — B2C and B2B','Manage sprint planning with India dev team','UAT testing coordination — UK and India teams']},{nm:'Lead Developer (India)',ro:'Lead Developer',rt:'App Product Manager',st:'active',rs:['React Native / Flutter cross-platform build','Core booking engine integration','ORN Credit wallet build — GBP denominated']},{nm:'QA / Testing Lead (India)',ro:'QA / Testing Lead',rt:'App Product Manager',st:'active',rs:['Alpha and beta testing coordination','Bug tracking and resolution — Jira','UAT sign-off before each release']}],tasks:[{id:'AP.1',n:'Product Requirements — B2C Consumer App',d:'Search & book, ORN Credit wallet, itinerary, notifications.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'AP.2',n:'Core Booking Engine Integration',d:'Live availability, dynamic pricing, payment processing.',pr:1,ow:'India Tech',bu:'£30K',st:'Pending'},{id:'AP.3',n:'ORN Credit Wallet — Consumer App',d:'Real-time balance, earn on booking, redeem at checkout.',pr:1,ow:'India Tech',bu:'£15K',st:'Pending'},{id:'AP.4',n:'Soft Launch — UK and Europe',d:'Invite-only. 500 consumers, 100 agents.',pr:1,ow:'Ajay Kawa',bu:'£5K',st:'Pending'},{id:'AP.5',n:'Full Public Launch — iOS & Android',d:'Remove invite restriction. Target 5,000 downloads Month 1.',pr:1,ow:'Ajay Kawa',bu:'£20K',st:'Pending'}]},
@@ -734,7 +962,7 @@ function buildDeptList(filter=''){
     tab.style.setProperty('--col', d.cl);
     tab.setAttribute('data-id', d.id);
     tab.innerHTML = `
-      <div class="dept-color-dot" style="background:${d.cl}22"><span style="font-size:18px">${d.ic}</span></div>
+      <div class="dept-color-dot" style="background:${d.cl}28"><span style="font-size:18px">${d.ic}</span></div>
       <div class="dept-tab-info">
         <div class="dept-tab-name">${d.n}</div>
         <div class="dept-tab-sub">${d.sub}</div>
@@ -748,7 +976,7 @@ function buildDeptList(filter=''){
 function filterDepts(v){ buildDeptList(v); }
 
 // ══ PANEL STATE ══════════════════════════════════
-let curDept=null, curHQ=false, curTab='staff', boardOpen=false, boardFilter='all';
+let curDept=null, curHQ=false, curTab='staff', boardOpen=false, boardFilter='all', boardTab='tasks', recFilter='all';
 const tStates={};
 
 function openHQ(){
@@ -809,7 +1037,30 @@ function renderHQOverview(){
 }
 
 function renderHQTasks(){
-  document.getElementById('panelBody').innerHTML=`<div class="sec-lbl">${HQ.tasks.length} HQ Action Tasks</div>${buildRows('hq',HQ.tasks)}`;
+  const allHQTasks=[...HQ.tasks,...(customTasks['hq']||[])];
+  const done=allHQTasks.filter(t=>gs('hq',t.id,'status',t.st)==='Completed').length;
+  const owOpts=PEOPLE.map(p=>`<option value="${p}">${p}</option>`).join('');
+  const priOpts=[1,2,3].map(n=>`<option value="${n}" ${n===2?'selected':''}>P${n} — ${{1:'High',2:'Medium',3:'Low'}[n]}</option>`).join('');
+  document.getElementById('panelBody').innerHTML=`
+    <div class="sec-lbl">${allHQTasks.length} HQ Action Tasks · ${done} Completed</div>
+    ${buildRows('hq',allHQTasks)}
+    <button class="add-task-btn" id="add-task-btn-hq" onclick="showAddTaskForm('hq')">
+      ＋ Add Task
+    </button>
+    <div class="add-task-form" id="add-task-form-hq" style="display:none">
+      <input class="atf-input atf-title" id="atf-title-hq" placeholder="Task name *" type="text">
+      <input class="atf-input" id="atf-desc-hq" placeholder="Description (optional)" type="text">
+      <div class="atf-row">
+        <select class="atf-select" id="atf-owner-hq">${owOpts}</select>
+        <input class="atf-input" id="atf-budget-hq" placeholder="Budget (e.g. £5K)" style="max-width:110px">
+        <select class="atf-select" id="atf-priority-hq">${priOpts}</select>
+        <input class="atf-input" id="atf-due-hq" type="date" title="Due date" style="max-width:140px">
+      </div>
+      <div class="atf-actions">
+        <button class="atf-cancel" onclick="cancelAddTask('hq')">Cancel</button>
+        <button class="atf-save" onclick="saveNewTask('hq')">Add Task</button>
+      </div>
+    </div>`;
 }
 
 function sc(hex,a){const n=parseInt(hex.replace('#',''),16);const r=Math.min(255,Math.max(0,(n>>16)+a));const g=Math.min(255,Math.max(0,((n>>8)&0xff)+a));const b=Math.min(255,Math.max(0,(n&0xff)+a));return'#'+((r<<16)|(g<<8)|b).toString(16).padStart(6,'0')}
@@ -817,6 +1068,9 @@ function sc(hex,a){const n=parseInt(hex.replace('#',''),16);const r=Math.min(255
 function renderStaff(dept){
   const pb=document.getElementById('panelBody');
   const pal=[dept.cl,sc(dept.cl,28),sc(dept.cl,-18)];
+  const HR_PEOPLE=['— Unassigned —','Alia Taub (CPO / HR)','Ajay Kawa (BTO)','Raj Kumar (COO)','External Recruiter'];
+  const HIRE_STATUSES=['Briefing','Advertising','Shortlist','Interviews','Offer','Hired'];
+
   const cards=dept.staff.map((p,si)=>{
     const init=p.nm.split(' ').filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase();
     const bCls=p.st==='active'?'b-active':p.st==='retain'?'b-retain':'b-vacant';
@@ -825,23 +1079,182 @@ function renderStaff(dept){
     const hire=p.hi?`<div class="hire-chip">Hire target: ${p.hi}</div>`:'';
     const loc=p.lo?`<div class="sloc">📍 ${p.lo}</div>`:'';
     const rs=p.rs.map(r=>`<div class="ritem"><div class="rdot" style="background:${dept.cl}"></div><div>${r}</div></div>`).join('');
+
+    // Recruitment assign box — only for vacant/retain roles
+    let hireBox='';
+    if(p.st==='vacant'||p.st==='retain'){
+      const savedAss  = gr(dept.id,si,'assignee','');
+      const savedDate = gr(dept.id,si,'targetDate','');
+      const savedStat = gr(dept.id,si,'status','Briefing');
+      const hrOpts=HR_PEOPLE.map(h=>`<option value="${h}" ${savedAss===h?'selected':''}>${h}</option>`).join('');
+      const stOpts=HIRE_STATUSES.map(s=>`<option value="${s}" ${savedStat===s?'selected':''}>${s}</option>`).join('');
+      const chips = savedAss&&savedAss!=='— Unassigned —' ? `
+        <div class="hire-chips">
+          <span class="hchip hchip-who">👤 ${savedAss}</span>
+          ${savedDate?`<span class="hchip hchip-when">📅 ${savedDate}</span>`:''}
+          <span class="hchip hchip-stat hs-${savedStat}">${savedStat}</span>
+        </div>` : '';
+      hireBox=`
+        <div class="hire-assign-box">
+          <span class="hire-assign-lbl">Recruitment Assignment</span>
+          ${chips}
+          <div class="hire-assign-row">
+            <select class="hire-sel" id="hs-${dept.id}-${si}">${hrOpts}</select>
+            <input type="date" class="hire-date" id="hd-${dept.id}-${si}" value="${savedDate}" title="Target hire date">
+            <select class="hire-status-sel" id="hst-${dept.id}-${si}">${stOpts}</select>
+            <button class="hire-sav-btn" id="hb-${dept.id}-${si}" onclick="saveHire('${dept.id}',${si})">Save</button>
+          </div>
+        </div>`;
+    }
+
     return`<div class="scard" id="sc-${dept.id}-${si}">
       <div class="scard-hdr" onclick="tog('${dept.id}',${si})">
         <div class="sav" style="background:${pal[si%pal.length]}">${init}</div>
         <div class="sinfo"><div class="sname">${p.nm}</div><div class="srole">${p.ro}</div>${sal}${hire}${loc}</div>
         <span class="sbadge ${bCls}">${bTxt}</span><span class="schev">▼</span>
       </div>
-      <div class="sresp"><div class="resp-inner">${rs}</div><div class="rto">Reports to: ${p.rt}</div></div>
+      <div class="sresp">
+        <div class="resp-inner">${rs}${hireBox}</div>
+        <div class="rto">Reports to: ${p.rt}</div>
+      </div>
     </div>`;
   }).join('');
-  pb.innerHTML=`<div class="sec-lbl">${dept.staff.length} Roles</div>${cards}`;
+
+  // Department connections key
+  const links = DEPT_LINKS[dept.id] || [];
+  const connHTML = links.length ? `
+    <div class="dept-connections">
+      <div class="dc-title">Connected Departments</div>
+      <div class="dc-list">
+        ${links.map(([lid,lbl])=>{
+          const d=DEPS.find(x=>x.id===lid);
+          if(!d) return '';
+          return `<div class="dc-chip" style="color:${d.cl};border-color:${d.cl}40;background:${d.cl}10"
+            onclick="openDept('${d.id}')" title="${lbl}">
+            <span class="dc-chip-icon">${d.ic}</span>${d.ab}<span style="font-size:9px;opacity:.6;font-weight:400;margin-left:2px">${lbl}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  pb.innerHTML=`<div class="sec-lbl">${dept.staff.length} Roles</div>${cards}${connHTML}`;
 }
 function tog(did,idx){document.getElementById(`sc-${did}-${idx}`).classList.toggle('open')}
 
+// ── BOARD TAB SWITCHING ───────────────────────────────────
+function switchBoardTab(tab){
+  boardTab=tab;
+  document.getElementById('tbTabTasks').classList.toggle('on',tab==='tasks');
+  document.getElementById('tbTabRec').classList.toggle('on',tab==='recruitment');
+  document.getElementById('tbPaneTasks').style.display=tab==='tasks'?'flex':'none';
+  document.getElementById('tbPaneRec').style.display=tab==='recruitment'?'flex':'none';
+  if(tab==='tasks') renderBoard();
+  else renderRecruitmentBoard();
+}
+function recF(btn,f){
+  document.querySelectorAll('#tbPaneRec .tf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); recFilter=f; renderRecruitmentBoard();
+}
+
+// ── RECRUITMENT BOARD ─────────────────────────────────────
+function allHires(){
+  const h=[];
+  DEPS.forEach(dep=>{
+    dep.staff.forEach((p,si)=>{
+      if(p.st==='vacant'||p.st==='retain'){
+        h.push({
+          deptId:dep.id, si, deptName:dep.n, deptColor:dep.cl, deptIcon:dep.ic,
+          role:p.ro, salary:p.sl||'', hireTarget:p.hi||'',
+          assignee: gr(dep.id,si,'assignee',''),
+          targetDate: gr(dep.id,si,'targetDate',''),
+          status: gr(dep.id,si,'status','Briefing'),
+          isVacant: p.st==='vacant'
+        });
+      }
+    });
+  });
+  return h;
+}
+function renderRecruitmentBoard(){
+  const all=allHires();
+  const filtered=all.filter(h=>{
+    if(recFilter==='all') return true;
+    if(recFilter==='Unassigned') return !h.assignee||h.assignee==='— Unassigned —';
+    return h.status===recFilter;
+  });
+  const tot=all.length;
+  const hired=all.filter(h=>h.status==='Hired').length;
+  const asgn=all.filter(h=>h.assignee&&h.assignee!=='— Unassigned —').length;
+  document.getElementById('tbMeta').textContent=`${tot} open roles · ${hired} hired · ${asgn} assigned`;
+
+  // Group by assignee
+  const cols={};
+  filtered.forEach(h=>{
+    const k=!h.assignee||h.assignee==='— Unassigned —'?'❓ Unassigned':h.assignee;
+    if(!cols[k])cols[k]=[];
+    cols[k].push(h);
+  });
+  const keys=Object.keys(cols).sort((a,b)=>a==='❓ Unassigned'?1:b==='❓ Unassigned'?-1:a.localeCompare(b));
+  if(!keys.length){document.getElementById('recBoard').innerHTML=`<div style="color:var(--muted);padding:40px;width:100%;text-align:center;font-size:13px">No recruitment records match this filter</div>`;return;}
+
+  const STATUS_CLS={'Briefing':'hs-Briefing','Advertising':'hs-Advertising','Shortlist':'hs-Shortlist','Interviews':'hs-Interviews','Offer':'hs-Offer','Hired':'hs-Hired'};
+
+  document.getElementById('recBoard').innerHTML=keys.map(col=>{
+    const hires=cols[col].sort((a,b)=>{
+      if(!a.targetDate&&!b.targetDate)return 0;
+      if(!a.targetDate)return 1; if(!b.targetDate)return -1;
+      return new Date(a.targetDate)-new Date(b.targetDate);
+    });
+    const cards=hires.map(h=>{
+      const di=dueInfo(h.targetDate);
+      const statCls=STATUS_CLS[h.status]||'';
+      return`<div class="rec-card">
+        <div class="rec-dept" style="color:${h.deptColor}">${h.deptIcon} ${h.deptName}</div>
+        <div class="rec-role">${h.role}</div>
+        ${h.salary?`<div class="rec-salary">${h.salary}</div>`:''}
+        ${h.hireTarget?`<div class="rec-hiretgt">Target: ${h.hireTarget}</div>`:''}
+        <div class="rec-meta">
+          <span class="hchip hchip-stat ${statCls}">${h.status}</span>
+          <span class="tb-due ${di.c}">📅 ${di.l}</span>
+          <span class="hchip" style="background:${h.isVacant?'#fee2e2':'#e0e7ff'};color:${h.isVacant?'#991b1b':'#3730a3'}">${h.isVacant?'Vacant':'Retain'}</span>
+        </div>
+      </div>`;
+    }).join('');
+    return`<div class="tb-col">
+      <div class="tb-col-h" style="border-bottom:2px solid #7c3aed40;background:#f5f3ff">
+        <div class="tb-col-n">${col}</div><span class="tb-col-c">${hires.length}</span>
+      </div>
+      <div class="tb-col-b">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
 function renderTasks(dept){
   const pb=document.getElementById('panelBody');
-  const done=dept.tasks.filter(t=>gs(dept.id,t.id,'status',t.st)==='Completed').length;
-  pb.innerHTML=`<div class="sec-lbl">${dept.tasks.length} Tasks · ${done} Completed</div>${buildRows(dept.id,dept.tasks)}`;
+  const allTasks=[...dept.tasks,...(customTasks[dept.id]||[])];
+  const done=allTasks.filter(t=>gs(dept.id,t.id,'status',t.st)==='Completed').length;
+  const owOpts=PEOPLE.map(p=>`<option value="${p}">${p}</option>`).join('');
+  const priOpts=[1,2,3].map(n=>`<option value="${n}" ${n===2?'selected':''}>P${n} — ${{1:'High',2:'Medium',3:'Low'}[n]}</option>`).join('');
+  pb.innerHTML=`
+    <div class="sec-lbl">${allTasks.length} Tasks · ${done} Completed</div>
+    ${buildRows(dept.id,allTasks)}
+    <button class="add-task-btn" id="add-task-btn-${dept.id}" onclick="showAddTaskForm('${dept.id}')">
+      ＋ Add Task
+    </button>
+    <div class="add-task-form" id="add-task-form-${dept.id}" style="display:none">
+      <input class="atf-input atf-title" id="atf-title-${dept.id}" placeholder="Task name *" type="text">
+      <input class="atf-input" id="atf-desc-${dept.id}" placeholder="Description (optional)" type="text">
+      <div class="atf-row">
+        <select class="atf-select" id="atf-owner-${dept.id}">${owOpts}</select>
+        <input class="atf-input" id="atf-budget-${dept.id}" placeholder="Budget (e.g. £5K)" style="max-width:110px">
+        <select class="atf-select" id="atf-priority-${dept.id}">${priOpts}</select>
+        <input class="atf-input" id="atf-due-${dept.id}" type="date" title="Due date" style="max-width:140px">
+      </div>
+      <div class="atf-actions">
+        <button class="atf-cancel" onclick="cancelAddTask('${dept.id}')">Cancel</button>
+        <button class="atf-save" onclick="saveNewTask('${dept.id}')">Add Task</button>
+      </div>
+    </div>`;
 }
 
 function buildRows(prefix,tasks){
@@ -904,8 +1317,12 @@ function refreshTaskStat(){
 // ══ TASK BOARD ══════════════════════════════════
 function allTasks(){
   const a=[];
-  HQ.tasks.forEach(t=>a.push({...t,prefix:'hq',dn:'HQ Overview',dc:HQ.color}));
-  DEPS.forEach(dep=>dep.tasks.forEach(t=>a.push({...t,prefix:dep.id,dn:dep.n,dc:dep.cl})));
+  const hqAll=[...HQ.tasks,...(customTasks['hq']||[])];
+  hqAll.forEach(t=>a.push({...t,prefix:'hq',dn:'HQ Overview',dc:HQ.color}));
+  DEPS.forEach(dep=>{
+    const depAll=[...dep.tasks,...(customTasks[dep.id]||[])];
+    depAll.forEach(t=>a.push({...t,prefix:dep.id,dn:dep.n,dc:dep.cl}));
+  });
   return a;
 }
 function dueInfo(d){
@@ -973,15 +1390,108 @@ function tbF(btn,f){
 function toggleBoard(){
   boardOpen=!boardOpen;
   const el=document.getElementById('taskboard'), btn=document.getElementById('tbBtn');
-  if(boardOpen){el.classList.add('open');btn.classList.add('on');btn.innerHTML='<span>✕</span> Close Board';renderBoard();}
-  else{el.classList.remove('open');btn.classList.remove('on');btn.innerHTML='<span>📋</span> Task Board';}
+  if(boardOpen){
+    el.classList.add('open');
+    btn.classList.add('on');
+    btn.innerHTML='<span>✕</span> Close Board';
+    switchBoardTab(boardTab);
+  } else {
+    el.classList.remove('open');
+    btn.classList.remove('on');
+    btn.innerHTML='<span>📋</span> Task Board';
+  }
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&boardOpen)toggleBoard();});
 
+
+// ── ADD TASK ─────────────────────────────────────────────
+function showAddTaskForm(prefix){
+  // Hide the button, show the form
+  const btn = document.getElementById(`add-task-btn-${prefix}`);
+  const form = document.getElementById(`add-task-form-${prefix}`);
+  if(btn) btn.style.display = 'none';
+  if(form) form.style.display = 'flex';
+  const inp = document.getElementById(`atf-title-${prefix}`);
+  if(inp) inp.focus();
+}
+
+function cancelAddTask(prefix){
+  const btn = document.getElementById(`add-task-btn-${prefix}`);
+  const form = document.getElementById(`add-task-form-${prefix}`);
+  if(btn) btn.style.display = '';
+  if(form) form.style.display = 'none';
+  // Clear fields
+  ['atf-title','atf-desc','atf-owner','atf-budget','atf-priority','atf-due'].forEach(f=>{
+    const el = document.getElementById(`${f}-${prefix}`);
+    if(el) el.value = f==='atf-priority'?'1':f==='atf-owner'?'— Unassigned —':'';
+  });
+}
+
+function saveNewTask(prefix){
+  const title   = (document.getElementById(`atf-title-${prefix}`)?.value||'').trim();
+  if(!title){ alert('Please enter a task name'); return; }
+  const desc    = (document.getElementById(`atf-desc-${prefix}`)?.value||'').trim();
+  const owner   = document.getElementById(`atf-owner-${prefix}`)?.value||'— Unassigned —';
+  const budget  = (document.getElementById(`atf-budget-${prefix}`)?.value||'').trim();
+  const priority= parseInt(document.getElementById(`atf-priority-${prefix}`)?.value||'2');
+  const due     = document.getElementById(`atf-due-${prefix}`)?.value||'';
+
+  // Generate a unique task ID
+  const ts = Date.now().toString(36).toUpperCase();
+  const newId = `${prefix.toUpperCase().slice(0,3)}.X${ts}`;
+
+  // Save to Firebase under tasks path
+  const tkKey = fk(prefix, newId);
+  const taskData = {
+    id: newId, n: title, d: desc||title, pr: priority,
+    ow: owner, bu: budget||'TBD', st: 'Pending',
+    owner: owner, due: due, status: 'Pending',
+    addedBy: 'Ajay Kawa', addedAt: new Date().toISOString().slice(0,10),
+    isCustom: true
+  };
+  fbData[tkKey] = taskData;
+  try{ localStorage.setItem(LS, JSON.stringify(fbData)); }catch(e){}
+  db.ref(`${FB}/${tkKey}`).set(taskData)
+    .then(()=>showToast('✓ Task added'))
+    .catch(()=>showToast('✓ Saved locally'));
+
+  // Also store the task definition so it shows in the list
+  // We store custom tasks in a separate Firebase path
+  db.ref(`orn-euro-hq/custom-tasks/${prefix}/${newId}`).set(taskData);
+
+  // Add to in-memory custom tasks store
+  if(!customTasks[prefix]) customTasks[prefix]=[];
+  customTasks[prefix].push(taskData);
+
+  cancelAddTask(prefix);
+
+  // Re-render
+  setTimeout(()=>{
+    if(prefix==='hq') renderHQTasks();
+    else if(curDept && curDept.id===prefix) renderTasks(curDept);
+    if(boardOpen&&boardTab==='tasks') renderBoard();
+  }, 200);
+}
+
+// Load custom tasks from Firebase
+const customTasks = {};
+function loadCustomTasks(){
+  db.ref('orn-euro-hq/custom-tasks').on('value', snap=>{
+    const all = snap.val()||{};
+    Object.keys(all).forEach(prefix=>{
+      customTasks[prefix] = Object.values(all[prefix]||{});
+    });
+    // Re-render if a task pane is open
+    if(curDept&&curTab==='tasks') renderTasks(curDept);
+    if(curHQ&&curTab==='tasks') renderHQTasks();
+  },()=>{});
+}
+
 // ══ INIT ════════════════════════════════════════
 buildDeptList();
 fbLoad();
+loadCustomTasks();
 refreshTaskStat();
 </script>
 </body>
