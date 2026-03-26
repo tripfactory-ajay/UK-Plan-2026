@@ -810,6 +810,306 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 .cand-save-notes:hover { opacity: .82; }
 .cand-save-notes.ok { background: #059669; }
 
+
+/* ── JD MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-box {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  width: 100%; max-width: 620px; max-height: 85vh;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.modal-hdr {
+  padding: 18px 20px 14px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0;
+}
+.modal-title { font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.2; }
+.modal-sub   { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.modal-close {
+  width: 28px; height: 28px; border-radius: 7px; background: var(--off);
+  border: 1px solid var(--border); cursor: pointer; font-size: 14px;
+  color: var(--muted); display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-left: 12px; transition: all .15s;
+}
+.modal-close:hover { background: var(--border); color: var(--text); }
+.modal-body { flex: 1; overflow-y: auto; padding: 18px 20px 22px; }
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.jd-section { margin-bottom: 16px; }
+.jd-section-title {
+  font-size: 9.5px; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--navy); margin-bottom: 7px;
+  padding-bottom: 4px; border-bottom: 2px solid rgba(26,79,160,.1);
+}
+.jd-item { display: flex; gap: 8px; font-size: 11.5px; color: var(--text);
+  line-height: 1.5; margin-bottom: 5px; }
+.jd-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--navy);
+  flex-shrink: 0; margin-top: 7px; }
+.jd-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.jd-meta-card { padding: 10px 12px; border-radius: 9px; background: var(--off); border: 1px solid var(--border); }
+.jd-meta-l { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.jd-meta-v { font-size: 12px; font-weight: 700; color: var(--text); margin-top: 2px; }
+
+/* ── STAFF CARD action icons ── */
+.scard-actions { display: flex; gap: 5px; flex-shrink: 0; }
+.scard-action-btn {
+  width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--off); cursor: pointer; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; color: var(--muted);
+}
+.scard-action-btn:hover { background: #fff; border-color: var(--navy); color: var(--navy); }
+.scard-action-btn.del:hover { border-color: #ef4444; color: #ef4444; background: #fee2e2; }
+
+/* ── EDIT STAFF FORM (inline) ── */
+.staff-edit-form {
+  padding: 12px 14px; background: #f0f4fa;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sef-row { display: flex; gap: 7px; flex-wrap: wrap; }
+.sef-input {
+  flex: 1; min-width: 110px; padding: 6px 9px;
+  border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; outline: none;
+}
+.sef-input:focus { border-color: var(--navy); }
+.sef-select {
+  flex: 1; min-width: 110px; padding: 6px 9px;
+  border: 1px solid var(--border); border-radius: 7px;
+  font-size: 11px; font-family: 'Sora',sans-serif; color: var(--text);
+  background: #fff; outline: none; cursor: pointer;
+}
+.sef-label { font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--muted); }
+.sef-actions { display: flex; gap: 7px; justify-content: flex-end; }
+.sef-save { padding: 6px 14px; border-radius: 7px; border: none;
+  background: var(--navy); color: #fff; font-size: 10.5px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora',sans-serif; }
+.sef-cancel { padding: 6px 12px; border-radius: 7px; border: 1px solid var(--border);
+  background: #fff; color: var(--muted); font-size: 10.5px; font-weight: 600;
+  cursor: pointer; font-family: 'Sora',sans-serif; }
+
+/* ── ORG CHART TAB ── */
+.org-tree { padding: 4px 0 16px; }
+.org-dept-title {
+  font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin: 14px 0 6px;
+}
+.org-node {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 13px; border-radius: 10px; margin-bottom: 5px;
+  background: #fff; border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  cursor: pointer; transition: all .15s;
+}
+.org-node:hover { border-color: var(--navy); background: #eef2fb; }
+.org-node.level-1 { margin-left: 0; border-left: 3px solid var(--dept-col, var(--navy)); }
+.org-node.level-2 { margin-left: 22px; border-left: 3px solid var(--dept-col, var(--navy)); opacity: .9; }
+.org-node.level-3 { margin-left: 44px; border-left: 2px solid var(--dept-col, var(--border)); opacity: .8; }
+.org-av {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #fff;
+}
+.org-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.org-role { font-size: 10px; color: var(--muted); margin-top: 1px; }
+.org-dept-tag { font-size: 9px; font-weight: 700; padding: 1px 7px; border-radius: 20px;
+  margin-left: auto; flex-shrink: 0; }
+.org-vacant-tag { font-size: 9px; font-weight: 600; padding: 1px 7px; border-radius: 20px;
+  background: #fef3c7; color: #92400e; margin-left: auto; flex-shrink: 0; }
+
+/* ── MULTI-OWNER TASK ── */
+.owner-multi { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.owner-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 20px; background: #e0e7ff; color: #3730a3;
+  font-size: 10px; font-weight: 600;
+}
+.owner-pill-remove {
+  background: none; border: none; color: #6366f1; cursor: pointer;
+  font-size: 10px; padding: 0; line-height: 1; margin-left: 2px;
+}
+.owner-pill-remove:hover { color: #991b1b; }
+
+
+/* ── JD MODAL ── */
+.modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.45);
+  backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-box{background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-hdr{padding:18px 20px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;}
+.modal-title{font-size:17px;font-weight:800;color:var(--text);}
+.modal-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.modal-close{width:28px;height:28px;border-radius:7px;background:var(--off);
+  border:1px solid var(--border);cursor:pointer;font-size:14px;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;transition:all .15s;}
+.modal-close:hover{background:var(--border);color:var(--text);}
+.modal-body{flex:1;overflow-y:auto;padding:18px 20px 22px;}
+.modal-body::-webkit-scrollbar{width:4px;}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.jd-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.jd-meta-card{padding:10px 12px;border-radius:9px;background:var(--off);border:1px solid var(--border);}
+.jd-meta-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);}
+.jd-meta-v{font-size:12px;font-weight:700;color:var(--text);margin-top:2px;}
+.jd-section{margin-bottom:14px;}
+.jd-section-title{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:7px;padding-bottom:4px;border-bottom:2px solid rgba(26,79,160,.1);}
+.jd-item{display:flex;gap:8px;font-size:11.5px;color:var(--text);line-height:1.5;margin-bottom:5px;}
+.jd-dot{width:5px;height:5px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:7px;}
+
+/* ── STAFF CARD ACTIONS ── */
+.scard-hdr-right{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.sc-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);
+  background:var(--off);cursor:pointer;font-size:13px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--muted);}
+.sc-btn:hover{background:#fff;border-color:var(--navy);color:var(--navy);}
+.sc-btn.del:hover{border-color:#ef4444;color:#ef4444;background:#fee2e2;}
+
+/* ── EDIT / ADD STAFF FORM ── */
+.staff-form{padding:12px 14px;background:#f0f4fa;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;}
+.sf-row{display:flex;gap:7px;flex-wrap:wrap;}
+.sf-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px;}
+.sf-input{flex:1;min-width:100px;padding:6px 9px;border:1px solid var(--border);border-radius:7px;
+  font-size:11px;font-family:'Sora',sans-serif;color:var(--text);background:#fff;outline:none;}
+.sf-input:focus{border-color:var(--navy);}
+.sf-select{flex:1;min-width:100px;padding:6px 9px;border:1px solid var(--border);border-radius:7px;
+  font-size:11px;font-family:'Sora',sans-serif;color:var(--text);background:#fff;outline:none;cursor:pointer;}
+.sf-textarea{width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:7px;
+  font-size:11px;font-family:'Sora',sans-serif;color:var(--text);background:#fff;outline:none;
+  min-height:70px;resize:vertical;line-height:1.5;}
+.sf-actions{display:flex;gap:7px;justify-content:flex-end;}
+.sf-save{padding:6px 14px;border-radius:7px;border:none;background:var(--navy);
+  color:#fff;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;}
+.sf-cancel{padding:6px 12px;border-radius:7px;border:1px solid var(--border);
+  background:#fff;color:var(--muted);font-size:10.5px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;}
+
+/* ── ADD PERSON BUTTON ── */
+.add-person-btn{display:flex;align-items:center;gap:7px;width:100%;padding:10px 14px;
+  margin-top:8px;border-radius:9px;border:2px dashed var(--border);background:transparent;
+  color:var(--muted);font-size:11.5px;font-weight:600;font-family:'Sora',sans-serif;
+  cursor:pointer;transition:all .15s;}
+.add-person-btn:hover{border-color:var(--navy);color:var(--navy);background:rgba(26,79,160,.04);}
+
+/* ── ORG CHART ── */
+.org-wrap{padding:4px 0 20px;}
+.org-top-card{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;
+  background:linear-gradient(135deg,var(--navy-dk),var(--navy));color:#fff;margin-bottom:14px;
+  box-shadow:0 4px 18px rgba(26,79,160,.3);}
+.org-top-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.org-top-name{font-size:14px;font-weight:800;}
+.org-top-role{font-size:10.5px;opacity:.7;margin-top:2px;}
+.org-section-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);margin:16px 0 7px;}
+.org-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+.org-card{flex:1;min-width:140px;max-width:200px;padding:10px 12px;border-radius:10px;
+  background:#fff;border:1.5px solid var(--border);cursor:pointer;transition:all .15s;
+  box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.org-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1);}
+.org-card-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:700;color:#fff;margin-bottom:7px;}
+.org-card-name{font-size:11px;font-weight:700;color:var(--text);line-height:1.3;}
+.org-card-role{font-size:9.5px;color:var(--muted);margin-top:2px;line-height:1.3;}
+.org-card-dept{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;
+  margin-top:5px;display:inline-block;}
+.org-vacant{border-style:dashed;background:var(--off);}
+.org-vacant .org-card-name{color:var(--muted);}
+.org-connector{display:flex;align-items:center;justify-content:center;height:16px;color:var(--border);font-size:18px;margin:2px 0;}
+
+/* ── MULTI-OWNER ── */
+.owner-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.owner-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;
+  background:#e0e7ff;color:#3730a3;font-size:10px;font-weight:600;}
+.owner-pill-x{background:none;border:none;color:#6366f1;cursor:pointer;font-size:11px;
+  padding:0;line-height:1;margin-left:1px;}
+.owner-pill-x:hover{color:#991b1b;}
+.owner-add-row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center;}
+
+
+/* ── LOGIN SCREEN ──────────────────────────────────── */
+#loginScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+}
+.login-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover; background-position: center 40%;
+  filter: saturate(.55) brightness(.55);
+}
+.login-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(7,17,43,.82) 0%, rgba(10,25,65,.72) 60%, rgba(7,17,43,.88) 100%);
+}
+.login-card {
+  position: relative; z-index: 1;
+  width: 380px; padding: 40px 36px 36px;
+  background: rgba(255,255,255,.97);
+  border-radius: 20px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.15);
+  display: flex; flex-direction: column; align-items: center;
+  animation: loginFadeIn .5s ease both;
+}
+@keyframes loginFadeIn {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.login-logo-wrap {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: #fff; border: 3px solid rgba(26,79,160,.2);
+  box-shadow: 0 4px 24px rgba(26,79,160,.25);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin-bottom: 22px; gap: 4px;
+}
+.login-logo { width: 70px; height: 36px; object-fit: contain; }
+.login-logo-fb { font-size: 26px; font-weight: 900; color: #0f3070; letter-spacing: 1px; }
+.login-logo-sub { font-size: 8.5px; font-weight: 700; color: #1a4fa0; letter-spacing: .1em;
+  text-transform: uppercase; text-align: center; }
+.login-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 4px; text-align: center; }
+.login-sub   { font-size: 11.5px; color: #6b7280; margin-bottom: 28px; text-align: center; }
+.login-field { width: 100%; margin-bottom: 13px; }
+.login-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+  color: #6b7280; margin-bottom: 5px; display: block; }
+.login-input {
+  width: 100%; padding: 11px 14px; border-radius: 10px;
+  border: 1.5px solid #e2e8f0; font-size: 13px;
+  font-family: 'Sora', sans-serif; color: #111827;
+  background: #f8fafc; outline: none; transition: border-color .15s, background .15s;
+}
+.login-input:focus { border-color: #1a4fa0; background: #fff; }
+.login-btn {
+  width: 100%; padding: 13px; border-radius: 11px; border: none;
+  background: linear-gradient(135deg, #0f3070, #1a4fa0);
+  color: #fff; font-size: 13.5px; font-weight: 700;
+  font-family: 'Sora', sans-serif; cursor: pointer;
+  margin-top: 8px; transition: opacity .15s, transform .15s;
+  box-shadow: 0 6px 20px rgba(26,79,160,.4);
+}
+.login-btn:hover { opacity: .9; transform: translateY(-1px); }
+.login-btn:active { transform: translateY(0); }
+.login-error {
+  width: 100%; padding: 9px 12px; border-radius: 8px;
+  background: #fee2e2; border: 1px solid #fca5a5;
+  color: #991b1b; font-size: 11px; font-weight: 600;
+  margin-top: 10px; text-align: center; display: none;
+}
+.login-footer { margin-top: 20px; font-size: 10px; color: #9ca3af; text-align: center; }
+.login-user-badge {
+  display: none; width: 100%; padding: 10px 14px; border-radius: 9px;
+  background: #f0fdf4; border: 1px solid #86efac;
+  color: #166534; font-size: 11px; font-weight: 600;
+  align-items: center; gap: 8px; margin-bottom: 16px;
+}
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 18px; right: 20px; z-index: 999;
@@ -826,9 +1126,49 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <body>
+
+<div id="loginScreen">
+  <div class="login-bg"></div>
+  <div class="login-overlay"></div>
+  <div class="login-card">
+
+    <div class="login-logo-wrap">
+      <img class="login-logo" src="orn-logo.png" alt="ORN"
+        onerror="this.style.display='none';document.getElementById('loginLogoFb').style.display='block'">
+      <div id="loginLogoFb" class="login-logo-fb" style="display:none">ORN</div>
+      <div class="login-logo-sub">European HQ</div>
+    </div>
+
+    <div class="login-title">ORN Group</div>
+    <div class="login-sub">European HQ Dashboard · Secure Login</div>
+
+    <div id="loginUserBadge" class="login-user-badge"></div>
+
+    <div class="login-field">
+      <label class="login-label" for="loginUser">Username</label>
+      <input class="login-input" id="loginUser" type="text"
+        placeholder="Enter your name" autocomplete="username"
+        onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()">
+    </div>
+    <div class="login-field">
+      <label class="login-label" for="loginPass">Password</label>
+      <input class="login-input" id="loginPass" type="password"
+        placeholder="Enter password" autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')attemptLogin()">
+    </div>
+
+    <button class="login-btn" onclick="attemptLogin()">Sign In →</button>
+    <div class="login-error" id="loginError">Incorrect username or password</div>
+
+    <div class="login-footer">ORN Group / TripFactory · European HQ · London<br>Authorised access only</div>
+  </div>
+</div>
+
 <div class="bg"></div>
 <div class="bg-over"></div>
 <div class="toast" id="toast"></div>
+<div id="jdModal" class="modal-overlay" style="display:none" onclick="closeJDModal(event)"><div class="modal-box" id="jdModalBox"></div></div>
+<div id="modalOverlay" class="modal-overlay" style="display:none" onclick="closeModal(event)"></div>
 
 <div class="layout">
 
@@ -1305,7 +1645,7 @@ function showPanel(cfg){
   document.getElementById('col3Panel').style.setProperty('--accent', cfg.color||'#1a4fa0');
 
   const tabs=document.getElementById('panelTabs'); tabs.innerHTML='';
-  const tl=cfg.isHQ?[['overview','🏛 Overview'],['tasks','✅ Tasks']]:[['staff','👤 Staff'],['tasks','✅ Tasks']];
+  const tl=cfg.isHQ?[['overview','🏛 Overview'],['tasks','✅ Tasks'],['org','🗂 Org Chart']]:[['staff','👤 Staff'],['tasks','✅ Tasks'],['org','🗂 Org Chart']];
   tl.forEach(([t,lbl],idx)=>{
     const b=document.createElement('button');
     b.className='panel-tab'+(idx===0?' on':'');
@@ -1322,6 +1662,8 @@ function switchTab(t,cfg){
   if(t==='overview') renderHQOverview();
   else if(t==='staff'&&curDept) renderStaff(curDept);
   else if(t==='tasks') cfg.isHQ?renderHQTasks():renderTasks(curDept);
+  else if(t==='org') renderOrgChart(cfg.isHQ?null:curDept);
+  else if(t==='org') renderOrgChart(cfg.isHQ?null:curDept);
 }
 
 // ══ RENDER FUNCTIONS ═════════════════════════════
@@ -1361,80 +1703,390 @@ function renderHQTasks(){
 
 function sc(hex,a){const n=parseInt(hex.replace('#',''),16);const r=Math.min(255,Math.max(0,(n>>16)+a));const g=Math.min(255,Math.max(0,((n>>8)&0xff)+a));const b=Math.min(255,Math.max(0,(n&0xff)+a));return'#'+((r<<16)|(g<<8)|b).toString(16).padStart(6,'0')}
 
+// ── Custom staff overrides (Firebase) ─────────────────
+const staffOverrides = {};   // key: deptId__si -> {nm,ro,sl,rt,st,lo,rs}
+const staffDeleted   = {};   // key: deptId__si -> true
+
+function skDel(d,i){ return d+'__del__'+i; }
+function skOvr(d,i){ return d+'__ovr__'+i; }
+
+function loadStaffOverrides(){
+  try{ Object.assign(staffOverrides, JSON.parse(localStorage.getItem('orn-staff-ovr')||'{}')); }catch(e){}
+  try{ Object.assign(staffDeleted,   JSON.parse(localStorage.getItem('orn-staff-del')||'{}')); }catch(e){}
+  db.ref('orn-euro-hq/staff-overrides').on('value', s=>{
+    const v=s.val()||{};
+    Object.keys(staffOverrides).forEach(k=>delete staffOverrides[k]);
+    Object.assign(staffOverrides, v);
+    try{localStorage.setItem('orn-staff-ovr',JSON.stringify(staffOverrides));}catch(e){}
+    if(curDept&&curTab==='staff') renderStaff(curDept);
+  },()=>{});
+  db.ref('orn-euro-hq/staff-deleted').on('value', s=>{
+    const v=s.val()||{};
+    Object.keys(staffDeleted).forEach(k=>delete staffDeleted[k]);
+    Object.assign(staffDeleted, v);
+    try{localStorage.setItem('orn-staff-del',JSON.stringify(staffDeleted));}catch(e){}
+    if(curDept&&curTab==='staff') renderStaff(curDept);
+  },()=>{});
+}
+
+function getStaff(dept){
+  // Merge base staff + overrides + custom additions, skip deleted
+  const base = dept.staff.map((p,i)=>({...p, _idx:i, _custom:false}));
+  const custom = Object.entries(staffOverrides)
+    .filter(([k])=>k.startsWith(dept.id+'__new__'))
+    .map(([k,v])=>({...v, _idx:k, _custom:true}));
+  return [...base, ...custom].map(p=>{
+    const k = p._custom ? p._idx : skOvr(dept.id, p._idx);
+    const ovr = staffOverrides[k]||{};
+    return {...p, ...ovr};
+  }).filter(p=> !staffDeleted[skDel(dept.id, p._idx)]);
+}
+
 function renderStaff(dept){
   const pb=document.getElementById('panelBody');
-  const pal=[dept.cl,sc(dept.cl,28),sc(dept.cl,-18)];
+  const pal=[dept.cl, sc(dept.cl,28), sc(dept.cl,-18)];
   const HR_PEOPLE=['— Unassigned —','Alia Taub (CPO / HR)','Ajay Kawa (COO — Europe)','Raj Kumar (COO)','External Recruiter'];
   const HIRE_STATUSES=['Briefing','Advertising','Shortlist','Interviews','Offer','Hired'];
+  const staff = getStaff(dept);
 
-  const cards=dept.staff.map((p,si)=>{
+  const cards = staff.map((p, ci)=>{
+    const si = p._idx;
     const init=p.nm.split(' ').filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase();
     const bCls=p.st==='active'?'b-active':p.st==='retain'?'b-retain':'b-vacant';
     const bTxt=p.st==='active'?'Active':p.st==='retain'?'Retain':'Vacant';
     const sal=p.sl?`<span class="sal-chip">${p.sl}</span>`:'';
     const hire=p.hi?`<div class="hire-chip">Hire target: ${p.hi}</div>`:'';
     const loc=p.lo?`<div class="sloc">📍 ${p.lo}</div>`:'';
-    const rs=p.rs.map(r=>`<div class="ritem"><div class="rdot" style="background:${dept.cl}"></div><div>${r}</div></div>`).join('');
+    const rs=(p.rs||[]).map(r=>`<div class="ritem"><div class="rdot" style="background:${dept.cl}"></div><div>${r}</div></div>`).join('');
 
-    // Recruitment assign box — only for vacant/retain roles
+    // Recruitment assign box
     let hireBox='';
     if(p.st==='vacant'||p.st==='retain'){
-      const savedAss  = gr(dept.id,si,'assignee','');
-      const savedDate = gr(dept.id,si,'targetDate','');
-      const savedStat = gr(dept.id,si,'status','Briefing');
+      const savedAss  = gr(dept.id, ci, 'assignee','');
+      const savedDate = gr(dept.id, ci, 'targetDate','');
+      const savedStat = gr(dept.id, ci, 'status','Briefing');
       const hrOpts=HR_PEOPLE.map(h=>`<option value="${h}" ${savedAss===h?'selected':''}>${h}</option>`).join('');
       const stOpts=HIRE_STATUSES.map(s=>`<option value="${s}" ${savedStat===s?'selected':''}>${s}</option>`).join('');
-      const chips = savedAss&&savedAss!=='— Unassigned —' ? `
-        <div class="hire-chips">
-          <span class="hchip hchip-who">👤 ${savedAss}</span>
-          ${savedDate?`<span class="hchip hchip-when">📅 ${savedDate}</span>`:''}
-          <span class="hchip hchip-stat hs-${savedStat}">${savedStat}</span>
-        </div>` : '';
-      hireBox=`
-        <div class="hire-assign-box">
-          <span class="hire-assign-lbl">Recruitment Assignment</span>
-          ${chips}
-          <div class="hire-assign-row">
-            <select class="hire-sel" id="hs-${dept.id}-${si}">${hrOpts}</select>
-            <input type="date" class="hire-date" id="hd-${dept.id}-${si}" value="${savedDate}" title="Target hire date">
-            <select class="hire-status-sel" id="hst-${dept.id}-${si}">${stOpts}</select>
-            <button class="hire-sav-btn" id="hb-${dept.id}-${si}" onclick="saveHire('${dept.id}',${si})">Save</button>
-          </div>
-        </div>`;
+      const chips=savedAss&&savedAss!=='— Unassigned —'?`<div class="hire-chips"><span class="hchip hchip-who">👤 ${savedAss}</span>${savedDate?`<span class="hchip hchip-when">📅 ${savedDate}</span>`:''}<span class="hchip hchip-stat hs-${savedStat}">${savedStat}</span></div>`:'';
+      hireBox=`<div class="hire-assign-box"><span class="hire-assign-lbl">Recruitment Assignment</span>${chips}<div class="hire-assign-row"><select class="hire-sel" id="hs-${dept.id}-${ci}">${hrOpts}</select><input type="date" class="hire-date" id="hd-${dept.id}-${ci}" value="${savedDate}"><select class="hire-status-sel" id="hst-${dept.id}-${ci}">${stOpts}</select><button class="hire-sav-btn" id="hb-${dept.id}-${ci}" onclick="saveHire('${dept.id}',${ci})">Save</button></div></div>`;
     }
 
-    return`<div class="scard" id="sc-${dept.id}-${si}">
-      <div class="scard-hdr" onclick="tog('${dept.id}',${si})">
-        <div class="sav" style="background:${pal[si%pal.length]}">${init}</div>
+    const siStr = typeof si==='string' ? `'${si}'` : si;
+
+    return `<div class="scard" id="sc-${dept.id}-${ci}">
+      <div class="scard-hdr" onclick="tog('${dept.id}',${ci})">
+        <div class="sav" style="background:${pal[ci%pal.length]}">${init}</div>
         <div class="sinfo"><div class="sname">${p.nm}</div><div class="srole">${p.ro}</div>${sal}${hire}${loc}</div>
-        <span class="sbadge ${bCls}">${bTxt}</span><span class="schev">▼</span>
+        <div class="scard-hdr-right">
+          <span class="sbadge ${bCls}">${bTxt}</span>
+          <button class="sc-btn" title="Job Description" onclick="event.stopPropagation();showJD('${dept.id}',${siStr})">📄</button>
+          <button class="sc-btn" title="Edit" onclick="event.stopPropagation();showEditStaff('${dept.id}',${siStr},${ci})">✏️</button>
+          <button class="sc-btn del" title="Delete" onclick="event.stopPropagation();deleteStaff('${dept.id}',${siStr})">🗑</button>
+          <span class="schev">▼</span>
+        </div>
       </div>
       <div class="sresp">
         <div class="resp-inner">${rs}${hireBox}</div>
         <div class="rto">Reports to: ${p.rt}</div>
+        <div id="edit-form-${dept.id}-${ci}" style="display:none"></div>
       </div>
     </div>`;
   }).join('');
 
-  // Department connections key
-  const links = DEPT_LINKS[dept.id] || [];
-  const connHTML = links.length ? `
-    <div class="dept-connections">
-      <div class="dc-title">Connected Departments</div>
-      <div class="dc-list">
-        ${links.map(([lid,lbl])=>{
-          const d=DEPS.find(x=>x.id===lid);
-          if(!d) return '';
-          return `<div class="dc-chip" style="color:${d.cl};border-color:${d.cl}40;background:${d.cl}10"
-            onclick="openDept('${d.id}')" title="${lbl}">
-            <span class="dc-chip-icon">${d.ic}</span>${d.ab}<span style="font-size:9px;opacity:.6;font-weight:400;margin-left:2px">${lbl}</span>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>` : '';
+  // Dept connections
+  const links=DEPT_LINKS[dept.id]||[];
+  const connHTML=links.length?`<div class="dept-connections"><div class="dc-title">Connected Departments</div><div class="dc-list">${links.map(([lid,lbl])=>{const d=DEPS.find(x=>x.id===lid);if(!d)return'';return`<div class="dc-chip" style="color:${d.cl};border-color:${d.cl}40;background:${d.cl}10" onclick="openDept('${d.id}')" title="${lbl}"><span class="dc-chip-icon">${d.ic}</span>${d.ab}<span style="font-size:9px;opacity:.6;font-weight:400;margin-left:2px">${lbl}</span></div>`;}).join('')}</div></div>`:'';
 
-  pb.innerHTML=`<div class="sec-lbl">${dept.staff.length} Roles</div>${cards}${connHTML}`;
+  pb.innerHTML=`<div class="sec-lbl">${staff.length} Roles</div>${cards}
+    <button class="add-person-btn" onclick="showAddStaff('${dept.id}')">＋ Add Person</button>
+    <div id="add-staff-form-${dept.id}" style="display:none"></div>
+    ${connHTML}`;
 }
+
+function tog(did,idx){document.getElementById(`sc-${did}-${idx}`)?.classList.toggle('open')}
+
+// ── JD MODAL ──────────────────────────────────────────
+function showJD(deptId, si){
+  const dept = DEPS.find(d=>d.id===deptId); if(!dept) return;
+  const staff = getStaff(dept);
+  const p = typeof si==='string'
+    ? staff.find(x=>x._idx===si)
+    : dept.staff[si] ? {...dept.staff[si], ...( staffOverrides[skOvr(deptId,si)]||{} )} : null;
+  if(!p) return;
+
+  const modal = document.getElementById('jdModal');
+  const box   = document.getElementById('jdModalBox');
+  const rs = (p.rs||[]);
+
+  box.innerHTML=`
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-badge" style="background:${dept.cl};display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;color:#fff;margin-bottom:8px">${dept.ic} ${dept.n}</div>
+        <div class="modal-title">${p.ro}</div>
+        <div class="modal-sub">${p.nm||'Vacant'}</div>
+      </div>
+      <button class="modal-close" onclick="closeJDModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="jd-meta-grid">
+        <div class="jd-meta-card"><div class="jd-meta-l">Status</div><div class="jd-meta-v">${p.st==='active'?'Active':p.st==='retain'?'Retain':'Vacant'}</div></div>
+        ${p.sl?`<div class="jd-meta-card"><div class="jd-meta-l">Salary</div><div class="jd-meta-v" style="color:#059669">${p.sl}</div></div>`:''}
+        ${p.hi?`<div class="jd-meta-card"><div class="jd-meta-l">Hire Target</div><div class="jd-meta-v">${p.hi}</div></div>`:''}
+        <div class="jd-meta-card"><div class="jd-meta-l">Reports To</div><div class="jd-meta-v">${p.rt||'—'}</div></div>
+        ${p.lo?`<div class="jd-meta-card"><div class="jd-meta-l">Location</div><div class="jd-meta-v">${p.lo}</div></div>`:''}
+      </div>
+      <div class="jd-section">
+        <div class="jd-section-title">Key Responsibilities</div>
+        ${rs.length ? rs.map(r=>`<div class="jd-item"><div class="jd-dot"></div><div>${r}</div></div>`).join('') : '<div style="font-size:11px;color:var(--muted)">No responsibilities listed</div>'}
+      </div>
+      <div style="padding:12px 14px;background:rgba(26,79,160,.05);border-radius:9px;border:1px solid rgba(26,79,160,.12)">
+        <div style="font-size:10px;font-weight:700;color:var(--navy);margin-bottom:4px">DEPARTMENT</div>
+        <div style="font-size:11.5px;color:var(--text)">${dept.n} — ${dept.sub}</div>
+      </div>
+    </div>`;
+  modal.style.display='flex';
+}
+function closeJDModal(e){
+  if(e && e.target!==document.getElementById('jdModal')) return;
+  document.getElementById('jdModal').style.display='none';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('jdModal').style.display='none'; });
+
+// ── EDIT STAFF ────────────────────────────────────────
+function showEditStaff(deptId, si, ci){
+  const dept=DEPS.find(d=>d.id===deptId); if(!dept) return;
+  const staff=getStaff(dept);
+  const p=staff.find(x=>x._idx===si)||(typeof si==='number'?dept.staff[si]:null);
+  if(!p) return;
+  const formEl=document.getElementById(`edit-form-${deptId}-${ci}`);
+  if(!formEl) return;
+  // Toggle: if already open, close it
+  if(formEl.style.display!=='none' && formEl.innerHTML!==''){formEl.style.display='none';formEl.innerHTML='';return;}
+  document.getElementById(`sc-${deptId}-${ci}`)?.classList.add('open');
+  const rsText=(p.rs||[]).join('\n');
+  const siStr=typeof si==='string'?`'${si}'`:si;
+  formEl.innerHTML=`
+    <div class="staff-form">
+      <div class="sf-label">Edit Staff / Role</div>
+      <div class="sf-row">
+        <input class="sf-input" id="sef-nm-${deptId}-${ci}" placeholder="Name" value="${p.nm||''}">
+        <input class="sf-input" id="sef-ro-${deptId}-${ci}" placeholder="Role/Title" value="${p.ro||''}">
+      </div>
+      <div class="sf-row">
+        <input class="sf-input" id="sef-sl-${deptId}-${ci}" placeholder="Salary e.g. £35K–£48K" value="${p.sl||''}">
+        <input class="sf-input" id="sef-rt-${deptId}-${ci}" placeholder="Reports to" value="${p.rt||''}">
+        <select class="sf-select" id="sef-st-${deptId}-${ci}">
+          ${['active','vacant','retain'].map(s=>`<option value="${s}" ${p.st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="sf-row">
+        <input class="sf-input" id="sef-hi-${deptId}-${ci}" placeholder="Hire target (optional)" value="${p.hi||''}">
+        <input class="sf-input" id="sef-lo-${deptId}-${ci}" placeholder="Location (optional)" value="${p.lo||''}">
+      </div>
+      <div><div class="sf-label" style="margin-bottom:4px">Responsibilities (one per line)</div>
+        <textarea class="sf-textarea" id="sef-rs-${deptId}-${ci}">${rsText}</textarea></div>
+      <div class="sf-actions">
+        <button class="sf-cancel" onclick="cancelEditStaff('${deptId}',${ci})">Cancel</button>
+        <button class="sf-save" onclick="saveEditStaff('${deptId}',${siStr},${ci})">Save Changes</button>
+      </div>
+    </div>`;
+  formEl.style.display='block';
+}
+function cancelEditStaff(deptId,ci){
+  const f=document.getElementById(`edit-form-${deptId}-${ci}`);
+  if(f){f.style.display='none';f.innerHTML='';}
+}
+function saveEditStaff(deptId, si, ci){
+  const g=id=>document.getElementById(id)?.value||'';
+  const ovr={
+    nm: g(`sef-nm-${deptId}-${ci}`),
+    ro: g(`sef-ro-${deptId}-${ci}`),
+    sl: g(`sef-sl-${deptId}-${ci}`),
+    rt: g(`sef-rt-${deptId}-${ci}`),
+    st: g(`sef-st-${deptId}-${ci}`),
+    hi: g(`sef-hi-${deptId}-${ci}`),
+    lo: g(`sef-lo-${deptId}-${ci}`),
+    rs: g(`sef-rs-${deptId}-${ci}`).split('\n').map(l=>l.trim()).filter(Boolean),
+  };
+  const key = typeof si==='string' ? si : skOvr(deptId, si);
+  staffOverrides[key]={...(staffOverrides[key]||{}),...ovr};
+  try{localStorage.setItem('orn-staff-ovr',JSON.stringify(staffOverrides));}catch(e){}
+  db.ref(`orn-euro-hq/staff-overrides/${key}`).update(ovr).catch(()=>{});
+  cancelEditStaff(deptId, ci);
+  renderStaff(DEPS.find(d=>d.id===deptId));
+  showToast('✓ Staff updated');
+}
+
+// ── DELETE STAFF ──────────────────────────────────────
+function deleteStaff(deptId, si){
+  if(!confirm('Remove this role from the department?')) return;
+  const key=skDel(deptId, si);
+  staffDeleted[key]=true;
+  try{localStorage.setItem('orn-staff-del',JSON.stringify(staffDeleted));}catch(e){}
+  db.ref(`orn-euro-hq/staff-deleted/${key}`).set(true).catch(()=>{});
+  const dept=DEPS.find(d=>d.id===deptId);
+  if(dept) renderStaff(dept);
+  showToast('✓ Role removed');
+}
+
+// ── ADD NEW STAFF ─────────────────────────────────────
+function showAddStaff(deptId){
+  const btn=document.querySelector(`[onclick="showAddStaff('${deptId}')"]`);
+  const formEl=document.getElementById(`add-staff-form-${deptId}`);
+  if(!formEl) return;
+  if(btn) btn.style.display='none';
+  formEl.innerHTML=`
+    <div class="staff-form" style="border-top:none;border:2px dashed var(--border);border-radius:10px;margin-top:6px">
+      <div class="sf-label" style="color:var(--navy)">Add New Person / Role</div>
+      <div class="sf-row">
+        <input class="sf-input" id="asf-nm-${deptId}" placeholder="Name (or 'TBH')">
+        <input class="sf-input" id="asf-ro-${deptId}" placeholder="Role / Job Title *">
+      </div>
+      <div class="sf-row">
+        <input class="sf-input" id="asf-sl-${deptId}" placeholder="Salary e.g. £35K–£48K">
+        <input class="sf-input" id="asf-rt-${deptId}" placeholder="Reports to">
+        <select class="sf-select" id="asf-st-${deptId}">
+          <option value="vacant">Vacant</option>
+          <option value="active">Active</option>
+          <option value="retain">Retain</option>
+        </select>
+      </div>
+      <div class="sf-row">
+        <input class="sf-input" id="asf-hi-${deptId}" placeholder="Hire target e.g. Q2 2026">
+        <input class="sf-input" id="asf-lo-${deptId}" placeholder="Location (optional)">
+      </div>
+      <div><div class="sf-label" style="margin-bottom:4px">Responsibilities (one per line)</div>
+        <textarea class="sf-textarea" id="asf-rs-${deptId}" placeholder="Key responsibilities..."></textarea></div>
+      <div class="sf-actions">
+        <button class="sf-cancel" onclick="cancelAddStaff('${deptId}')">Cancel</button>
+        <button class="sf-save" onclick="saveNewStaff('${deptId}')">Add Person</button>
+      </div>
+    </div>`;
+  formEl.style.display='block';
+}
+function cancelAddStaff(deptId){
+  const btn=document.querySelector(`[onclick="showAddStaff('${deptId}')"]`);
+  const f=document.getElementById(`add-staff-form-${deptId}`);
+  if(btn) btn.style.display='';
+  if(f){f.style.display='none';f.innerHTML='';}
+}
+function saveNewStaff(deptId){
+  const g=id=>document.getElementById(id)?.value||'';
+  const ro=g(`asf-ro-${deptId}`).trim();
+  if(!ro){alert('Please enter a role title');return;}
+  const newKey=`${deptId}__new__${Date.now().toString(36)}`;
+  const newP={
+    nm:g(`asf-nm-${deptId}`)||'TBH',
+    ro, sl:g(`asf-sl-${deptId}`), rt:g(`asf-rt-${deptId}`),
+    st:g(`asf-st-${deptId}`)||'vacant',
+    hi:g(`asf-hi-${deptId}`), lo:g(`asf-lo-${deptId}`),
+    rs:g(`asf-rs-${deptId}`).split('\n').map(l=>l.trim()).filter(Boolean),
+    _idx:newKey, _custom:true
+  };
+  staffOverrides[newKey]=newP;
+  try{localStorage.setItem('orn-staff-ovr',JSON.stringify(staffOverrides));}catch(e){}
+  db.ref(`orn-euro-hq/staff-overrides/${newKey}`).set(newP).catch(()=>{});
+  cancelAddStaff(deptId);
+  const dept=DEPS.find(d=>d.id===deptId);
+  if(dept) renderStaff(dept);
+  showToast('✓ Person added');
+}
+
+// ── ORG CHART ─────────────────────────────────────────
+function renderOrgChart(dept){
+  const pb=document.getElementById('panelBody');
+
+  if(dept){
+    // Single dept org chart
+    const staff=getStaff(dept);
+    const pal=[dept.cl, sc(dept.cl,28), sc(dept.cl,-18)];
+    // Find top role (reports to COO/CEO/BTO)
+    const topRoles=['COO','CEO','BTO','Chairman','Ajay','Raj Kumar'];
+    const top=staff.find(p=>topRoles.some(t=>(p.rt||'').includes(t)))||staff[0];
+    const rest=staff.filter(p=>p!==top);
+
+    let html=`<div class="org-wrap">`;
+    html+=`<div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px">${dept.n} — Team Structure</div>`;
+
+    if(top){
+      const init=top.nm.split(' ').filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+      html+=`<div class="org-top-card" onclick="openDept('${dept.id}')">
+        <div class="org-top-av" style="background:${dept.cl}">${init}</div>
+        <div><div class="org-top-name">${top.nm}</div><div class="org-top-role">${top.ro}</div>
+        ${top.sl?`<div style="font-size:9.5px;opacity:.65;margin-top:2px">${top.sl}</div>`:''}
+        </div></div>`;
+    }
+
+    if(rest.length){
+      html+=`<div style="display:flex;align-items:center;justify-content:center;color:var(--border);font-size:20px;margin:4px 0">↓</div>`;
+      html+=`<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:8px">Reports into ${top?.ro||dept.n}</div>`;
+      html+=`<div class="org-row">`;
+      rest.forEach((p,i)=>{
+        const init=p.nm.split(' ').filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const bCls=p.st==='active'?'b-active':p.st==='retain'?'b-retain':'b-vacant';
+        const bTxt=p.st==='active'?'●':p.st==='retain'?'◆':'○';
+        html+=`<div class="org-card ${p.st==='vacant'?'org-vacant':''}" style="--dept-col:${dept.cl}" onclick="openDept('${dept.id}')">
+          <div class="org-card-av" style="background:${pal[i%pal.length]}">${init}</div>
+          <div class="org-card-name">${p.nm}</div>
+          <div class="org-card-role">${p.ro}</div>
+          ${p.sl?`<div style="font-size:9px;color:#059669;margin-top:3px;font-family:'JetBrains Mono',monospace">${p.sl}</div>`:''}
+          <div class="org-card-dept" style="background:${dept.cl}18;color:${dept.cl}"><span class="${bCls.replace('b-','')}">${bTxt}</span> ${bTxt==='●'?'Active':bTxt==='◆'?'Retain':'Vacant'}</div>
+        </div>`;
+      });
+      html+=`</div>`;
+    }
+    html+=`</div>`;
+    pb.innerHTML=html;
+    return;
+  }
+
+  // Full company org chart
+  let html=`<div class="org-wrap">`;
+  html+=`<div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px">ORN Group — European HQ · Full Team Structure</div>`;
+
+  // Top level: leadership
+  const leadership=[
+    {nm:'Vinay Gupta', ro:'Chairman / CEO', cl:'#0f3070'},
+    {nm:'Raj Kumar',   ro:'COO', cl:'#0f3070'},
+    {nm:'Ajay Kawa',   ro:'COO — Europe', cl:'#1a4fa0'},
+    {nm:'Alia Taub',   ro:'CPO / HR Director', cl:'#1a4fa0'},
+  ];
+  html+=`<div class="org-row" style="margin-bottom:4px">`;
+  leadership.forEach(p=>{
+    const init=p.nm.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    html+=`<div class="org-card" style="--dept-col:${p.cl};border-left:3px solid ${p.cl}">
+      <div class="org-card-av" style="background:${p.cl}">${init}</div>
+      <div class="org-card-name">${p.nm}</div>
+      <div class="org-card-role">${p.ro}</div>
+    </div>`;
+  });
+  html+=`</div>`;
+  html+=`<div style="display:flex;align-items:center;justify-content:center;color:var(--border);font-size:20px;margin:6px 0">↓</div>`;
+
+  // Dept heads grouped by active vs vacant
+  DEPS.forEach(dep=>{
+    const staff=getStaff(dep);
+    if(!staff.length) return;
+    const active=staff.filter(p=>p.st==='active');
+    const vacant=staff.filter(p=>p.st!=='active');
+    html+=`<div class="org-section-lbl">${dep.ic} ${dep.n}</div>`;
+    html+=`<div class="org-row">`;
+    staff.slice(0,4).forEach((p,i)=>{
+      const init=p.nm.split(' ').filter(w=>/[A-Za-z]/.test(w[0])).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+      html+=`<div class="org-card ${p.st!=='active'?'org-vacant':''}" style="--dept-col:${dep.cl};cursor:pointer" onclick="openDept('${dep.id}')">
+        <div class="org-card-av" style="background:${p.st==='active'?dep.cl:'#9ca3af'}">${init}</div>
+        <div class="org-card-name">${p.nm}</div>
+        <div class="org-card-role">${p.ro}</div>
+        <div class="org-card-dept" style="background:${dep.cl}18;color:${dep.cl}">${dep.n}</div>
+      </div>`;
+    });
+    if(staff.length>4) html+=`<div class="org-card" style="align-items:center;justify-content:center;display:flex;flex-direction:column;gap:4px;cursor:pointer;background:var(--off)" onclick="openDept('${dep.id}')"><div style="font-size:20px">+${staff.length-4}</div><div style="font-size:10px;color:var(--muted)">more</div></div>`;
+    html+=`</div>`;
+  });
+  html+=`</div>`;
+  pb.innerHTML=html;
+}
+
 function tog(did,idx){document.getElementById(`sc-${did}-${idx}`).classList.toggle('open')}
 
 // ── BOARD TAB SWITCHING ───────────────────────────────────
@@ -1560,10 +2212,16 @@ function buildRows(prefix,tasks){
   return tasks.map(t=>{
     const s=gs(prefix,t.id,'status',null)||tStates[`${prefix}-${t.id}`]||t.st;
     tStates[`${prefix}-${t.id}`]=s;
-    const sO=gs(prefix,t.id,'owner',''), sD=gs(prefix,t.id,'due','');
+    const sOwners=gs(prefix,t.id,'owners',null);
+    const legacyO=gs(prefix,t.id,'owner','');
+    // owners is stored as array; fall back to single owner for old data
+    let owners=[];
+    if(sOwners&&Array.isArray(sOwners)) owners=sOwners;
+    else if(legacyO&&legacyO!=='— Unassigned —') owners=[legacyO];
+    const sD=gs(prefix,t.id,'due','');
     const dc={Pending:'dot-pending',Started:'dot-started',Completed:'dot-completed',Negotiating:'dot-negotiating'}[s]||'dot-pending';
-    const opts=PEOPLE.map(p=>`<option value="${p}" ${sO===p?'selected':''}>${p}</option>`).join('');
-    const owCh=sO&&sO!=='— Unassigned —'?`<span class="owner-chip">👤 ${sO}</span>`:'';
+    const ownerOpts=PEOPLE.map(p=>`<option value="${p}">${p}</option>`).join('');
+    const pills=owners.map(o=>`<span class="owner-pill">👤 ${o}<button class="owner-pill-x" onclick="removeOwner('${prefix}','${t.id}','${o.replace(/'/g,"\\'")}')">✕</button></span>`).join('');
     let duCh='';
     if(sD){const df=Math.ceil((new Date(sD)-new Date())/864e5);const cls=df<0?'ov':df<=7?'sn':'ok';const lb=df<0?`Overdue ${Math.abs(df)}d`:df===0?'Due today':`Due ${sD}`;duCh=`<span class="due-chip ${cls}">📅 ${lb}</span>`;}
     return`<div class="task-row">
@@ -1572,11 +2230,13 @@ function buildRows(prefix,tasks){
         <div class="tname">${t.n}</div>
         <div class="tdesc">${t.d}</div>
         <div class="tmeta"><span class="tsugg">Suggested: ${t.ow}</span><span class="tbudget">${t.bu}</span></div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px">${owCh}${duCh}</div>
-        <div class="owner-row">
-          <select class="osel" id="os-${prefix}-${t.id}">${opts}</select>
+        ${owners.length?`<div class="owner-pills">${pills}</div>`:''}
+        ${duCh?`<div style="margin-top:4px">${duCh}</div>`:''}
+        <div class="owner-add-row">
+          <select class="osel" id="os-${prefix}-${t.id}">${ownerOpts}</select>
           <input type="date" class="ddate" id="dd-${prefix}-${t.id}" value="${sD}">
-          <button class="sav-btn" onclick="saveOwner('${prefix}','${t.id}')">Save</button>
+          <button class="sav-btn" onclick="addOwner('${prefix}','${t.id}')">＋ Assign</button>
+          <button class="sav-btn" style="background:#6b7280" onclick="saveOwner('${prefix}','${t.id}')">Save Date</button>
         </div>
       </div>
       <div class="tctrl">
@@ -1587,6 +2247,35 @@ function buildRows(prefix,tasks){
       </div>
     </div>`;
   }).join('');
+}
+
+function addOwner(p,t){
+  const sel=document.getElementById(`os-${p}-${t}`);
+  if(!sel||sel.value==='— Unassigned —') return;
+  const cur=gs(p,t,'owners',null);
+  let owners=Array.isArray(cur)?[...cur]:(gs(p,t,'owner','')&&gs(p,t,'owner','')!=='— Unassigned —'?[gs(p,t,'owner','')]:[]);
+  if(!owners.includes(sel.value)) owners.push(sel.value);
+  fbSave(p,t,{owners,owner:owners[0]||''});
+  setTimeout(()=>{if(p==='hq')renderHQTasks();else if(curDept)renderTasks(curDept);},200);
+}
+
+function removeOwner(p,t,name){
+  const cur=gs(p,t,'owners',null);
+  let owners=Array.isArray(cur)?[...cur]:(gs(p,t,'owner','')&&gs(p,t,'owner','')!=='— Unassigned —'?[gs(p,t,'owner','')]:[]);
+  owners=owners.filter(o=>o!==name);
+  fbSave(p,t,{owners,owner:owners[0]||''});
+  setTimeout(()=>{if(p==='hq')renderHQTasks();else if(curDept)renderTasks(curDept);},200);
+}
+
+function saveOwner(p,t){
+  const dd=document.getElementById(`dd-${p}-${t}`);
+  if(!dd) return;
+  const cur=gs(p,t,'owners',null);
+  let owners=Array.isArray(cur)?cur:(gs(p,t,'owner','')&&gs(p,t,'owner','')!=='— Unassigned —'?[gs(p,t,'owner','')]:[]);
+  fbSave(p,t,{due:dd.value,owners,owner:owners[0]||''});
+  const btn=dd.nextElementSibling;
+  if(btn){btn.textContent='✓';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Save Date';btn.classList.remove('ok');},1600);}
+  setTimeout(()=>{if(p==='hq')renderHQTasks();else if(curDept)renderTasks(curDept);},200);
 }
 
 const CYCLE=['Pending','Started','Completed'];
@@ -1926,17 +2615,26 @@ function openCandidate(id){
 
       <!-- AI Question Generator -->
       <div class="ai-gen-box">
-        <div class="ai-gen-title"><span>🤖</span> AI Interview Question Generator</div>
-        <div class="acf-label" style="margin-bottom:5px">Paste LinkedIn profile text or CV summary</div>
-        <textarea class="ai-profile-area" id="ai-profile-${id}" placeholder="Paste the candidate's LinkedIn About section, work history, or CV summary here. The more detail you provide, the more targeted the questions will be.
-
-Example: Mark Feldman — 12 years in travel industry. Previously Head of Product at Thomas Cook, then COO at a boutique DMC. Built UK coach tour programme from 0 to 60 departures. Strong supplier relationships across UK and Europe. MBA from Imperial...">${cand.linkedin&&!cand.linkedin.startsWith('http')?cand.linkedin:''}</textarea>
-        <div class="ai-gen-hint">💡 Tip: copy the About section and Experience from LinkedIn and paste it above. We'll analyse it against the role requirements and generate targeted questions.</div>
+        <div class="ai-gen-title"><span>🤖</span> Interview Question Generator</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5">
+          Questions are generated from the role responsibilities and ORN Group Europe context.
+          Select a category focus then click generate.
+        </div>
+        <div class="acf-label" style="margin-bottom:5px">Focus Area (optional)</div>
+        <select class="acf-select" id="ai-focus-${id}" style="margin-bottom:10px">
+          <option value="all">All areas — balanced set of 10</option>
+          <option value="experience">Role experience & track record</option>
+          <option value="commercial">Commercial & financial acumen</option>
+          <option value="leadership">Leadership & team management</option>
+          <option value="industry">Travel industry knowledge</option>
+          <option value="culture">Culture, motivation & fit</option>
+          <option value="technical">Technical / product knowledge</option>
+        </select>
         <button class="ai-gen-btn" id="ai-gen-btn-${id}" onclick="generateQuestions('${id}')">
-          ✨ Generate Interview Questions
+          ✨ Generate 10 Interview Questions
         </button>
         <div id="ai-loading-${id}" style="display:none" class="ai-loading">
-          <div class="ai-spinner"></div> Analysing profile and generating tailored questions…
+          <div class="ai-spinner"></div> Generating questions…
         </div>
       </div>
 
@@ -1990,63 +2688,74 @@ function renderQuestionSections(sections){
 async function generateQuestions(candId){
   const cand = candidates[candId];
   if(!cand){ showToast('Candidate not found','err'); return; }
-  const profileText = (document.getElementById(`ai-profile-${candId}`)?.value||'').trim();
-  if(!profileText){ alert('Please paste the candidate profile or LinkedIn text first.'); return; }
+  if(!cand.roleTitle){ alert('Please assign a role to this candidate first (click Edit or re-add with a role selected).'); return; }
 
   const btn = document.getElementById(`ai-gen-btn-${candId}`);
   const loading = document.getElementById(`ai-loading-${candId}`);
   const qDiv = document.getElementById(`ai-questions-${candId}`);
-  if(btn) btn.disabled=true;
+  const focus = document.getElementById(`ai-focus-${candId}`)?.value || 'all';
+
+  if(btn){ btn.disabled=true; btn.textContent='Generating…'; }
   if(loading) loading.style.display='flex';
   if(qDiv) qDiv.innerHTML='';
 
-  const roleContext = cand.roleTitle ? `
-Role: ${cand.roleTitle}
-Department: ${cand.roleDept}
-Salary band: ${cand.roleSalary}
-Key responsibilities:
-${(cand.roleResponsibilities||[]).map((r,i)=>`${i+1}. ${r}`).join('\n')}
-` : 'Role: General interview — no specific role selected';
+  const focusMap = {
+    all:       'Balanced across: experience, commercial acumen, leadership, industry knowledge, culture and motivation.',
+    experience:'Focus heavily on their specific experience matching this role — past achievements, failures, what they built.',
+    commercial:'Focus on commercial and financial acumen — pricing, margin, P&L, budgets, revenue generation.',
+    leadership:'Focus on leadership, people management, team building, conflict resolution, managing up.',
+    industry:  'Focus on travel industry knowledge — suppliers, GDS, ATOL/ABTA, tour operating, inbound/outbound.',
+    culture:   'Focus on culture fit, motivation, values, long-term ambition, why ORN Group and why now.',
+    technical: 'Focus on technical/product knowledge specific to this role.',
+  };
 
-  const prompt = `You are an expert travel industry HR consultant helping ORN Group / TripFactory conduct interviews.
+  const roleText = `${cand.roleTitle} — ${cand.roleDept}
+Salary: ${cand.roleSalary}
+Hire target: ${cand.roleHireTarget}
+Responsibilities:
+${(cand.roleResponsibilities||[]).map((r,i)=>`${i+1}. ${r}`).join('\n')}`;
 
-CANDIDATE: ${cand.name}
-STATUS: ${cand.status}
+  const companyContext = `ORN Group / TripFactory — European HQ based in London.
+- Operating UK coach tours (20-30 itineraries Year 1), inbound travel from India and GCC markets
+- 9 EU offices across France, Germany, Poland, Czech Republic, Slovakia, Greece, Bulgaria, Italy, Turkey
+- 857+ hotel preferred portfolio managed from London contracting hub
+- Acquiring Cruise2 (ATOL, cruise lines) and a UK travel agency
+- Building PSA homeworker agent programme across Europe
+- Launching ORN App (iOS/Android) with ORN Credit loyalty wallet
+- ATOL application in progress, ABTA membership, Package Travel Regulations compliant
+- Small but growing team — candidate will need to be hands-on and entrepreneurial`;
 
-${roleContext}
+  const systemPrompt = `You are a senior HR director and travel industry expert conducting interviews for ORN Group, a fast-growing European travel company headquartered in London. You write sharp, probing interview questions that reveal whether a candidate truly has the skills, experience and mindset for a specific role.`;
 
-CANDIDATE PROFILE:
-${profileText}
+  const userPrompt = `Generate exactly 10 interview questions for a candidate applying for this role at ORN Group.
 
-Generate 20 targeted interview questions for this candidate, tailored to both their background AND the role requirements. Return ONLY valid JSON — no markdown, no preamble, no code blocks. Use this exact structure:
+ROLE:
+${roleText}
 
-[
-  {
-    "category": "Role Knowledge & Experience",
-    "questions": [
-      {"question": "...", "note": "What to listen for / why we ask this"},
-      {"question": "...", "note": "..."}
-    ]
-  },
-  {
-    "category": "Travel Industry Expertise",
-    "questions": [...]
-  },
-  {
-    "category": "Leadership & Team Management",
-    "questions": [...]
-  },
-  {
-    "category": "Commercial Acumen",
-    "questions": [...]
-  },
-  {
-    "category": "Culture & Motivations",
-    "questions": [...]
-  }
-]
+COMPANY CONTEXT:
+${companyContext}
 
-Make questions specific to THIS candidate's background — reference their experience, career moves, specific roles they held, any gaps or pivots. Each question should have a coaching note explaining what the interviewer is probing for.`;
+QUESTION FOCUS: ${focusMap[focus]||focusMap.all}
+
+CANDIDATE NAME: ${cand.name}
+
+Rules:
+- Exactly 10 questions, numbered 1-10
+- Each question must be specific to THIS role and THIS company context
+- Mix open questions, situational questions ("Tell me about a time…") and hypothetical questions ("How would you approach…")
+- After each question add: LISTEN FOR: [2-3 bullet points of what a strong answer includes]
+- Questions should be challenging but fair — designed to reveal real capability
+- Do NOT ask generic questions like "What are your strengths and weaknesses"
+- Reference the European context, the startup nature of the HQ, the India/GCC markets where relevant
+
+Format:
+Q1. [Question]
+LISTEN FOR:
+• [point]
+• [point]
+
+Q2. [Question]
+...`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -2054,29 +2763,111 @@ Make questions specific to THIS candidate's background — reference their exper
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        messages: [{ role: 'user', content: prompt }]
+        max_tokens: 2000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
       })
     });
+
+    if(!response.ok){
+      const err = await response.json().catch(()=>({}));
+      throw new Error(err.error?.message || `HTTP ${response.status}`);
+    }
+
     const data = await response.json();
-    const raw = data.content?.map(b=>b.text||'').join('')||'';
-    // Strip any markdown code fences if present
-    const clean = raw.replace(/^```[\w]*\n?/,'').replace(/\n?```$/,'').trim();
-    const sections = JSON.parse(clean);
-    // Save to Firebase
-    candidates[candId].questions = JSON.stringify(sections);
-    db.ref(`${FB_CAND}/${candId}/questions`).set(JSON.stringify(sections));
+    const raw = (data.content||[]).map(b=>b.text||'').join('').trim();
+
+    if(!raw) throw new Error('Empty response');
+
+    // Save and render
+    candidates[candId].questions = raw;
+    db.ref(`${FB_CAND}/${candId}/questions`).set(raw).catch(()=>{});
     try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
-    if(qDiv) qDiv.innerHTML = renderQuestionSections(sections);
+
+    if(qDiv) qDiv.innerHTML = renderPlainQuestions(raw, cand.name);
     showToast('✓ Questions generated');
-  } catch(err) {
-    console.error('AI generation error:', err);
-    if(qDiv) qDiv.innerHTML='<div style="padding:14px;color:#991b1b;background:#fee2e2;border-radius:8px;font-size:11px">Could not generate questions. Please check your connection and try again.</div>';
-    showToast('Generation failed','err');
+
+  } catch(err){
+    console.error('Generate error:', err);
+    if(qDiv) qDiv.innerHTML = `
+      <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:14px 16px;font-size:11.5px;color:#991b1b;line-height:1.5">
+        <strong>Could not generate questions.</strong><br>
+        Error: ${err.message||'Unknown error'}<br><br>
+        This feature requires an internet connection and the Anthropic API.<br>
+        It works on GitHub Pages — not in the local HTML viewer.
+      </div>`;
+    showToast('Generation failed — works on GitHub Pages only','err');
   } finally {
-    if(btn) btn.disabled=false;
+    if(btn){ btn.disabled=false; btn.textContent='✨ Generate 10 Interview Questions'; }
     if(loading) loading.style.display='none';
   }
+}
+
+function renderPlainQuestions(raw, name){
+  // Parse Q1. / Q2. format into styled cards
+  const lines = raw.split('\n');
+  let html = `<div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:14px">
+      Interview Questions — ${name||'Candidate'}
+    </div>`;
+
+  let currentQ = null;
+  let listenFor = [];
+  let inListen = false;
+  let qCount = 0;
+
+  function flushQ(){
+    if(!currentQ) return;
+    html += `<div class="iq-q" style="margin-bottom:10px;flex-direction:column;gap:6px">
+      <div style="display:flex;gap:10px">
+        <div class="iq-num">Q${qCount}</div>
+        <div class="iq-text">${currentQ}</div>
+      </div>`;
+    if(listenFor.length){
+      html += `<div style="margin-left:34px;padding:8px 10px;background:rgba(26,79,160,.04);border-radius:7px;border-left:3px solid rgba(26,79,160,.2)">
+        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:4px">Listen for:</div>
+        ${listenFor.map(l=>`<div style="font-size:10.5px;color:var(--muted);line-height:1.4;margin-bottom:2px">• ${l}</div>`).join('')}
+      </div>`;
+    }
+    html += '</div>';
+    currentQ = null; listenFor = []; inListen = false;
+  }
+
+  lines.forEach(line=>{
+    const trimmed = line.trim();
+    if(!trimmed) return;
+    const qMatch = trimmed.match(/^Q(\d+)[.\)]\s*(.+)/i);
+    if(qMatch){
+      flushQ();
+      qCount = parseInt(qMatch[1]);
+      currentQ = qMatch[2];
+      inListen = false;
+    } else if(/^LISTEN FOR:?$/i.test(trimmed)){
+      inListen = true;
+    } else if(inListen && trimmed.startsWith('•')){
+      listenFor.push(trimmed.slice(1).trim());
+    } else if(inListen && trimmed.startsWith('-')){
+      listenFor.push(trimmed.slice(1).trim());
+    } else if(currentQ && !inListen){
+      currentQ += ' ' + trimmed;
+    }
+  });
+  flushQ();
+
+  html += '</div>';
+  return html;
+}
+
+function savePastedQuestions(candId){
+  const text = (document.getElementById(`paste-back-${candId}`)?.value||'').trim();
+  if(!text){ alert('Please paste the questions first'); return; }
+  if(!candidates[candId]) return;
+  candidates[candId].questions = text;
+  db.ref(`${FB_CAND}/${candId}/questions`).set(text).catch(()=>{});
+  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
+  const qDiv = document.getElementById(`ai-questions-${candId}`);
+  if(qDiv) qDiv.innerHTML = renderPlainQuestions(text, candidates[candId].name);
+  showToast('✓ Questions saved');
 }
 
 function updateCandStatus(id, status){
@@ -2125,11 +2916,82 @@ function initMarkFeldman(){
   try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
 }
 
+
+// ══ LOGIN ════════════════════════════════════════════
+const USERS = {
+  'ajay kawa':  { pw: 'TFAK2026', name: 'Ajay Kawa', role: 'COO — Europe', color: '#1a4fa0' },
+  'raj kumar':  { pw: 'TFRK2026', name: 'Raj Kumar',  role: 'CEO — Global',  color: '#0f3070' },
+};
+let currentUser = null;
+
+function attemptLogin(){
+  const uRaw = (document.getElementById('loginUser')?.value||'').trim().toLowerCase();
+  const pw   = (document.getElementById('loginPass')?.value||'').trim();
+  const err  = document.getElementById('loginError');
+  err.style.display = 'none';
+
+  const user = USERS[uRaw];
+  if(!user || user.pw !== pw){
+    err.style.display = 'block';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+    // Shake the card
+    const card = document.querySelector('.login-card');
+    card.style.animation = 'none';
+    card.offsetHeight; // reflow
+    card.style.animation = 'loginShake .35s ease';
+    return;
+  }
+
+  // Success
+  currentUser = user;
+  sessionStorage.setItem('orn-user', JSON.stringify(user));
+
+  // Update col1 identity text if dashboard already loaded
+  const nameEl = document.querySelector('.id-name');
+  const roleEl = document.querySelector('.id-role');
+  if(nameEl) nameEl.textContent = user.name;
+  if(roleEl) roleEl.textContent = user.role;
+
+  // Fade out login screen
+  const screen = document.getElementById('loginScreen');
+  screen.style.transition = 'opacity .4s ease';
+  screen.style.opacity = '0';
+  setTimeout(()=>{ screen.style.display = 'none'; }, 420);
+}
+
+function checkSession(){
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('orn-user')||'null');
+    if(saved && USERS[saved.name.toLowerCase()]){
+      currentUser = saved;
+      document.getElementById('loginScreen').style.display = 'none';
+      const nameEl = document.querySelector('.id-name');
+      const roleEl = document.querySelector('.id-role');
+      if(nameEl) nameEl.textContent = saved.name;
+      if(roleEl) roleEl.textContent = saved.role;
+    }
+  } catch(e){}
+}
+
+// Add shake animation to CSS dynamically
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `@keyframes loginShake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}`;
+document.head.appendChild(shakeStyle);
+
 // ══ INIT ════════════════════════════════════════
+checkSession();
 buildDeptList();
 fbLoad();
 loadCustomTasks();
 loadCandidates();
+loadStaffOverrides();
 refreshTaskStat();
 setTimeout(initMarkFeldman, 1500);
 </script>
