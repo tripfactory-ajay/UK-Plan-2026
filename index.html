@@ -1853,6 +1853,30 @@ function closeJDModal(e){
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('jdModal').style.display='none'; });
 
 // ── EDIT STAFF ────────────────────────────────────────
+
+// ── Build full staff list across all depts for Reports-To dropdown ──
+function getAllStaffList(){
+  const list = [
+    '— Select —',
+    'Vinay Gupta (Chairman / CEO)',
+    'Raj Kumar (COO)',
+    'Ajay Kawa (COO — Europe)',
+    'Alia Taub (CPO / HR Director)',
+  ];
+  DEPS.forEach(dep=>{
+    getStaff(dep).forEach(p=>{
+      const entry = p.nm && p.nm!=='TBH' && p.nm!==p.ro
+        ? `${p.nm} (${p.ro})` : p.ro;
+      if(!list.includes(entry)) list.push(entry);
+    });
+  });
+  return list;
+}
+
+function buildRtOpts(currentVal){
+  return getAllStaffList().map(name=>`<option value="${name}" ${currentVal===name?'selected':''}>${name}</option>`).join('');
+}
+
 function showEditStaff(deptId, si, ci){
   const dept=DEPS.find(d=>d.id===deptId); if(!dept) return;
   const staff=getStaff(dept);
@@ -1874,7 +1898,7 @@ function showEditStaff(deptId, si, ci){
       </div>
       <div class="sf-row">
         <input class="sf-input" id="sef-sl-${deptId}-${ci}" placeholder="Salary e.g. £35K–£48K" value="${p.sl||''}">
-        <input class="sf-input" id="sef-rt-${deptId}-${ci}" placeholder="Reports to" value="${p.rt||''}">
+        <select class="sf-select" id="sef-rt-${deptId}-${ci}">${buildRtOpts(p.rt||'')}</select>
         <select class="sf-select" id="sef-st-${deptId}-${ci}">
           ${['active','vacant','retain'].map(s=>`<option value="${s}" ${p.st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
         </select>
@@ -1944,7 +1968,7 @@ function showAddStaff(deptId){
       </div>
       <div class="sf-row">
         <input class="sf-input" id="asf-sl-${deptId}" placeholder="Salary e.g. £35K–£48K">
-        <input class="sf-input" id="asf-rt-${deptId}" placeholder="Reports to">
+        <select class="sf-select" id="asf-rt-${deptId}">${buildRtOpts('')}</select>
         <select class="sf-select" id="asf-st-${deptId}">
           <option value="vacant">Vacant</option>
           <option value="active">Active</option>
