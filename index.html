@@ -1218,6 +1218,27 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
 }
 .cv-saving { font-size: 10.5px; color: var(--muted); text-align: center; padding: 8px; }
 
+
+/* ── DOCUMENT LIBRARY ── */
+.doc-type-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 700;
+}
+.doc-pdf   { background: #fee2e2; color: #991b1b; }
+.doc-word  { background: #dbeafe; color: #1e40af; }
+.doc-excel { background: #d1fae5; color: #065f46; }
+.doc-ppt   { background: #fef3c7; color: #92400e; }
+.doc-other { background: #f3f4f6; color: #6b7280; }
+.doc-upload-area {
+  border: 2px dashed var(--border); border-radius: 10px;
+  padding: 20px; text-align: center; cursor: pointer;
+  transition: all .15s; position: relative; background: var(--off);
+}
+.doc-upload-area:hover { border-color: var(--navy); background: rgba(26,79,160,.03); }
+.doc-upload-area input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 18px; right: 20px; z-index: 999;
@@ -1314,6 +1335,9 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
       <span>📋</span> Task Board
     </button>
 
+    <button class="task-board-btn" id="docBtn" onclick="toggleDocs()" style="margin-top:8px;background:linear-gradient(135deg,#0c4a6e,#0369a1)">
+      <span>📁</span> Document Library
+    </button>
     <button class="task-board-btn" id="refBtn" onclick="toggleReferences()" style="margin-top:8px;background:linear-gradient(135deg,#065f46,#047857)">
       <span>🔗</span> Quick References
     </button>
@@ -1934,7 +1958,7 @@ function closeJDModal(e){
   if(e && e.target!==document.getElementById('jdModal')) return;
   document.getElementById('jdModal').style.display='none';
 }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ document.getElementById('jdModal').style.display='none'; if(refsOpen) toggleReferences(); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ document.getElementById('jdModal').style.display='none'; if(refsOpen) toggleReferences(); if(docsOpen) toggleDocs(); } });
 
 // ── EDIT STAFF ────────────────────────────────────────
 
@@ -3240,10 +3264,169 @@ function deleteCV(candId){
   showToast('✓ CV removed');
 }
 
+
+// ══ DOCUMENT LIBRARY ═════════════════════════════════════
+const FB_DOCS = 'orn-euro-hq/documents';
+const LS_DOCS = 'orn-hq-docs';
+let docs = [], docsOpen = false, docsPendingFile = null, allDocsCache = [];
+
+function loadDocs(){
+  try{ docs = JSON.parse(localStorage.getItem(LS_DOCS)||'[]'); renderDocs(docs); }catch(e){}
+  db.ref(FB_DOCS).on('value', s=>{
+    const v = s.val();
+    if(v) docs = Array.isArray(v) ? v : Object.values(v);
+    allDocsCache = docs;
+    try{ localStorage.setItem(LS_DOCS, JSON.stringify(docs)); }catch(e){}
+    renderDocs(docs);
+  }, ()=>{});
+}
+
+function getDocTypeBadge(name){
+  const ext = (name||'').split('.').pop().toLowerCase();
+  if(ext==='pdf')  return '<span class="doc-type-badge doc-pdf">📄 PDF</span>';
+  if(['doc','docx'].includes(ext)) return '<span class="doc-type-badge doc-word">📝 Word</span>';
+  if(['xls','xlsx','csv'].includes(ext)) return '<span class="doc-type-badge doc-excel">📊 Excel</span>';
+  if(['ppt','pptx'].includes(ext)) return '<span class="doc-type-badge doc-ppt">📑 PPT</span>';
+  return '<span class="doc-type-badge doc-other">📎 File</span>';
+}
+
+function getDocIcon(name){
+  const ext = (name||'').split('.').pop().toLowerCase();
+  if(ext==='pdf') return '📄';
+  if(['doc','docx'].includes(ext)) return '📝';
+  if(['xls','xlsx','csv'].includes(ext)) return '📊';
+  if(['ppt','pptx'].includes(ext)) return '📑';
+  return '📎';
+}
+
+function renderDocs(list){
+  const tbody = document.getElementById('docsTbody');
+  if(!tbody) return;
+  if(!list||!list.length){
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:40px;text-align:center;font-size:12px;color:var(--muted);">No documents yet — click ＋ Upload Document to add your first file</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map((d,i)=>`
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:12px 16px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:18px;flex-shrink:0">${getDocIcon(d.filename)}</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text)">${d.name}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px">${d.filename||''} ${d.size?'· '+d.size:''}</div>
+          </div>
+        </div>
+      </td>
+      <td style="padding:12px 16px;font-size:11.5px;color:var(--muted)">${d.desc||'—'}</td>
+      <td style="padding:12px 16px;">${getDocTypeBadge(d.filename)}</td>
+      <td style="padding:12px 16px;font-size:11px;color:var(--muted)">${d.uploadedAt||'—'}</td>
+      <td style="padding:12px 16px;text-align:center;white-space:nowrap;">
+        ${d.data ? `<a href="${d.data}" download="${d.filename||d.name}"
+          style="padding:4px 11px;border-radius:6px;border:none;background:var(--navy);color:#fff;font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;text-decoration:none;margin-right:4px;display:inline-block;">
+          ⬇ Download
+        </a>` : ''}
+        <button onclick="deleteDoc(${i})"
+          style="padding:4px 10px;border-radius:6px;border:1px solid #fca5a5;background:#fee2e2;color:#991b1b;font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;">
+          ✕
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+function filterDocs(){
+  const q = (document.getElementById('docSearch')?.value||'').toLowerCase();
+  if(!q){ renderDocs(docs); return; }
+  renderDocs(docs.filter(d=> d.name.toLowerCase().includes(q) || (d.desc||'').toLowerCase().includes(q) || (d.filename||'').toLowerCase().includes(q)));
+}
+
+function toggleDocs(){
+  docsOpen = !docsOpen;
+  const el  = document.getElementById('docsPanel');
+  const btn = document.getElementById('docBtn');
+  if(docsOpen){
+    el.style.display='flex';
+    btn.style.background='linear-gradient(135deg,#991b1b,#dc2626)';
+    btn.innerHTML='<span>✕</span> Close Library';
+    renderDocs(docs);
+  } else {
+    el.style.display='none';
+    btn.style.background='linear-gradient(135deg,#0c4a6e,#0369a1)';
+    btn.innerHTML='<span>📁</span> Document Library';
+    document.getElementById('docUploadForm').style.display='none';
+  }
+}
+
+function toggleDocUpload(){
+  const f = document.getElementById('docUploadForm');
+  const showing = f.style.display !== 'none';
+  f.style.display = showing ? 'none' : 'block';
+  if(!showing){ document.getElementById('doc-name')?.focus(); }
+}
+
+function previewDocFile(input){
+  const file = input.files[0];
+  if(!file) return;
+  docsPendingFile = file;
+  document.getElementById('docFileLabel').innerHTML =
+    `<strong style="color:var(--navy)">${file.name}</strong><br><span style="color:var(--muted)">${(file.size/1024).toFixed(0)}KB</span>`;
+  // Auto-fill name if empty
+  const nameEl = document.getElementById('doc-name');
+  if(nameEl && !nameEl.value){
+    nameEl.value = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g,' ');
+  }
+}
+
+function saveDoc(){
+  const name = (document.getElementById('doc-name')?.value||'').trim();
+  const desc = (document.getElementById('doc-desc')?.value||'').trim();
+  if(!name){ alert('Please enter a document name'); return; }
+  if(!docsPendingFile){ alert('Please choose a file to upload'); return; }
+  if(docsPendingFile.size > 5*1024*1024){ alert('File too large — max 5MB'); return; }
+
+  const msg = document.getElementById('docSavingMsg');
+  if(msg) msg.style.display='flex';
+
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const doc = {
+      name, desc, filename: docsPendingFile.name,
+      size: (docsPendingFile.size/1024).toFixed(0)+'KB',
+      data: e.target.result,
+      uploadedAt: new Date().toISOString().slice(0,10),
+      uploadedBy: currentUser?.name||'Unknown'
+    };
+    docs.push(doc);
+    try{ localStorage.setItem(LS_DOCS, JSON.stringify(docs)); }catch(e){}
+    db.ref(FB_DOCS).set(docs)
+      .then(()=>showToast('✓ Document uploaded'))
+      .catch(()=>showToast('✓ Saved locally'));
+    // Reset form
+    docsPendingFile = null;
+    if(msg) msg.style.display='none';
+    document.getElementById('doc-name').value='';
+    document.getElementById('doc-desc').value='';
+    document.getElementById('docFileLabel').innerHTML='<strong style="color:var(--navy)">Click to choose file</strong><br>PDF, Word, Excel, PPT';
+    document.getElementById('docFileInput').value='';
+    document.getElementById('docUploadForm').style.display='none';
+    renderDocs(docs);
+  };
+  reader.readAsDataURL(docsPendingFile);
+}
+
+function deleteDoc(i){
+  if(!confirm('Remove this document?')) return;
+  docs.splice(i,1);
+  try{ localStorage.setItem(LS_DOCS, JSON.stringify(docs)); }catch(e){}
+  db.ref(FB_DOCS).set(docs).catch(()=>{});
+  renderDocs(docs);
+  showToast('✓ Document removed');
+}
+
 // ══ INIT ════════════════════════════════════════
 checkSession();
 buildDeptList();
 fbLoad();
+loadDocs();
 loadRefs();
 loadCustomTasks();
 loadCandidates();
@@ -3304,6 +3487,88 @@ setTimeout(initMarkFeldman, 1500);
         </thead>
         <tbody id="refsTbody">
           <tr><td colspan="5" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference to add your first link</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DOCUMENT LIBRARY PANEL ══════════════════ -->
+<div id="docsPanel" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(241,245,249,.97);backdrop-filter:blur(8px);flex-direction:column;overflow:hidden;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 28px 14px;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,.06);flex-shrink:0;">
+    <div>
+      <div style="font-size:17px;font-weight:800;color:var(--text)">📁 Document Library</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px">Upload and manage ORN Group documents, reports and files</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button onclick="toggleDocUpload()"
+        style="padding:7px 16px;border-radius:9px;border:none;background:var(--navy);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;">
+        ＋ Upload Document
+      </button>
+      <button onclick="toggleDocs()"
+        style="padding:7px 18px;border-radius:9px;border:1.5px solid var(--border);background:#fff;color:var(--text);font-size:12px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;">
+        ✕ Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload form -->
+  <div id="docUploadForm" style="display:none;padding:16px 28px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;">
+    <div style="display:flex;gap:14px;align-items:flex-start;max-width:1000px;flex-wrap:wrap;">
+      <!-- File drop zone -->
+      <div class="doc-upload-area" style="width:200px;flex-shrink:0;">
+        <input type="file" id="docFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv" onchange="previewDocFile(this)">
+        <div style="font-size:28px;margin-bottom:6px">📂</div>
+        <div id="docFileLabel" style="font-size:11px;color:var(--muted);line-height:1.4"><strong style="color:var(--navy)">Click to choose file</strong><br>PDF, Word, Excel, PPT</div>
+      </div>
+      <!-- Fields -->
+      <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:8px;">
+        <div>
+          <label style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);display:block;margin-bottom:3px">Document Name *</label>
+          <input id="doc-name" class="search-box" placeholder="e.g. UK Strategic Plan 2026" style="margin:0;width:100%">
+        </div>
+        <div>
+          <label style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);display:block;margin-bottom:3px">Description</label>
+          <input id="doc-desc" class="search-box" placeholder="Brief description of this document" style="margin:0;width:100%">
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button onclick="saveDoc()"
+            style="padding:8px 20px;border-radius:8px;border:none;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;">
+            Upload & Save
+          </button>
+          <button onclick="toggleDocUpload()"
+            style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;">
+            Cancel
+          </button>
+          <div id="docSavingMsg" style="display:none;align-items:center;gap:6px;font-size:11px;color:var(--muted);">
+            <div style="width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;"></div>
+            Saving…
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div style="padding:12px 28px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;">
+    <input id="docSearch" class="search-box" style="max-width:360px;margin:0" placeholder="Search documents…" oninput="filterDocs()">
+  </div>
+
+  <!-- Documents table -->
+  <div style="flex:1;overflow-y:auto;padding:20px 28px;">
+    <div style="background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="background:var(--off);border-bottom:1px solid var(--border);">
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:22%">Name</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;">Description</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:90px;">Type</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:90px;">Date</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;width:130px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="docsTbody">
+          <tr><td colspan="5" style="padding:40px;text-align:center;font-size:12px;color:var(--muted);">No documents yet — click ＋ Upload Document to add your first file</td></tr>
         </tbody>
       </table>
     </div>
