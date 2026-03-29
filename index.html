@@ -1110,6 +1110,114 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
   align-items: center; gap: 8px; margin-bottom: 16px;
 }
 
+
+/* ── REFERENCES (col1) ── */
+.ref-section { margin-top: 14px; width: 100%; }
+.ref-title {
+  font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-bottom: 7px;
+}
+.ref-list { display: flex; flex-direction: column; gap: 5px; }
+.ref-item {
+  padding: 8px 10px; border-radius: 8px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: flex-start; gap: 8px; position: relative;
+}
+.ref-item-body { flex: 1; min-width: 0; }
+.ref-item-name {
+  font-size: 10.5px; font-weight: 700; color: rgba(255,255,255,.85);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ref-item-url {
+  font-size: 9.5px; color: rgba(255,255,255,.45); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  text-decoration: none; display: block;
+}
+.ref-item-url:hover { color: rgba(255,255,255,.7); text-decoration: underline; }
+.ref-item-desc {
+  font-size: 9.5px; color: rgba(255,255,255,.35); margin-top: 2px;
+  line-height: 1.4;
+}
+.ref-del {
+  background: none; border: none; color: rgba(255,255,255,.25);
+  cursor: pointer; font-size: 11px; padding: 0; line-height: 1;
+  flex-shrink: 0; margin-top: 1px;
+}
+.ref-del:hover { color: #fca5a5; }
+.ref-add-btn {
+  width: 100%; padding: 7px; border-radius: 8px;
+  border: 1.5px dashed rgba(255,255,255,.18); background: transparent;
+  color: rgba(255,255,255,.4); font-size: 10.5px; font-weight: 600;
+  font-family: 'Sora', sans-serif; cursor: pointer; transition: all .15s;
+  margin-top: 5px;
+}
+.ref-add-btn:hover { border-color: rgba(255,255,255,.4); color: rgba(255,255,255,.7); background: rgba(255,255,255,.05); }
+.ref-form {
+  padding: 10px; border-radius: 9px; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15); margin-top: 6px;
+  display: none; flex-direction: column; gap: 7px;
+}
+.ref-form.open { display: flex; }
+.ref-input {
+  width: 100%; padding: 6px 9px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.9); font-size: 10.5px; font-family: 'Sora', sans-serif; outline: none;
+}
+.ref-input::placeholder { color: rgba(255,255,255,.3); }
+.ref-input:focus { border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.15); }
+.ref-form-btns { display: flex; gap: 6px; justify-content: flex-end; }
+.ref-form-save {
+  padding: 5px 12px; border-radius: 6px; border: none;
+  background: var(--navy); color: #fff; font-size: 10px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora', sans-serif;
+}
+.ref-form-cancel {
+  padding: 5px 10px; border-radius: 6px; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.6);
+  font-size: 10px; font-weight: 600; cursor: pointer; font-family: 'Sora', sans-serif;
+}
+
+/* ── CV UPLOAD (candidate detail) ── */
+.cv-section {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px; margin-top: 14px;
+}
+.cv-title {
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--navy); margin-bottom: 10px;
+}
+.cv-upload-area {
+  border: 2px dashed var(--border); border-radius: 9px; padding: 16px;
+  text-align: center; cursor: pointer; transition: all .15s; position: relative;
+}
+.cv-upload-area:hover { border-color: var(--navy); background: rgba(26,79,160,.03); }
+.cv-upload-area input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.cv-upload-icon { font-size: 22px; margin-bottom: 6px; }
+.cv-upload-text { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.cv-upload-text strong { color: var(--navy); }
+.cv-file-card {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  background: var(--off); border: 1px solid var(--border); border-radius: 9px;
+}
+.cv-file-icon { font-size: 22px; flex-shrink: 0; }
+.cv-file-name { font-size: 11.5px; font-weight: 600; color: var(--text); }
+.cv-file-size { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.cv-file-btns { display: flex; gap: 6px; margin-left: auto; flex-shrink: 0; }
+.cv-btn-view {
+  padding: 5px 12px; border-radius: 7px; border: none;
+  background: var(--navy); color: #fff; font-size: 10.5px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora', sans-serif; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.cv-btn-del {
+  padding: 5px 10px; border-radius: 7px; border: 1px solid #fca5a5;
+  background: #fee2e2; color: #991b1b; font-size: 10.5px; font-weight: 700;
+  cursor: pointer; font-family: 'Sora', sans-serif;
+}
+.cv-saving { font-size: 10.5px; color: var(--muted); text-align: center; padding: 8px; }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 18px; right: 20px; z-index: 999;
@@ -1206,6 +1314,10 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
       <span>📋</span> Task Board
     </button>
 
+    <button class="task-board-btn" id="refBtn" onclick="toggleReferences()" style="margin-top:8px;background:linear-gradient(135deg,#065f46,#047857)">
+      <span>🔗</span> Quick References
+    </button>
+
     <div class="col1-stats">
       <div class="col1-stat">
         <div class="col1-stat-l">Departments</div>
@@ -1229,6 +1341,7 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
       <strong>Strategic Plan</strong>
       Apr 2026 – Mar 2027<br>London, UK
     </div>
+
 
   </div>
 
@@ -1311,35 +1424,6 @@ body { font-family: 'Sora', sans-serif; background: #e8ecf3; color: var(--text);
       <div class="cand-sidebar">
         <div class="cand-sidebar-hdr">All Candidates</div>
         <div class="cand-list" id="candList"></div>
-        <button class="cand-add-btn" id="candAddBtn" onclick="showAddCandForm()">＋ Add Candidate</button>
-        <div class="add-cand-form" id="addCandForm">
-          <div>
-            <div class="acf-label">Candidate Name *</div>
-            <input class="acf-input" id="acf-name" placeholder="e.g. Mark Feldman">
-          </div>
-          <div>
-            <div class="acf-label">Applying For (Role)</div>
-            <select class="acf-select" id="acf-role"></select>
-          </div>
-          <div>
-            <div class="acf-label">LinkedIn URL or Profile</div>
-            <input class="acf-input" id="acf-linkedin" placeholder="https://linkedin.com/in/... or paste profile text below">
-          </div>
-          <div>
-            <div class="acf-label">Status</div>
-            <select class="acf-select" id="acf-status">
-              <option value="New">New</option>
-              <option value="Reviewed">Reviewed</option>
-              <option value="Interview">Interview Scheduled</option>
-              <option value="Offer">Offer Made</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </div>
-          <div class="acf-actions">
-            <button class="acf-cancel" onclick="cancelAddCand()">Cancel</button>
-            <button class="acf-save" onclick="saveNewCandidate()">Add Candidate</button>
-          </div>
-        </div>
       </div>
       <!-- Right: candidate detail + AI questions -->
       <div class="cand-detail" id="candDetail">
@@ -1850,7 +1934,7 @@ function closeJDModal(e){
   if(e && e.target!==document.getElementById('jdModal')) return;
   document.getElementById('jdModal').style.display='none';
 }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('jdModal').style.display='none'; });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ document.getElementById('jdModal').style.display='none'; if(refsOpen) toggleReferences(); } });
 
 // ── EDIT STAFF ────────────────────────────────────────
 
@@ -2734,35 +2818,7 @@ function openCandidate(id){
         `:''}
       </div>`:''}
 
-      <!-- AI Question Generator -->
-      <div class="ai-gen-box">
-        <div class="ai-gen-title"><span>🤖</span> Interview Question Generator</div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5">
-          Questions are generated from the role responsibilities and ORN Group Europe context.
-          Select a category focus then click generate.
-        </div>
-        <div class="acf-label" style="margin-bottom:5px">Focus Area (optional)</div>
-        <select class="acf-select" id="ai-focus-${id}" style="margin-bottom:10px">
-          <option value="all">All areas — balanced set of 10</option>
-          <option value="experience">Role experience & track record</option>
-          <option value="commercial">Commercial & financial acumen</option>
-          <option value="leadership">Leadership & team management</option>
-          <option value="industry">Travel industry knowledge</option>
-          <option value="culture">Culture, motivation & fit</option>
-          <option value="technical">Technical / product knowledge</option>
-        </select>
-        <button class="ai-gen-btn" id="ai-gen-btn-${id}" onclick="generateQuestions('${id}')">
-          ✨ Generate 10 Interview Questions
-        </button>
-        <div id="ai-loading-${id}" style="display:none" class="ai-loading">
-          <div class="ai-spinner"></div> Generating questions…
-        </div>
-      </div>
-
-      <!-- Generated Questions -->
-      <div id="ai-questions-${id}">
-        ${savedQ ? renderSavedQuestions(savedQ) : '<div style="font-size:11px;color:var(--muted);text-align:center;padding:10px">Questions will appear here after generation</div>'}
-      </div>
+      ${renderCVSection(id)}
 
       <!-- Interviewer Notes -->
       <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:16px">
@@ -2806,190 +2862,8 @@ function renderQuestionSections(sections){
   </div>`;
 }
 
-async function generateQuestions(candId){
-  const cand = candidates[candId];
-  if(!cand){ showToast('Candidate not found','err'); return; }
-  if(!cand.roleTitle){ alert('Please assign a role to this candidate first (click Edit or re-add with a role selected).'); return; }
 
-  const btn = document.getElementById(`ai-gen-btn-${candId}`);
-  const loading = document.getElementById(`ai-loading-${candId}`);
-  const qDiv = document.getElementById(`ai-questions-${candId}`);
-  const focus = document.getElementById(`ai-focus-${candId}`)?.value || 'all';
 
-  if(btn){ btn.disabled=true; btn.textContent='Generating…'; }
-  if(loading) loading.style.display='flex';
-  if(qDiv) qDiv.innerHTML='';
-
-  const focusMap = {
-    all:       'Balanced across: experience, commercial acumen, leadership, industry knowledge, culture and motivation.',
-    experience:'Focus heavily on their specific experience matching this role — past achievements, failures, what they built.',
-    commercial:'Focus on commercial and financial acumen — pricing, margin, P&L, budgets, revenue generation.',
-    leadership:'Focus on leadership, people management, team building, conflict resolution, managing up.',
-    industry:  'Focus on travel industry knowledge — suppliers, GDS, ATOL/ABTA, tour operating, inbound/outbound.',
-    culture:   'Focus on culture fit, motivation, values, long-term ambition, why ORN Group and why now.',
-    technical: 'Focus on technical/product knowledge specific to this role.',
-  };
-
-  const roleText = `${cand.roleTitle} — ${cand.roleDept}
-Salary: ${cand.roleSalary}
-Hire target: ${cand.roleHireTarget}
-Responsibilities:
-${(cand.roleResponsibilities||[]).map((r,i)=>`${i+1}. ${r}`).join('\n')}`;
-
-  const companyContext = `ORN Group / TripFactory — European HQ based in London.
-- Operating UK coach tours (20-30 itineraries Year 1), inbound travel from India and GCC markets
-- 9 EU offices across France, Germany, Poland, Czech Republic, Slovakia, Greece, Bulgaria, Italy, Turkey
-- 857+ hotel preferred portfolio managed from London contracting hub
-- Acquiring Cruise2 (ATOL, cruise lines) and a UK travel agency
-- Building PSA homeworker agent programme across Europe
-- Launching ORN App (iOS/Android) with ORN Credit loyalty wallet
-- ATOL application in progress, ABTA membership, Package Travel Regulations compliant
-- Small but growing team — candidate will need to be hands-on and entrepreneurial`;
-
-  const systemPrompt = `You are a senior HR director and travel industry expert conducting interviews for ORN Group, a fast-growing European travel company headquartered in London. You write sharp, probing interview questions that reveal whether a candidate truly has the skills, experience and mindset for a specific role.`;
-
-  const userPrompt = `Generate exactly 10 interview questions for a candidate applying for this role at ORN Group.
-
-ROLE:
-${roleText}
-
-COMPANY CONTEXT:
-${companyContext}
-
-QUESTION FOCUS: ${focusMap[focus]||focusMap.all}
-
-CANDIDATE NAME: ${cand.name}
-
-Rules:
-- Exactly 10 questions, numbered 1-10
-- Each question must be specific to THIS role and THIS company context
-- Mix open questions, situational questions ("Tell me about a time…") and hypothetical questions ("How would you approach…")
-- After each question add: LISTEN FOR: [2-3 bullet points of what a strong answer includes]
-- Questions should be challenging but fair — designed to reveal real capability
-- Do NOT ask generic questions like "What are your strengths and weaknesses"
-- Reference the European context, the startup nature of the HQ, the India/GCC markets where relevant
-
-Format:
-Q1. [Question]
-LISTEN FOR:
-• [point]
-• [point]
-
-Q2. [Question]
-...`;
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    });
-
-    if(!response.ok){
-      const err = await response.json().catch(()=>({}));
-      throw new Error(err.error?.message || `HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    const raw = (data.content||[]).map(b=>b.text||'').join('').trim();
-
-    if(!raw) throw new Error('Empty response');
-
-    // Save and render
-    candidates[candId].questions = raw;
-    db.ref(`${FB_CAND}/${candId}/questions`).set(raw).catch(()=>{});
-    try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
-
-    if(qDiv) qDiv.innerHTML = renderPlainQuestions(raw, cand.name);
-    showToast('✓ Questions generated');
-
-  } catch(err){
-    console.error('Generate error:', err);
-    if(qDiv) qDiv.innerHTML = `
-      <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:14px 16px;font-size:11.5px;color:#991b1b;line-height:1.5">
-        <strong>Could not generate questions.</strong><br>
-        Error: ${err.message||'Unknown error'}<br><br>
-        This feature requires an internet connection and the Anthropic API.<br>
-        It works on GitHub Pages — not in the local HTML viewer.
-      </div>`;
-    showToast('Generation failed — works on GitHub Pages only','err');
-  } finally {
-    if(btn){ btn.disabled=false; btn.textContent='✨ Generate 10 Interview Questions'; }
-    if(loading) loading.style.display='none';
-  }
-}
-
-function renderPlainQuestions(raw, name){
-  // Parse Q1. / Q2. format into styled cards
-  const lines = raw.split('\n');
-  let html = `<div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px">
-    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:14px">
-      Interview Questions — ${name||'Candidate'}
-    </div>`;
-
-  let currentQ = null;
-  let listenFor = [];
-  let inListen = false;
-  let qCount = 0;
-
-  function flushQ(){
-    if(!currentQ) return;
-    html += `<div class="iq-q" style="margin-bottom:10px;flex-direction:column;gap:6px">
-      <div style="display:flex;gap:10px">
-        <div class="iq-num">Q${qCount}</div>
-        <div class="iq-text">${currentQ}</div>
-      </div>`;
-    if(listenFor.length){
-      html += `<div style="margin-left:34px;padding:8px 10px;background:rgba(26,79,160,.04);border-radius:7px;border-left:3px solid rgba(26,79,160,.2)">
-        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin-bottom:4px">Listen for:</div>
-        ${listenFor.map(l=>`<div style="font-size:10.5px;color:var(--muted);line-height:1.4;margin-bottom:2px">• ${l}</div>`).join('')}
-      </div>`;
-    }
-    html += '</div>';
-    currentQ = null; listenFor = []; inListen = false;
-  }
-
-  lines.forEach(line=>{
-    const trimmed = line.trim();
-    if(!trimmed) return;
-    const qMatch = trimmed.match(/^Q(\d+)[.\)]\s*(.+)/i);
-    if(qMatch){
-      flushQ();
-      qCount = parseInt(qMatch[1]);
-      currentQ = qMatch[2];
-      inListen = false;
-    } else if(/^LISTEN FOR:?$/i.test(trimmed)){
-      inListen = true;
-    } else if(inListen && trimmed.startsWith('•')){
-      listenFor.push(trimmed.slice(1).trim());
-    } else if(inListen && trimmed.startsWith('-')){
-      listenFor.push(trimmed.slice(1).trim());
-    } else if(currentQ && !inListen){
-      currentQ += ' ' + trimmed;
-    }
-  });
-  flushQ();
-
-  html += '</div>';
-  return html;
-}
-
-function savePastedQuestions(candId){
-  const text = (document.getElementById(`paste-back-${candId}`)?.value||'').trim();
-  if(!text){ alert('Please paste the questions first'); return; }
-  if(!candidates[candId]) return;
-  candidates[candId].questions = text;
-  db.ref(`${FB_CAND}/${candId}/questions`).set(text).catch(()=>{});
-  try{localStorage.setItem(LS_CAND,JSON.stringify(candidates));}catch(e){}
-  const qDiv = document.getElementById(`ai-questions-${candId}`);
-  if(qDiv) qDiv.innerHTML = renderPlainQuestions(text, candidates[candId].name);
-  showToast('✓ Questions saved');
-}
 
 function updateCandStatus(id, status){
   if(!candidates[id]) return;
@@ -3106,15 +2980,233 @@ shakeStyle.textContent = `@keyframes loginShake {
 }`;
 document.head.appendChild(shakeStyle);
 
+
+// ══ REFERENCES ═══════════════════════════════════════
+const FB_REFS = 'orn-euro-hq/references';
+const LS_REFS = 'orn-hq-refs';
+let refs = [];
+
+function loadRefs(){
+  try{ refs = JSON.parse(localStorage.getItem(LS_REFS)||'[]'); renderRefs(); }catch(e){}
+  db.ref(FB_REFS).on('value', s=>{
+    const v = s.val();
+    if(v) refs = Array.isArray(v) ? v : Object.values(v);
+    try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
+    renderRefs();
+  }, ()=>{});
+}
+
+function renderRefs(){
+  const tbody = document.getElementById('refsTbody');
+  if(!tbody) return;
+  if(!refs.length){
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference</td></tr>';
+    return;
+  }
+  tbody.innerHTML = refs.map((r,i)=>`
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:12px 16px;font-size:12px;font-weight:700;color:var(--text)">${r.name}</td>
+      <td style="padding:12px 16px;">
+        <a href="${r.url}" target="_blank" rel="noopener"
+          style="font-size:11.5px;color:var(--navy);text-decoration:none;word-break:break-all;"
+          onmouseover="this.style.textDecoration='underline'"
+          onmouseout="this.style.textDecoration='none'">
+          ${r.url}
+        </a>
+      </td>
+      <td style="padding:12px 16px;font-size:11.5px;color:var(--muted)">${r.desc||'—'}</td>
+      <td style="padding:12px 16px;text-align:center;">
+        <button onclick="deleteRef(${i})"
+          style="padding:3px 10px;border-radius:6px;border:1px solid #fca5a5;background:#fee2e2;color:#991b1b;font-size:10px;cursor:pointer;font-family:'Sora',sans-serif;">
+          ✕
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+let refsOpen = false;
+function toggleReferences(){
+  refsOpen = !refsOpen;
+  const el  = document.getElementById('refsPanel');
+  const btn = document.getElementById('refBtn');
+  if(refsOpen){
+    el.style.display = 'flex';
+    btn.style.background = 'linear-gradient(135deg,#991b1b,#dc2626)';
+    btn.innerHTML = '<span>✕</span> Close References';
+    renderRefs();
+  } else {
+    el.style.display = 'none';
+    btn.style.background = 'linear-gradient(135deg,#065f46,#047857)';
+    btn.innerHTML = '<span>🔗</span> Quick References';
+  }
+}
+
+function toggleRefAddForm(){
+  const f = document.getElementById('refAddForm');
+  const showing = f.style.display !== 'none';
+  f.style.display = showing ? 'none' : 'block';
+  if(!showing) document.getElementById('ref-name')?.focus();
+}
+
+function saveRef(){
+  const name = (document.getElementById('ref-name')?.value||'').trim();
+  const url  = (document.getElementById('ref-url')?.value||'').trim();
+  const desc = (document.getElementById('ref-desc')?.value||'').trim();
+  if(!name||!url){ alert('Please enter a name and URL'); return; }
+  const urlFull = url.startsWith('http') ? url : 'https://'+url;
+  refs.push({ name, url: urlFull, desc, addedAt: new Date().toISOString().slice(0,10) });
+  try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
+  db.ref(FB_REFS).set(refs).catch(()=>{});
+  // Clear inputs and close form
+  ['ref-name','ref-url','ref-desc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('refAddForm').style.display='none';
+  renderRefs();
+  showToast('✓ Reference added');
+}
+function deleteRef(i){
+  refs.splice(i,1);
+  try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
+  db.ref(FB_REFS).set(refs).catch(()=>{});
+  renderRefs();
+}
+
+// ══ CV UPLOAD ═════════════════════════════════════════
+function renderCVSection(candId){
+  const cand = candidates[candId];
+  if(!cand) return '';
+  const cv = cand.cv;
+  if(cv && cv.data){
+    return `<div class="cv-section">
+      <div class="cv-title">📎 CV / Resume</div>
+      <div class="cv-file-card">
+        <div class="cv-file-icon">${cv.name?.endsWith('.pdf')?'📄':'📝'}</div>
+        <div>
+          <div class="cv-file-name">${cv.name||'CV File'}</div>
+          <div class="cv-file-size">${cv.size||''} · Uploaded ${cv.uploadedAt||''}</div>
+        </div>
+        <div class="cv-file-btns">
+          <a class="cv-btn-view" href="${cv.data}" download="${cv.name||'CV'}">⬇ Download</a>
+          <button class="cv-btn-del" onclick="deleteCV('${candId}')">✕ Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }
+  return `<div class="cv-section">
+    <div class="cv-title">📎 CV / Resume</div>
+    <div class="cv-upload-area" id="cvDrop-${candId}">
+      <input type="file" accept=".pdf,.doc,.docx,.txt" onchange="uploadCV('${candId}', this)">
+      <div class="cv-upload-icon">📂</div>
+      <div class="cv-upload-text"><strong>Click to upload CV</strong><br>PDF, Word or text · max 5MB</div>
+    </div>
+    <div id="cvSaving-${candId}" class="cv-saving" style="display:none">⏳ Saving…</div>
+  </div>`;
+}
+
+function uploadCV(candId, input){
+  const file = input.files[0];
+  if(!file){ return; }
+  if(file.size > 5*1024*1024){ alert('File too large — max 5MB'); return; }
+  const saving = document.getElementById(`cvSaving-${candId}`);
+  const area   = document.getElementById(`cvDrop-${candId}`);
+  if(saving) saving.style.display='block';
+  if(area)   area.style.display='none';
+  const reader = new FileReader();
+  reader.onload = e=>{
+    const cvData = {
+      name: file.name, size: (file.size/1024).toFixed(0)+'KB',
+      data: e.target.result, uploadedAt: new Date().toISOString().slice(0,10)
+    };
+    if(!candidates[candId]) return;
+    candidates[candId].cv = cvData;
+    try{ localStorage.setItem(LS_CAND, JSON.stringify(candidates)); }catch(e){}
+    db.ref(`${FB_CAND}/${candId}/cv`).set(cvData)
+      .then(()=>showToast('✓ CV uploaded'))
+      .catch(()=>showToast('✓ Saved locally'));
+    // Re-open candidate to refresh CV section
+    openCandidate(candId);
+  };
+  reader.readAsDataURL(file);
+}
+
+function deleteCV(candId){
+  if(!confirm('Remove this CV?')) return;
+  if(!candidates[candId]) return;
+  delete candidates[candId].cv;
+  db.ref(`${FB_CAND}/${candId}/cv`).remove().catch(()=>{});
+  try{ localStorage.setItem(LS_CAND, JSON.stringify(candidates)); }catch(e){}
+  openCandidate(candId);
+  showToast('✓ CV removed');
+}
+
 // ══ INIT ════════════════════════════════════════
 checkSession();
 buildDeptList();
 fbLoad();
+loadRefs();
 loadCustomTasks();
 loadCandidates();
 loadStaffOverrides();
 refreshTaskStat();
 setTimeout(initMarkFeldman, 1500);
 </script>
+<!-- ═══ REFERENCES PANEL ══════════════════ -->
+<div id="refsPanel" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(241,245,249,.97);backdrop-filter:blur(8px);flex-direction:column;overflow:hidden;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 28px 14px;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,.06);flex-shrink:0;">
+    <div>
+      <div style="font-size:17px;font-weight:800;color:var(--text)">🔗 Quick References</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px">Links to tools, dashboards and resources</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button id="refAddToggleBtn" onclick="toggleRefAddForm()"
+        style="padding:7px 16px;border-radius:9px;border:none;background:var(--navy);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;">
+        ＋ Add Reference
+      </button>
+      <button onclick="toggleReferences()"
+        style="padding:7px 18px;border-radius:9px;border:1.5px solid var(--border);background:#fff;color:var(--text);font-size:12px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;">
+        ✕ Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Add form -->
+  <div id="refAddForm" style="display:none;padding:16px 28px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;max-width:900px;">
+      <div style="display:flex;flex-direction:column;gap:4px;flex:1;min-width:140px;">
+        <label style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Name *</label>
+        <input id="ref-name" class="search-box" placeholder="e.g. Supply Tracker" style="margin:0">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;flex:2;min-width:200px;">
+        <label style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">URL *</label>
+        <input id="ref-url" class="search-box" placeholder="https://tripfactory-ajay.github.io/..." style="margin:0">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;flex:2;min-width:200px;">
+        <label style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Description</label>
+        <input id="ref-desc" class="search-box" placeholder="What is this?" style="margin:0">
+      </div>
+      <button onclick="saveRef()" style="padding:8px 18px;border-radius:8px;border:none;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;flex-shrink:0;">Save</button>
+      <button onclick="toggleRefAddForm()" style="padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;flex-shrink:0;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div style="flex:1;overflow-y:auto;padding:20px 28px;">
+    <div style="background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;" id="refsTable">
+        <thead>
+          <tr style="background:var(--off);border-bottom:1px solid var(--border);">
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:20%">Name</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:40%">Link</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;">Description</th>
+            <th style="padding:11px 16px;width:60px;"></th>
+          </tr>
+        </thead>
+        <tbody id="refsTbody">
+          <tr><td colspan="4" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference to add your first link</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
