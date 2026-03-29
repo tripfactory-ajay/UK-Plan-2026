@@ -2993,6 +2993,7 @@ function loadRefs(){
     if(v) refs = Array.isArray(v) ? v : Object.values(v);
     try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
     renderRefs();
+    setTimeout(migrateRefDescriptions, 500);
   }, ()=>{});
 }
 
@@ -3019,7 +3020,7 @@ function renderRefs(){
           <input id="redit-desc-${i}" value="${(r.desc||'').replace(/"/g,'&quot;')}"
             style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Sora',sans-serif;outline:none;">
         </td>
-        <td style="padding:8px 10px;text-align:center;white-space:nowrap;">
+        <td style="padding:8px 10px;text-align:center;white-space:nowrap;" colspan="2">
           <button onclick="saveRefEdit(${i})"
             style="padding:5px 12px;border-radius:6px;border:none;background:var(--navy);color:#fff;font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;margin-right:4px;">
             ✓ Save
@@ -3042,7 +3043,13 @@ function renderRefs(){
         </a>
       </td>
       <td style="padding:12px 16px;font-size:11.5px;color:var(--muted)">${r.desc||'—'}</td>
-      <td style="padding:12px 16px;text-align:center;white-space:nowrap;">
+      <td style="padding:8px 10px;text-align:center;white-space:nowrap;">
+        <button onclick="moveRef(${i},-1)" title="Move up"
+          style="padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;cursor:pointer;margin-right:2px;${i===0?'opacity:.3;cursor:default':''}">▲</button>
+        <button onclick="moveRef(${i},1)" title="Move down"
+          style="padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:11px;cursor:pointer;${i===refs.length-1?'opacity:.3;cursor:default':''}">▼</button>
+      </td>
+      <td style="padding:8px 10px;text-align:center;white-space:nowrap;">
         <button onclick="editRef(${i})"
           style="padding:4px 11px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;margin-right:4px;">
           ✏️ Edit
@@ -3055,6 +3062,45 @@ function renderRefs(){
     </tr>`;
   }).join('');
 }
+
+
+// Pre-fill descriptions for existing refs (one-time)
+function migrateRefDescriptions(){
+  const DESCS = {
+    'Supplier API Dashboard': 'Live API integration dashboard. Hotels (53), Activities (17), Transfers (6), Rail (3), Car Rental (5), Touring/Air (10). 47 live APIs. Firebase-backed.',
+    'Regional Office Dashboard': 'Multi-office board reporting tool. Turkey, Germany, UAE, Europe and LATAM submissions compiled into an interactive HTML dashboard and print-ready Word document.',
+    'UK Coach Tours': '8 internationalised UK coach tour itineraries with day-by-day route plans, pricing workbooks, hotel procurement suite and partner outreach pages.',
+    'UK Couch Tours - India': 'India-facing UK coach tour brochure. INR pricing, halal-friendly itineraries targeting outbound India travel agents and consumers.',
+    'Trip-Ed PSA Training': 'Training and onboarding portal for TripFactory Preferred Sales Agents. Learning modules, product knowledge, booking guides and compliance training.',
+    'ORN Org Chart': 'Full global organisation chart for ORN Group. All offices — UK, India, Poland, France, Germany, UAE, LATAM, Turkey, Italy, Greece. ~700 staff. Firebase-backed.',
+    'PSA Analysis - Set Up': 'Exceptional Partner Programme (EPP) Europe — 8-phase launch plan: legal framework, tier structure, training, technology, compliance and agent recruitment.',
+    'TAG Hotel Requirements': 'Hotel requirements and procurement tool. Preferred hotel specs, rate requirements, amenity standards and contract terms across global destinations.',
+    'ORN Brochure 2026': 'ORN Group corporate brochure 2026. Company overview, global presence, product range, B2B agent proposition and ORN Credit loyalty programme.',
+    'Payment Matrix': 'Payment terms and commission matrix. Rates by product and market, payout timings, currency handling and ORN Credit earn rates across all verticals.',
+    'Staff Attrition Report': 'TripFactory staff attrition analysis. Departmental turnover, tenure data, exit trends, headcount changes and retention insights across global offices.',
+  };
+  let changed = false;
+  refs.forEach(r=>{
+    if((!r.desc||r.desc==='—') && DESCS[r.name]){
+      r.desc = DESCS[r.name]; changed=true;
+    }
+  });
+  if(changed){
+    try{localStorage.setItem(LS_REFS,JSON.stringify(refs));}catch(e){}
+    db.ref(FB_REFS).set(refs).catch(()=>{});
+    renderRefs();
+  }
+}
+
+function moveRef(i, dir){
+  const j = i + dir;
+  if(j < 0 || j >= refs.length) return;
+  [refs[i], refs[j]] = [refs[j], refs[i]];
+  try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
+  db.ref(FB_REFS).set(refs).catch(()=>{});
+  renderRefs();
+}
+
 
 function editRef(i){
   refs[i]._editing = true;
@@ -3253,11 +3299,11 @@ setTimeout(initMarkFeldman, 1500);
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:20%">Name</th>
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:40%">Link</th>
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;">Description</th>
-            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;width:130px;">ACTIONS</th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;width:80px;">ORDER</th><th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;width:120px;">ACTIONS</th>
           </tr>
         </thead>
         <tbody id="refsTbody">
-          <tr><td colspan="4" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference to add your first link</td></tr>
+          <tr><td colspan="5" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference to add your first link</td></tr>
         </tbody>
       </table>
     </div>
