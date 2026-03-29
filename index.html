@@ -3000,11 +3000,38 @@ function renderRefs(){
   const tbody = document.getElementById('refsTbody');
   if(!tbody) return;
   if(!refs.length){
-    tbody.innerHTML = '<tr><td colspan="4" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="padding:32px;text-align:center;font-size:12px;color:var(--muted);">No references yet — click ＋ Add Reference</td></tr>';
     return;
   }
-  tbody.innerHTML = refs.map((r,i)=>`
-    <tr style="border-bottom:1px solid var(--border);">
+  tbody.innerHTML = refs.map((r,i)=>{
+    const isEditing = r._editing;
+    if(isEditing){
+      return `<tr style="border-bottom:1px solid var(--border);background:#f0f4fa;">
+        <td style="padding:8px 10px;">
+          <input id="redit-name-${i}" value="${r.name.replace(/"/g,'&quot;')}"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Sora',sans-serif;outline:none;">
+        </td>
+        <td style="padding:8px 10px;">
+          <input id="redit-url-${i}" value="${r.url.replace(/"/g,'&quot;')}"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Sora',sans-serif;outline:none;">
+        </td>
+        <td style="padding:8px 10px;">
+          <input id="redit-desc-${i}" value="${(r.desc||'').replace(/"/g,'&quot;')}"
+            style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Sora',sans-serif;outline:none;">
+        </td>
+        <td style="padding:8px 10px;text-align:center;white-space:nowrap;">
+          <button onclick="saveRefEdit(${i})"
+            style="padding:5px 12px;border-radius:6px;border:none;background:var(--navy);color:#fff;font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;margin-right:4px;">
+            ✓ Save
+          </button>
+          <button onclick="cancelRefEdit(${i})"
+            style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;font-family:'Sora',sans-serif;">
+            Cancel
+          </button>
+        </td>
+      </tr>`;
+    }
+    return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:12px 16px;font-size:12px;font-weight:700;color:var(--text)">${r.name}</td>
       <td style="padding:12px 16px;">
         <a href="${r.url}" target="_blank" rel="noopener"
@@ -3015,14 +3042,43 @@ function renderRefs(){
         </a>
       </td>
       <td style="padding:12px 16px;font-size:11.5px;color:var(--muted)">${r.desc||'—'}</td>
-      <td style="padding:12px 16px;text-align:center;">
+      <td style="padding:12px 16px;text-align:center;white-space:nowrap;">
+        <button onclick="editRef(${i})"
+          style="padding:4px 11px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;margin-right:4px;">
+          ✏️ Edit
+        </button>
         <button onclick="deleteRef(${i})"
-          style="padding:3px 10px;border-radius:6px;border:1px solid #fca5a5;background:#fee2e2;color:#991b1b;font-size:10px;cursor:pointer;font-family:'Sora',sans-serif;">
+          style="padding:4px 10px;border-radius:6px;border:1px solid #fca5a5;background:#fee2e2;color:#991b1b;font-size:10px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;">
           ✕
         </button>
       </td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
+
+function editRef(i){
+  refs[i]._editing = true;
+  renderRefs();
+}
+
+function cancelRefEdit(i){
+  delete refs[i]._editing;
+  renderRefs();
+}
+
+function saveRefEdit(i){
+  const name = document.getElementById(`redit-name-${i}`)?.value?.trim();
+  const url  = document.getElementById(`redit-url-${i}`)?.value?.trim();
+  const desc = document.getElementById(`redit-desc-${i}`)?.value?.trim();
+  if(!name||!url){ alert('Name and URL are required'); return; }
+  const urlFull = url.startsWith('http') ? url : 'https://'+url;
+  refs[i] = { name, url: urlFull, desc, addedAt: refs[i].addedAt||new Date().toISOString().slice(0,10) };
+  try{ localStorage.setItem(LS_REFS, JSON.stringify(refs)); }catch(e){}
+  db.ref(FB_REFS).set(refs).catch(()=>{});
+  renderRefs();
+  showToast('✓ Reference updated');
+}
+
 
 let refsOpen = false;
 function toggleReferences(){
@@ -3197,7 +3253,7 @@ setTimeout(initMarkFeldman, 1500);
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:20%">Name</th>
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;width:40%">Link</th>
             <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;">Description</th>
-            <th style="padding:11px 16px;width:60px;"></th>
+            <th style="padding:11px 16px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;width:130px;">ACTIONS</th>
           </tr>
         </thead>
         <tbody id="refsTbody">
